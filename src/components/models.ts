@@ -62,3 +62,50 @@ export interface Leaderbord {
     }
   }
 }
+
+export interface GameDetails {
+  playerName: string,
+  timeOfTheGame: string,
+  eindTotaal: number,
+  totalOfThrows: number,
+  0: {
+    pins: number,
+    totalPins: number,
+  }
+  1: {
+    pins: number,
+    totalPins: number,
+  }
+  2: {
+    pins: number,
+    totalPins: number,
+  }
+  3: {
+    pins: number,
+    totalPins: number,
+  }
+  4: {
+    pins: number,
+    totalPins: number,
+  }
+  5: {
+    pins: number,
+    totalPins: number,
+  }
+  6: {
+    pins: number,
+    totalPins: number,
+  }
+  7: {
+    pins: number,
+    totalPins: number,
+  }
+  8: {
+    pins: number,
+    totalPins: number,
+  }
+  9: {
+    pins: number,
+    totalPins: number,
+  }
+}

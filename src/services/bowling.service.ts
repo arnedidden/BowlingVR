@@ -32,7 +32,7 @@ const useBowling = () => {
         }*/
         const maxScore = 100;
         //percentageberekening: behaalde score / maximale score * 100
-        let percentage = [];
+        const percentage = [];
         for (let i = 0; i < 11; i++){
             percentage.push(i / maxScore * 100); //hier moet het percentage berekend worden later. i veranderd naar behaalde score: i.score bv.
         }

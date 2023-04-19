@@ -46,7 +46,7 @@ export default defineComponent({
       Assets: false,
       Ads: false,
       gameTitle: 'VR Bowling',
-    };
+    }
   },
 });
 </script>

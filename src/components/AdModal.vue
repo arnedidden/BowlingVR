@@ -31,6 +31,7 @@ export default defineComponent({
         // Check file size
         if (file.size > 1000000) {
           this.errorMessage = 'Bestandsgrootte mag niet groter zijn dan 1MB.';
+          this.imageUrl = null;
           return;
         }
 
@@ -38,6 +39,7 @@ export default defineComponent({
         const allowedTypes = ['image/png', 'image/svg+xml', 'image/jpeg'];
         if (!allowedTypes.includes(file.type)) {
           this.errorMessage = 'Alleen bestanden van het type PNG, SVG en JPEG/JPG zijn toegestaan.';
+          this.imageUrl = null;
           return;
         }
 

@@ -1,12 +1,52 @@
 <template>
   <div class="lboard_mem">
     <div class="name_bar">
-      <p><span>number here</span>name here</p>
+      <p><span>01</span>Arne</p>
+      <div class="bar_wrap">
+        <div class="inner_bar" style="width: 50%"></div>
+      </div>
+    </div>
+    <div class="points">100</div>
+  </div>
+
+  <div class="lboard_mem">
+    <div class="name_bar">
+      <p><span>02</span>Sem</p>
+      <div class="bar_wrap">
+        <div class="inner_bar" style="width: 75%"></div>
+      </div>
+    </div>
+    <div class="points">150</div>
+  </div>
+
+  <div class="lboard_mem">
+    <div class="name_bar">
+      <p><span>03</span>Glenn</p>
       <div class="bar_wrap">
         <div class="inner_bar" style="width: 100%"></div>
       </div>
     </div>
-    <div class="points">points here</div>
+    <div class="points">200</div>
+  </div>
+
+  <div class="lboard_mem">
+    <div class="name_bar">
+      <p><span>04</span>Lana</p>
+      <div class="bar_wrap">
+        <div class="inner_bar" style="width: 80%"></div>
+      </div>
+    </div>
+    <div class="points">160</div>
+  </div>
+
+  <div class="lboard_mem">
+    <div class="name_bar">
+      <p><span>05</span>Bart</p>
+      <div class="bar_wrap">
+        <div class="inner_bar" style="width: 60%"></div>
+      </div>
+    </div>
+    <div class="points">120</div>
   </div>
 </template>
 

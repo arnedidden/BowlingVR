@@ -14,8 +14,12 @@ const routes: RouteRecordRaw[] = [
   // Always leave this as last one,
   // but you can also remove it
   {
-    path: '/:catchAll(.*)*',
+    path: '/',
     component: () => import('pages/ErrorNotFound.vue'),
+  },
+  {
+    path: '/leaderbord',
+    component: () => import('pages/LeaderbordOverzicht.vue'),
   },
 ];
 

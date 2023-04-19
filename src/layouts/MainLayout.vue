@@ -43,6 +43,7 @@
       <router-view />
     </q-page-container>
   </q-layout>
+  <router-view></router-view>
 </template>
 
 <script lang="ts">

@@ -1,5 +1,4 @@
 <template>
-
   <my-modal
     :title="Assets"
     :message="message"

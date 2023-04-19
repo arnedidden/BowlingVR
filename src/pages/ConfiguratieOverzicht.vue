@@ -46,12 +46,12 @@ export default defineComponent({
       Assets: false,
       Ads: false,
       gameTitle: 'VR Bowling',
-    };
+    }
   },
 });
 </script>
 
-<style>
+<style lang="scss">
 .configurationbuttons button {
   background-color: plum;
   border-color: plum;

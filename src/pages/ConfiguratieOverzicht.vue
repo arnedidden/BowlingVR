@@ -51,7 +51,7 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style lang="scss">
 .configurationbuttons button {
   background-color: plum;
   border-color: plum;

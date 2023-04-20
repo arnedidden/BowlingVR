@@ -1,6 +1,16 @@
 <template>
   <div class="wrapper">
     <div class="lboard_section">
+      <LeaderboardMember >
+            <template #number_name><p style="font-size: 16px; font-weight: 600;"><span style="margin-right: 1rem">{{game.game.players[0].id}}</span>{{game.game.players[0].name}}</p></template>
+            <template #innerbar><div class="inner_bar" :style="{width: game.game.players[0].percentage + '%'}"></div></template>
+            <template #points><p style="font-size: 16px; font-weight: 600;">{{ game.game.players[0].score }}</p></template>
+          </LeaderboardMember>
+      <div class="lboard_wrap">
+        <img src="../../src/assets/download.jpg" alt="image" height="360">
+      </div>
+    </div>
+    <div class="lboard_section">
       <div class="lboard_tabs">
         <div class="tabs">
           <ul>
@@ -10,7 +20,7 @@
         </div>
       </div>
       <div class="lboard_wrap">
-        <div class="lboard_item" >
+        <div class="lboard_item">
           <LeaderboardMember v-for="(item, index) in game.game.players" :key="index">
             <template #number_name><p><span style="margin-right: 1rem">{{item.id}}</span>{{item.name}}</p></template>
             <template #innerbar><div class="inner_bar" :style="{width: item.percentage + '%'}"></div></template>
@@ -57,9 +67,15 @@ export default defineComponent({
   box-sizing: border-box;
 }
 
+.topPlayerNumber_name{
+  font-size: 18px;
+  font-weight: 600;
+}
 .wrapper {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .lboard_section {
@@ -97,6 +113,10 @@ export default defineComponent({
   width: 100%;
   height: 100%;
   border-radius: 5px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .lboard_wrap .lboard_item {
@@ -107,6 +127,14 @@ export default defineComponent({
   position: absolute;
   top: 0%;
   left: 0;
+  height: 5px;
+  background: #fff;
+  border-radius: 5px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.topPlayer_bar {
   height: 5px;
   background: #fff;
   border-radius: 5px;

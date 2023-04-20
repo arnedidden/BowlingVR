@@ -11,51 +11,61 @@ export interface Leaderbord {
   nameOfGame: string,
   players:{
     0: {
+      id: number
       name: string,
       score: number,
       percentage: number
     }
     1: {
+      id: number
       name: string,
       score: number,
       percentage: number
     }
     2: {
+      id: number
       name: string,
       score: number,
       percentage: number
     }
     3: {
+      id: number
       name: string,
       score: number,
       percentage: number
     }
     4: {
+      id: number
       name: string,
       score: number,
       percentage: number
     }
     5: {
+      id: number
       name: string,
       score: number,
       percentage: number
     }
     6: {
+      id: number
       name: string,
       score: number,
       percentage: number
     }
     7: {
+      id: number
       name: string,
       score: number,
       percentage: number
     }
     8: {
+      id: number
       name: string,
       score: number,
       percentage: number
     }
     9: {
+      id: number
       name: string,
       score: number,
       percentage: number

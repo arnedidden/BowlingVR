@@ -1,55 +1,21 @@
 <template>
   <div class="lboard_mem">
     <div class="name_bar">
-      <p><span>01</span>Glenn</p>
+      <slot name="number_name"></slot>
       <div class="bar_wrap">
-        <div class="inner_bar" style="width: 100%"></div>
+        <slot name="innerbar"></slot>
       </div>
     </div>
-    <div class="points">200</div>
-  </div>
-
-  <div class="lboard_mem">
-    <div class="name_bar">
-      <p><span>02</span>Sem</p>
-      <div class="bar_wrap">
-        <div class="inner_bar" style="width: 75%"></div>
-      </div>
-    </div>
-    <div class="points">150</div>
-  </div>
-
-  <div class="lboard_mem">
-    <div class="name_bar">
-      <p><span>03</span>Lana</p>
-      <div class="bar_wrap">
-        <div class="inner_bar" style="width: 70%"></div>
-      </div>
-    </div>
-    <div class="points">140</div>
-  </div>
-
-  <div class="lboard_mem">
-    <div class="name_bar">
-      <p><span>04</span>Arne</p>
-      <div class="bar_wrap">
-        <div class="inner_bar" style="width: 50%"></div>
-      </div>
-    </div>
-    <div class="points">100</div>
-  </div>
-
-  <div class="lboard_mem">
-    <div class="name_bar">
-      <p><span>05</span>Bart</p>
-      <div class="bar_wrap">
-        <div class="inner_bar" style="width: 20%"></div>
-      </div>
-    </div>
-    <div class="points">40</div>
+    <div class="points"><slot name="points"></slot></div>
   </div>
 </template>
+<script lang="ts">
+import { defineComponent } from 'vue';
 
+export default defineComponent({
+  name: 'LeaderboardMember'
+});
+</script>
 <style lang="scss">
 .name_bar {
   margin: 0 20px;
@@ -72,17 +38,6 @@
   margin-top: 5px;
   position: relative;
   overflow: hidden;
-}
-
-.bar_wrap .inner_bar {
-  position: absolute;
-  top: 0%;
-  left: 0;
-  height: 5px;
-  background: #fff;
-  border-radius: 5px;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
 }
 
 .points {

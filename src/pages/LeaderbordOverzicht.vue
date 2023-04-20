@@ -10,8 +10,11 @@
         </div>
       </div>
       <div class="lboard_wrap">
-        <div class="lboard_item">
-          <LeaderboardMember>
+        <div class="lboard_item" >
+          <LeaderboardMember v-for="(item, index) in game.game.players" :key="index">
+            <template #number_name><p><span style="margin-right: 1rem">{{item.id}}</span>{{item.name}}</p></template>
+            <template #innerbar><div class="inner_bar" :style="{width: item.percentage + '%'}"></div></template>
+            <template #points>{{ item.score }}</template>
           </LeaderboardMember>
         </div>
       </div>
@@ -20,13 +23,28 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import LeaderboardMember from 'src/components/LeaderboardMember.vue';
+import { defineComponent, ref } from 'vue';
+import LeaderboardMember from 'components/LeaderboardMember.vue';
+import { useBowling } from 'src/services/bowling.service';
 
 export default defineComponent({
   components:{
     LeaderboardMember,
   },
+
+  setup(){
+    const { getLeaderbordForGame } = useBowling();
+    const game = ref();
+    const getLeaderBord = () => {
+      const leaderbord = getLeaderbordForGame();
+      game.value = leaderbord;
+    }
+    getLeaderBord();
+    console.log(game);
+    return {
+      game
+    };
+  }
 });
 </script>
 
@@ -83,5 +101,16 @@ export default defineComponent({
 
 .lboard_wrap .lboard_item {
   padding: 25px;
+}
+
+.inner_bar {
+  position: absolute;
+  top: 0%;
+  left: 0;
+  height: 5px;
+  background: #fff;
+  border-radius: 5px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
 }
 </style>

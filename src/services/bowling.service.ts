@@ -42,6 +42,7 @@ const useBowling = () => {
           name: 'Sem',
           score: 100,
           percentage: 100,
+          photo: 'img/download.jpg'
         },
         1: {
           id: 2,

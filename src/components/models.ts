@@ -14,7 +14,8 @@ export interface Leaderbord {
       id: number
       name: string,
       score: number,
-      percentage: number
+      percentage: number,
+      photo: string
     }
     1: {
       id: number

@@ -7,6 +7,9 @@
       </div>
     </div>
     <div class="points"><slot name="points"></slot></div>
+    <div class="arrow">
+      <slot name="arrow"></slot>
+    </div>
   </div>
 </template>
 <script lang="ts">
@@ -54,5 +57,30 @@ export default defineComponent({
 
 .lboard_mem:first-child {
   padding-top: 0;
+}
+
+.arrow:hover{
+  cursor: pointer;
+  animation: scale 1s linear infinite;
+}
+
+@keyframes scale{
+  0%{
+    transform: scale(1.0);
+  }
+  25%{
+    transform: scale(1.1);
+  }
+  50%{
+    transform: scale(1.2);
+  }
+  75%{
+    transform: scale(1.1);
+  }
+  10%{
+    transform: scale(1.0);
+  }
+
+
 }
 </style>

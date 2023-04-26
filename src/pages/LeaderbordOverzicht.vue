@@ -1,17 +1,32 @@
 <template>
   <div class="wrapper">
     <div class="lboard_section">
+      <LeaderboardMember >
+            <template #number_name><p style="font-size: 16px; font-weight: 600;"><span style="margin-right: 1rem">{{game.game.players[0].id}}</span>{{game.game.players[0].name}}</p></template>
+            <template #innerbar><div class="inner_bar" :style="{width: game.game.players[0].percentage + '%'}"></div></template>
+            <template #points><p style="font-size: 16px; font-weight: 600;">{{ game.game.players[0].score }}</p></template>
+            <template #arrow>&#129138;</template>
+          </LeaderboardMember>
+      <div class="lboard_wrap">
+        <img :src="game.game.players[0].photo" alt="image" height="360">
+      </div>
+    </div>
+    <div class="lboard_section">
       <div class="lboard_tabs">
         <div class="tabs">
           <ul>
             <li class="active" data-li="leaderbord">Leaderbord</li>
-            <li data-li="detailpagina">Detailpagina</li>
+            <!-- <li data-li="detailpagina">Detailpagina</li> -->
           </ul>
         </div>
       </div>
       <div class="lboard_wrap">
         <div class="lboard_item">
-          <LeaderboardMember>
+          <LeaderboardMember v-for="(item, index) in game.game.players" :key="index" >
+            <template #number_name><p><span style="margin-right: 1rem">{{item.id}}</span>{{item.name}}</p></template>
+            <template #innerbar><div class="inner_bar" :style="{width: item.percentage + '%'}"></div></template>
+            <template #points>{{ item.score }}</template>
+            <template #arrow>&#129138;</template>
           </LeaderboardMember>
         </div>
       </div>
@@ -20,13 +35,28 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import LeaderboardMember from 'src/components/LeaderboardMember.vue';
+import { defineComponent, ref } from 'vue';
+import LeaderboardMember from 'components/LeaderboardMember.vue';
+import { useBowling } from 'src/services/bowling.service';
 
 export default defineComponent({
   components:{
     LeaderboardMember,
   },
+
+  setup(){
+    const { getLeaderbordForGame } = useBowling();
+    const game = ref();
+    const getLeaderBord = () => {
+      const leaderbord = getLeaderbordForGame();
+      game.value = leaderbord;
+    }
+    getLeaderBord();
+    console.log(game);
+    return {
+      game
+    };
+  }
 });
 </script>
 
@@ -39,9 +69,15 @@ export default defineComponent({
   box-sizing: border-box;
 }
 
+.topPlayerNumber_name{
+  font-size: 18px;
+  font-weight: 600;
+}
 .wrapper {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .lboard_section {
@@ -79,9 +115,32 @@ export default defineComponent({
   width: 100%;
   height: 100%;
   border-radius: 5px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .lboard_wrap .lboard_item {
   padding: 25px;
+}
+
+.inner_bar {
+  position: absolute;
+  top: 0%;
+  left: 0;
+  height: 5px;
+  background: #fff;
+  border-radius: 5px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.topPlayer_bar {
+  height: 5px;
+  background: #fff;
+  border-radius: 5px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
 }
 </style>

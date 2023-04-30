@@ -1,7 +1,8 @@
 import { RouteRecordRaw } from 'vue-router';
 
 export const ROUTE_NAMES = {
-  CONFIGURATIE_OVERZICHT: 'configuratie'
+  CONFIGURATIE_OVERZICHT: 'configuratie',
+  LEADERBORD: 'leaderbord'
 };
 
 
@@ -13,6 +14,10 @@ const routes: RouteRecordRaw[] = [
       {
         name: ROUTE_NAMES.CONFIGURATIE_OVERZICHT,
         path: '/configuratie', component: () => import('pages/ConfiguratieOverzicht.vue') },
+      {
+        name: ROUTE_NAMES.LEADERBORD,
+        path: '/leaderbord', component: () => import('pages/LeaderbordOverzicht.vue'),
+      },
   ],
   },
 
@@ -23,10 +28,6 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: () => import('pages/ErrorNotFound.vue'),
-  },
-  {
-    path: '/leaderbord',
-    component: () => import('pages/LeaderbordOverzicht.vue'),
   },
 ];
 

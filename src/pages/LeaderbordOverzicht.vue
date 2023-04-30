@@ -28,7 +28,6 @@
             {{ game.game.players[0].score }}
           </p></template
         >
-        <template #arrow>&#129138;</template>
       </LeaderboardMember>
       <div class="lboard_wrap">
         <img :src="game.game.players[0].photo" alt="image" height="360" />

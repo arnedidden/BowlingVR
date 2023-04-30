@@ -1,14 +1,37 @@
 <template>
+  <h1 class="gameTitle">Spelnaam: {{ gameTitle }}</h1>
+  <TitleModal
+    v-if="Title"
+    title="Title"
+    message="Declare your title."
+    @close="Title = false"
+    :gameTitle="gameTitle"
+    @game-name-selected="gameTitle = $event"
+  />
   <div class="wrapper">
     <div class="lboard_section">
-      <LeaderboardMember >
-            <template #number_name><p style="font-size: 16px; font-weight: 600;"><span style="margin-right: 1rem">{{game.game.players[0].id}}</span>{{game.game.players[0].name}}</p></template>
-            <template #innerbar><div class="inner_bar" :style="{width: game.game.players[0].percentage + '%'}"></div></template>
-            <template #points><p style="font-size: 16px; font-weight: 600;">{{ game.game.players[0].score }}</p></template>
-            <template #arrow>&#129138;</template>
-          </LeaderboardMember>
+      <LeaderboardMember>
+        <template #number_name
+          ><p style="font-size: 16px; font-weight: 600">
+            <span style="margin-right: 1rem">{{ game.game.players[0].id }}</span
+            >{{ game.game.players[0].name }}
+          </p></template
+        >
+        <template #innerbar
+          ><div
+            class="inner_bar"
+            :style="{ width: game.game.players[0].percentage + '%' }"
+          ></div
+        ></template>
+        <template #points
+          ><p style="font-size: 16px; font-weight: 600">
+            {{ game.game.players[0].score }}
+          </p></template
+        >
+        <template #arrow>&#129138;</template>
+      </LeaderboardMember>
       <div class="lboard_wrap">
-        <img :src="game.game.players[0].photo" alt="image" height="360">
+        <img :src="game.game.players[0].photo" alt="image" height="360" />
       </div>
     </div>
     <div class="lboard_section">
@@ -22,9 +45,22 @@
       </div>
       <div class="lboard_wrap">
         <div class="lboard_item">
-          <LeaderboardMember v-for="(item, index) in game.game.players" :key="index" >
-            <template #number_name><p><span style="margin-right: 1rem">{{item.id}}</span>{{item.name}}</p></template>
-            <template #innerbar><div class="inner_bar" :style="{width: item.percentage + '%'}"></div></template>
+          <LeaderboardMember
+            v-for="(item, index) in game.game.players"
+            :key="index"
+          >
+            <template #number_name
+              ><p>
+                <span style="margin-right: 1rem">{{ item.id }}</span
+                >{{ item.name }}
+              </p></template
+            >
+            <template #innerbar
+              ><div
+                class="inner_bar"
+                :style="{ width: item.percentage + '%' }"
+              ></div
+            ></template>
             <template #points>{{ item.score }}</template>
             <template #arrow>&#129138;</template>
           </LeaderboardMember>
@@ -38,28 +74,37 @@
 import { defineComponent, ref } from 'vue';
 import LeaderboardMember from 'components/LeaderboardMember.vue';
 import { useBowling } from 'src/services/bowling.service';
+import TitleModal from 'components/TitleModal.vue';
 
 export default defineComponent({
-  components:{
+  components: {
     LeaderboardMember,
+    TitleModal,
+  },
+  data() {
+    return {
+      Title: false,
+      Assets: false,
+      Ads: false,
+      gameTitle: 'VR Bowling',
+    };
   },
 
-  setup(){
+  setup() {
     const { getLeaderbordForGame } = useBowling();
     const game = ref();
     const getLeaderBord = () => {
       const leaderbord = getLeaderbordForGame();
       game.value = leaderbord;
-    }
+    };
     getLeaderBord();
     console.log(game);
     return {
-      game
+      game,
     };
-  }
+  },
 });
 </script>
-
 
 <style lang="scss" scoped>
 * {
@@ -69,7 +114,7 @@ export default defineComponent({
   box-sizing: border-box;
 }
 
-.topPlayerNumber_name{
+.topPlayerNumber_name {
   font-size: 18px;
   font-weight: 600;
 }
@@ -142,5 +187,11 @@ export default defineComponent({
   border-radius: 5px;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
+}
+
+.gameTitle {
+  display: flex;
+  justify-content: center;
+  font-style: italic;
 }
 </style>

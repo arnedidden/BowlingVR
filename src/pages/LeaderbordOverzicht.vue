@@ -1,5 +1,5 @@
 <template>
-  <h1 class="gameTitle">Spelnaam: {{ gameTitle }}</h1>
+  <h1 class="gameTitle">Spelnaam: {{ game.game.nameOfGame }}</h1>
   <TitleModal
     v-if="Title"
     title="Title"
@@ -13,7 +13,7 @@
       <LeaderboardMember>
         <template #number_name
           ><p style="font-size: 16px; font-weight: 600">
-            <span style="margin-right: 1rem">{{ game.game.players[0].id }}</span
+            <span style="margin-right: 1rem">{{ game.game.board[0].id }}</span
             >{{ game.game.players[0].name }}
           </p></template
         >
@@ -75,6 +75,7 @@ import { defineComponent, ref } from 'vue';
 import LeaderboardMember from 'components/LeaderboardMember.vue';
 import { useBowling } from 'src/services/bowling.service';
 import TitleModal from 'components/TitleModal.vue';
+import { useRoute } from 'vue-router';
 
 export default defineComponent({
   components: {
@@ -93,9 +94,11 @@ export default defineComponent({
   setup() {
     const { getLeaderbordForGame } = useBowling();
     const game = ref();
+    const route = useRoute();
+    const { id } = route.params;
     const getLeaderBord = () => {
-      const leaderbord = getLeaderbordForGame();
-      game.value = leaderbord;
+      const leaderbord = getLeaderbordForGame(`${id}`);
+      return game.value = leaderbord;
     };
     getLeaderBord();
     console.log(game);

@@ -25,7 +25,7 @@ const routes: RouteRecordRaw[] = [
     component: () => import('pages/ErrorNotFound.vue'),
   },
   {
-    path: '/leaderbord',
+    path: '/leaderbord/:id',
     component: () => import('pages/LeaderbordOverzicht.vue'),
   },
 ];

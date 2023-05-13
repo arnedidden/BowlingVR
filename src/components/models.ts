@@ -14,39 +14,39 @@ export interface Leaderbord {
       name: string;
       Score: number;
     };
-    1: {
+    1?: {
       name: string;
       Score: number;
     };
-    2: {
+    2?: {
       name: string;
       Score: number;
     };
-    3: {
+    3?: {
       name: string;
       Score: number;
     };
-    4: {
+    4?: {
       name: string;
       Score: number;
     };
-    5: {
+    5?: {
       name: string;
       Score: number;
     };
-    6: {
+    6?: {
       name: string;
       Score: number;
     };
-    7: {
+    7?: {
       name: string;
       Score: number;
     };
-    8: {
+    8?: {
       name: string;
       Score: number;
     };
-    9: {
+    9?: {
       name: string;
       Score: number;
     };

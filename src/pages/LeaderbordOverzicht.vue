@@ -1,5 +1,5 @@
 <template>
-  <template v-if="game.game">
+  <template v-if="game?.game">
     <h1 class="gameTitle">Spelnaam: {{ game.game.nameOfGame }}</h1>
     <TitleModal
       v-if="Title"
@@ -53,16 +53,16 @@
               <template #number_name
                 ><p>
                   <span style="margin-right: 1rem">{{ `${index}` }}</span
-                  >{{ item }}
+                  >{{ item.name }}
                 </p></template
               >
               <template #innerbar
                 ><div
                   class="inner_bar"
-                  :style="{ width: item.score + '%' }"
+                  :style="{ width: item.Score + '%' }"
                 ></div
               ></template>
-              <template #points>{{ item.score }}</template>
+              <template #points>{{ item.Score }}</template>
               <template #arrow>&#129138;</template>
             </LeaderboardMember>
           </div>
@@ -98,14 +98,13 @@ export default defineComponent({
     const game = ref();
     const route = useRoute();
     const { id } = route.params;
-    console.log(id);
-    
     const getLeaderBord = () => {
       const leaderbord = getLeaderbordForGame(`${id}`);
       return game.value = leaderbord;
     };
     getLeaderBord();
     console.log(game);
+    
     return {
       game,
     };

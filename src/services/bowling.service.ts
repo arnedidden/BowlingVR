@@ -6,65 +6,59 @@ const useBowling = () => {
     
       
       const result = await api.get(`/${id}`);
-      console.log(result);
       
     const bowlgame = result.data.data;
     const leaderbordArray = [];
-    console.log(bowlgame[0].leaderbord.length)
-    for (let i = 0; i < bowlgame[0].leaderbord.length; i++){
-      leaderbordArray.push([bowlgame[0].leaderbord[i].name, bowlgame[0].leaderbord[i].totalScore])
+    for (let i = 0; i < bowlgame[0].leaderboard.length; i++){
+      leaderbordArray.push([bowlgame[0].leaderboard[i].name, bowlgame[0].leaderboard[i].totalScore])
     }
-    console.log(leaderbordArray);
-    
     const sortedHighestScore = leaderbordArray.sort((a, b) => b[1] - a[1]);
-    console.log(sortedHighestScore);
     
     const game: Leaderbord = {
-      nameOfGame: bowlgame.name,
+      nameOfGame: bowlgame[0].name,
       board: {
         0: {
-          name: bowlgame[0].leaderbord[0].name,
-          Score: bowlgame[0].leaderbord[0].totalScore,
+          name: sortedHighestScore[0][0],
+          Score: sortedHighestScore[0][1],
         },
-        1: {
-          name: bowlgame.leaderbord[1].name,
-          Score: bowlgame.leaderbord[1].totalScore,
-        },
-        2: {
-          name: bowlgame.leaderbord[2].name,
-          Score: bowlgame.leaderbord[2].totalScore,
-        },
-        3: {
-          name: bowlgame.leaderbord[3].name,
-          Score: bowlgame.leaderbord[3].totalScore,
-        },
-        4: {
-          name: bowlgame.leaderbord[4].name,
-          Score: bowlgame.leaderbord[4].totalScore,
-        },
-        5: {
-          name: bowlgame.leaderbord[5].name,
-          Score: bowlgame.leaderbord[5].totalScore,
-        },
-        6: {
-          name: bowlgame.leaderbord[6].name,
-          Score: bowlgame.leaderbord[6].totalScore,
-        },
-        7: {
-          name: bowlgame.leaderbord[7].name,
-          Score: bowlgame.leaderbord[7].totalScore,
-        },
-        8: {
-          name: bowlgame.leaderbord[8].name,
-          Score: bowlgame.leaderbord[8].totalScore,
-        },
-        9: {
-          name: bowlgame.leaderbord[9].name,
-          Score: bowlgame.leaderbord[9].totalScore,
-        },
+        // 1: {
+        //   name: sortedHighestScore[1][0],
+        //   Score: sortedHighestScore[1][1],
+        // },
+        // 2: {
+        //   name: sortedHighestScore[2][0],
+        //   Score: sortedHighestScore[2][4],
+        // },
+        // 3: {
+        //   name: sortedHighestScore[3][0],
+        //   Score: sortedHighestScore[3][1],
+        // },
+        // 4: {
+        //   name: sortedHighestScore[4][0],
+        //   Score: sortedHighestScore[4][1],
+        // },
+        // 5: {
+        //   name: sortedHighestScore[5][0],
+        //   Score: sortedHighestScore[5][1],
+        // },
+        // 6: {
+        //   name: sortedHighestScore[6][0],
+        //   Score: sortedHighestScore[6][1],
+        // },
+        // 7: {
+        //   name: sortedHighestScore[7][0],
+        //   Score: sortedHighestScore[7][1],
+        // },
+        // 8: {
+        //   name: sortedHighestScore[8][0],
+        //   Score: sortedHighestScore[8][1],
+        // },
+        // 9: {
+        //   name: sortedHighestScore[9][0],
+        //   Score: sortedHighestScore[9][1],
+        // },
         },
     };
-    console.log(game);
     return { game };
   };
 

@@ -1,5 +1,5 @@
 <template>
-  <template v-if="game?.game">
+  <template v-if="game.game">
     <h1 class="gameTitle">Spelnaam: {{ game.game.nameOfGame }}</h1>
     <TitleModal
       v-if="Title"
@@ -47,12 +47,12 @@
         <div class="lboard_wrap">
           <div class="lboard_item">
             <LeaderboardMember
-              v-for="(item, index) in game.game.board"
+              v-for="(item, index) in game.game.leaderboard"
               :key="index"
             >
               <template #number_name
                 ><p>
-                  <span style="margin-right: 1rem">{{ `${index}` }}</span
+                  <span style="margin-right: 1rem">{{ index }}</span
                   >{{ item.name }}
                 </p></template
               >

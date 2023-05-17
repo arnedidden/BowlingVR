@@ -1,38 +1,30 @@
 <template>
   <template v-if="game.game">
-    <h1 class="gameTitle">Spelnaam: {{ game.game.nameOfGame }}</h1>
-    <TitleModal
-      v-if="Title"
-      title="Title"
-      message="Declare your title."
-      @close="Title = false"
-      :gameTitle="gameTitle"
-      @game-name-selected="gameTitle = $event"
-    />
+    <h1 class="gameTitle">Spelnaam: {{ game.game.name }}</h1>
     <div class="wrapper">
       <div class="lboard_section">
         <LeaderboardMember>
           <template #number_name
             ><p style="font-size: 16px; font-weight: 600">
               <span style="margin-right: 1rem">1</span
-              >{{ game.game.board[0].name }}
+              >{{ game.game.leaderboard[0].name }}
             </p></template
           >
           <template #innerbar
             ><div
               class="inner_bar"
-              :style="{ width: game.game.board[0].score + '%' }"
+              :style="{ width: game.game.leaderboard[0].score + '%' }"
             ></div
           ></template>
           <template #points
             ><p style="font-size: 16px; font-weight: 600">
-              {{ game.game.board[0].score }}
+              {{ game.game.leaderboard[0].score }}
             </p></template
           >
-          <template #arrow>&#129138;</template>
+          <template #arrow >&#129138;</template>
         </LeaderboardMember>
         <div class="lboard_wrap">
-          <img alt="image" height="360" />
+          <img src="../../public/img/download.jpg" alt="image" height="360" />
         </div>
       </div>
       <div class="lboard_section">
@@ -46,13 +38,13 @@
         </div>
         <div class="lboard_wrap">
           <div class="lboard_item">
-            <LeaderboardMember
+            <LeaderboardMember 
               v-for="(item, index) in game.game.leaderboard"
               :key="index"
             >
               <template #number_name
                 ><p>
-                  <span style="margin-right: 1rem">{{ index }}</span
+                  <span style="margin-right: 1rem">{{ index + 1}}</span
                   >{{ item.name }}
                 </p></template
               >
@@ -76,13 +68,11 @@
 import { defineComponent, ref } from 'vue';
 import LeaderboardMember from 'components/LeaderboardMember.vue';
 import { useBowling } from 'src/services/bowling.service';
-import TitleModal from 'components/TitleModal.vue';
 import { useRoute } from 'vue-router';
 
 export default defineComponent({
   components: {
     LeaderboardMember,
-    TitleModal,
   },
   data() {
     return {
@@ -97,16 +87,20 @@ export default defineComponent({
     const { getLeaderbordForGame } = useBowling();
     const game = ref();
     const route = useRoute();
+    // const router = useRoute();
     const { id } = route.params;
-    const getLeaderBord = () => {
-      const leaderbord = getLeaderbordForGame(`${id}`);
+    const getLeaderBord = async() => {
+      const leaderbord = await getLeaderbordForGame(`${id}`);
       return game.value = leaderbord;
     };
+
     getLeaderBord();
-    console.log(game);
-    
+    // const detailsOfGame = (param: string) => {
+    //   router.push({ name: ROUTE_NAMES.scoreboard }
+    // }
     return {
-      game,
+      game, 
+      // detailsOfGame
     };
   },
 });

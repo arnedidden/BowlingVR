@@ -1,4 +1,4 @@
-import { Game, Turn } from 'src/components/models';
+import { Game } from 'src/components/models';
 import { api } from 'src/boot/axios';
 
 const useBowling = () => {
@@ -10,26 +10,21 @@ const useBowling = () => {
     const bowlgame = result.data.data;
     
     const game: Game = {
-      _id: bowlgame._id,
-      name: bowlgame.name,
+      _id: bowlgame[0]._id,
+      name: bowlgame[0].name,
       bowlingBall: {
-          color: bowlgame.bowlingBall.color
+          color: bowlgame[0].bowlingBall.color
       },
       bowlingPins: {
-          color: bowlgame.bowlingPins.color
+          color: bowlgame[0].bowlingPins.color
       },
       bowlingLane: {
-          color: bowlgame.bowlingLane.color
+          color: bowlgame[0].bowlingLane.color
       },
-      leaderboard: bowlgame.leaderboard
+      leaderboard: bowlgame[0].leaderboard
     };
-    console.log(game._id);
-    console.log(game.name);
-    console.log(game._id);
-    console.log(game._id);
-    console.log(game._id);
     
-    return { game};
+    return { game };
     
   };
 

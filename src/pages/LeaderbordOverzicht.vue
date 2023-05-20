@@ -13,15 +13,14 @@
           <template #innerbar
             ><div
               class="inner_bar"
-              :style="{ width: game.game.leaderboard[0].score + '%' }"
+              :style="{ width: game.game.leaderboard[0].totalScore + '%' }"
             ></div
           ></template>
           <template #points
-            ><p style="font-size: 16px; font-weight: 600">
-              {{ game.game.leaderboard[0].score }}
-            </p></template
-          >
-          <template #arrow >&#129138;</template>
+            ><div style="font-size: 16px; font-weight: 600;">
+              {{ game.game.leaderboard[0].totalScore }}
+            </div>
+            </template>
         </LeaderboardMember>
         <div class="lboard_wrap">
           <img src="../../public/img/download.jpg" alt="image" height="360" />
@@ -51,10 +50,10 @@
               <template #innerbar
                 ><div
                   class="inner_bar"
-                  :style="{ width: item.Score + '%' }"
+                  :style="{ width: item.totalScore + '%' }"
                 ></div
               ></template>
-              <template #points>{{ item.Score }}</template>
+              <template #points>{{ item.totalScore }}</template>
               <template #arrow>&#129138;</template>
             </LeaderboardMember>
           </div>

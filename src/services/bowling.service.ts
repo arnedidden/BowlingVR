@@ -5,7 +5,7 @@ const useBowling = () => {
   const getLeaderbordForGame = async (id: string) => {
     
       
-      const result = await api.get(`/${id}`);
+      const result = await api.get(`/team_eevee_config/${id}`);
       
     const bowlgame = result.data.data;
     

@@ -13,6 +13,7 @@ declare module '@vue/runtime-core' {
 // good idea to move this instance creation inside of the
 // "export default () => {}" function below (which runs individually
 // for each client)
+
 const BASE_URL = 'https://api.code-coaching.dev/eindwerken-2022-jaar-2';
 const api = axios.create({ baseURL: BASE_URL });
 

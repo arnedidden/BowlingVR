@@ -6,7 +6,7 @@ const { user, verify } = useAuth();
 export const ROUTE_NAMES = {
 
   CONFIGURATIE_OVERZICHT: 'configuratie',
-  LEADERBORD: 'leaderbord'
+  LEADERBORD: 'leaderbord',
   ADMIN: 'admin',
   HOME: 'home'
 
@@ -53,7 +53,7 @@ const routes: RouteRecordRaw[] = [
         path: '/configuratie', component: () => import('pages/ConfiguratieOverzicht.vue') },
       {
         name: ROUTE_NAMES.LEADERBORD,
-        path: '/leaderbord:id', component: () => import('pages/LeaderbordOverzicht.vue'),
+        path: '/leaderbord/:id', component: () => import('pages/LeaderbordOverzicht.vue'),
       },
   ],
 

@@ -9,6 +9,9 @@ function rollBall() {
   score += pinsHit;
   console.log(`Rolled a ${pinsHit}!`);
 
+
+  // EXTRA --- Strike is geïmplementeerd, maar als dit geen vereiste is kan deze achteraf nog worden weggehaald.
+  // Wanneer het aantal overgebleven kegels na een worp 0 is, dan heb je een strike!
   if (pins === 0) {
     frames.push(score);
     score = 0;
@@ -18,12 +21,12 @@ function rollBall() {
   }
 
   if (frame === 11) {
-    console.log('Game over!');
-    console.log(`Final score: ${frames.reduce((total, current) => total + current, 0)}`);
+    console.log('Einde Spel!');
+    console.log(`Eindscore: ${frames.reduce((total, current) => total + current, 0)}`);
     return;
   }
 
-  console.log(`Pins left: ${pins}`);
+  console.log(`Aantal kegels over: ${pins}`);
   console.log(`Score: ${score}`);
   console.log(`Frame: ${frame}`);
 

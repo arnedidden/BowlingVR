@@ -19,7 +19,7 @@ body {
   margin-bottom: 10px;
 }
 
-.player-name {
+.speler-naam {
   flex-basis: 30%;
   font-size: 30px;
 }
@@ -57,7 +57,7 @@ body {
   text-align: center;
 }
 
-.timestamp {
+.game-time {
   margin-top: 20px;
   font-size: 18px;
   color: #333;

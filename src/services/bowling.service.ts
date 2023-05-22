@@ -2,6 +2,15 @@ import { Game } from 'src/components/models';
 import { api } from 'src/boot/axios';
 
 const useBowling = () => {
+  const getLeaderboards = async () =>{
+    const result = await api.get(`/team_eevee_config/`);
+    const data = result.data.data;
+    const leaderbords = {
+      name: data.name 
+    }
+
+    return leaderbords
+  }
   const getLeaderbordForGame = async (id: string) => {
     
       

@@ -5,11 +5,8 @@ const useBowling = () => {
   const getLeaderboards = async () =>{
     const result = await api.get(`/team_eevee_config/`);
     const data = result.data.data;
-    const leaderbords = {
-      name: data.name 
-    }
 
-    return leaderbords
+    return {data};
   }
   const getLeaderbordForGame = async (id: string) => {
     
@@ -39,6 +36,7 @@ const useBowling = () => {
 
   return {
     getLeaderbordForGame,
+    getLeaderboards
   };
 };
 

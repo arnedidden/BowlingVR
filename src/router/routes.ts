@@ -53,7 +53,7 @@ const routes: RouteRecordRaw[] = [
         path: '/configuratie', component: () => import('pages/ConfiguratieOverzicht.vue') },
       {
         name: ROUTE_NAMES.LEADERBORD,
-        path: '/leaderbord:id', component: () => import('pages/LeaderbordOverzicht.vue'),
+        path: '/leaderbord/:id', component: () => import('pages/LeaderbordOverzicht.vue'),
       },
   ],
 

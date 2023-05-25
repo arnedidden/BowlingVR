@@ -3,9 +3,8 @@ import { api } from 'src/boot/axios';
 
 const useBowling = () => {
   const getLeaderboards = async () =>{
-    const result = await api.get(`/team_eevee_config/`);
+    const result = await api.get('/team_eevee_config/');
     const data = result.data.data;
-
     return {data};
   }
   const getLeaderbordForGame = async (id: string) => {

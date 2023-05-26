@@ -50,7 +50,7 @@ const routes: RouteRecordRaw[] = [
       {
         name: ROUTE_NAMES.CONFIGURATIE_OVERZICHT,
 
-        path: '/configuratie', component: () => import('pages/ConfiguratieOverzicht.vue') },
+        path: '/configuratie/:id', component: () => import('pages/ConfiguratieOverzicht.vue') },
       {
         name: ROUTE_NAMES.LEADERBORD,
         path: '/leaderbord/:id', component: () => import('pages/LeaderbordOverzicht.vue'),

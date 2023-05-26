@@ -4,12 +4,21 @@
     <div class="games">
       <div class="game" v-for="(item, index) in game.data" :key="index">
         <div class="title">{{ item.name }}</div>
-        <div @click="goToLeaderboard(item._id)" class="arrow">&#129138;</div>
+        <div class="links">
+
+          <div @click="goToLeaderboard(item._id)" class="arrow">Leaderboard</div>
+          <div @click="goToConfig(item._id)" class="arrow">Configuratie</div>
+        </div>
       </div>
     </div>
   </template>
 </template>
 <style>
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
   .games{
     display: flex;
     justify-content: flex-start;
@@ -23,15 +32,26 @@
 
   .game{
     display: flex;
+    justify-content: space-between;
+    width: 100%;
     padding:1rem;
     background: gray;
     border: 2px solid black;  
     gap: 1rem;
     border-radius: 2rem;;
   }
+.links{
+display: flex;  
+gap: 1rem;
+color: aliceblue;
+}
 
+.arrow{
+  transition: all 0.5s;
+}
   .arrow:hover{
     cursor: pointer;
+    border-bottom: 2px solid white;
   }
 
   .title{
@@ -64,9 +84,17 @@ export default defineComponent({
         },
       });
     };
+    const goToConfig = (param: string): void => {
+      void router.push({
+        name: ROUTE_NAMES.CONFIGURATIE_OVERZICHT,
+        params: {
+          id: param,
+        },
+      });
+    };
     console.log(game);
 
-    return { game, goToLeaderboard };
+    return { game, goToLeaderboard, goToConfig };
   },
 });
 </script>

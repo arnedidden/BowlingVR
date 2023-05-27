@@ -6,8 +6,8 @@
         <div class="title">{{ item.name }}</div>
         <div class="links">
 
-          <div @click="goToLeaderboard(item._id)" class="arrow">Leaderboard</div>
-          <div @click="goToConfig(item._id)" class="arrow">Configuratie</div>
+          <div @click="goToLeaderboard(item._id)" class="link">Leaderboard</div>
+          <div @click="goToConfig(item._id)" class="link">Configuratie</div>
         </div>
       </div>
     </div>
@@ -46,10 +46,7 @@ gap: 1rem;
 color: aliceblue;
 }
 
-.arrow{
-  transition: all 0.5s;
-}
-  .arrow:hover{
+  .link:hover{
     cursor: pointer;
     border-bottom: 2px solid white;
   }

@@ -1,4 +1,5 @@
 <template>
+  <div class="arrowBack" @click="goBack()"><span>&#129128;</span>   Go back</div>
   <template v-if="game">
     <h1 class="gameTitle">Spelnaam: {{ game.name }}</h1>
     <div class="wrapper">
@@ -68,7 +69,7 @@
 import { defineComponent, ref } from 'vue';
 import LeaderboardMember from 'components/LeaderboardMember.vue';
 import { useBowling } from 'src/services/bowling.service';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 export default defineComponent({
   components: {
@@ -88,6 +89,7 @@ export default defineComponent({
     const game = ref();
     const sortedLeaderboard = ref();
     const route = useRoute();
+    const router = useRouter();
     // const router = useRoute();
     const { id } = route.params;
     const getLeaderBord = async() => {
@@ -106,10 +108,11 @@ export default defineComponent({
     // const detailsOfGame = (param: string) => {
     //   router.push({ name: ROUTE_NAMES.scoreboard }
     // }
-
+    const goBack = () => void router.go(-1);
     return {
       game,
-      sortedLeaderboard
+      sortedLeaderboard,
+      goBack
       // detailsOfGame
     };
   },
@@ -123,7 +126,14 @@ export default defineComponent({
   padding: 0;
   box-sizing: border-box;
 }
-
+.arrowBack{
+  width: fit-content;
+  margin: 0;
+}
+.arrowBack:hover{
+  border-bottom: 2px solid black;
+  cursor: pointer;
+}
 .topPlayerNumber_name {
   font-size: 18px;
   font-weight: 600;

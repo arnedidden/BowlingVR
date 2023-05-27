@@ -28,8 +28,10 @@ const useBowling = () => {
       },
       leaderboard: bowlgame[0].leaderboard
     };
+    const sortedLeaderboard = game.leaderboard.sort((a,b) => b.totalScore - a.totalScore);
     
-    return { game };
+    
+    return { game, sortedLeaderboard };
     
   };
 

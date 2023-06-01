@@ -1,5 +1,5 @@
 <template>
-  <div class="arrowBack" @click="goBack()"><span>&#129128;</span>   Go back</div>
+  <GoBackButton></GoBackButton>
   <template v-if="game">
     <h1 class="gameTitle">Spelnaam: {{ game.name }}</h1>
     <div class="wrapper">
@@ -70,11 +70,13 @@ import { defineComponent, ref } from 'vue';
 import LeaderboardMember from 'components/LeaderboardMember.vue';
 import { useBowling } from 'src/services/bowling.service';
 import { useRoute, useRouter } from 'vue-router';
+import GoBackButton from 'src/components/goBackButton.vue';
 
 export default defineComponent({
   components: {
     LeaderboardMember,
-  },
+    GoBackButton
+},
   data() {
     return {
       Title: false,

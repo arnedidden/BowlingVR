@@ -1,35 +1,109 @@
 <template>
-  <div class="wrapper">
-    <div class="lboard_section">
-      <div class="lboard_tabs">
-        <div class="tabs">
-          <ul>
-            <li class="active" data-li="leaderbord">Leaderbord</li>
-            <li data-li="detailpagina">Detailpagina</li>
-          </ul>
+  <template v-if="game.game">
+    <h1 class="gameTitle">Spelnaam: {{ game.game.name }}</h1>
+    <div class="wrapper">
+      <div class="lboard_section">
+        <LeaderboardMember>
+          <template #number_name
+            ><p style="font-size: 16px; font-weight: 600">
+              <span style="margin-right: 1rem">1</span
+              >{{ game.game.leaderboard[0].name }}
+            </p></template
+          >
+          <template #innerbar
+            ><div
+              class="inner_bar"
+              :style="{ width: game.game.leaderboard[0].totalScore + '%' }"
+            ></div
+          ></template>
+          <template #points
+            ><div style="font-size: 16px; font-weight: 600;">
+              {{ game.game.leaderboard[0].totalScore }}
+            </div>
+            </template>
+        </LeaderboardMember>
+        <div class="lboard_wrap">
+          <img src="../../public/img/download.jpg" alt="image" height="360" />
         </div>
       </div>
-      <div class="lboard_wrap">
-        <div class="lboard_item">
-          <LeaderboardMember>
-          </LeaderboardMember>
+      <div class="lboard_section">
+        <div class="lboard_tabs">
+          <div class="tabs">
+            <ul>
+              <li class="active" data-li="leaderbord">Leaderbord</li>
+              <!-- <li data-li="detailpagina">Detailpagina</li> -->
+            </ul>
+          </div>
+        </div>
+        <div class="lboard_wrap">
+          <div class="lboard_item">
+            <LeaderboardMember 
+              v-for="(item, index) in game.game.leaderboard"
+              :key="index"
+            >
+              <template #number_name
+                ><p>
+                  <span style="margin-right: 1rem">{{ index + 1}}</span
+                  >{{ item.name }}
+                </p></template
+              >
+              <template #innerbar
+                ><div
+                  class="inner_bar"
+                  :style="{ width: item.totalScore + '%' }"
+                ></div
+              ></template>
+              <template #points>{{ item.totalScore }}</template>
+              <template #arrow>&#129138;</template>
+            </LeaderboardMember>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </template>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import LeaderboardMember from 'src/components/LeaderboardMember.vue';
+import { defineComponent, ref } from 'vue';
+import LeaderboardMember from 'components/LeaderboardMember.vue';
+import { useBowling } from 'src/services/bowling.service';
+import { useRoute } from 'vue-router';
 
 export default defineComponent({
-  components:{
+  components: {
     LeaderboardMember,
+  },
+  data() {
+    return {
+      Title: false,
+      Assets: false,
+      Ads: false,
+      gameTitle: 'VR Bowling',
+    };
+  },
+
+  setup() {
+    const { getLeaderbordForGame } = useBowling();
+    const game = ref();
+    const route = useRoute();
+    // const router = useRoute();
+    const { id } = route.params;
+    const getLeaderBord = async() => {
+      const leaderbord = await getLeaderbordForGame(`${id}`);
+      return game.value = leaderbord;
+    };
+
+    getLeaderBord();
+    // const detailsOfGame = (param: string) => {
+    //   router.push({ name: ROUTE_NAMES.scoreboard }
+    // }
+    return {
+      game, 
+      // detailsOfGame
+    };
   },
 });
 </script>
-
 
 <style lang="scss" scoped>
 * {
@@ -39,9 +113,15 @@ export default defineComponent({
   box-sizing: border-box;
 }
 
+.topPlayerNumber_name {
+  font-size: 18px;
+  font-weight: 600;
+}
 .wrapper {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .lboard_section {
@@ -79,9 +159,38 @@ export default defineComponent({
   width: 100%;
   height: 100%;
   border-radius: 5px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .lboard_wrap .lboard_item {
   padding: 25px;
+}
+
+.inner_bar {
+  position: absolute;
+  top: 0%;
+  left: 0;
+  height: 5px;
+  background: #fff;
+  border-radius: 5px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.topPlayer_bar {
+  height: 5px;
+  background: #fff;
+  border-radius: 5px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.gameTitle {
+  display: flex;
+  justify-content: center;
+  font-style: italic;
 }
 </style>

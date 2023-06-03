@@ -45,7 +45,7 @@ export default defineComponent({
       Title: false,
       Assets: false,
       Ads: false,
-      gameTitle: 'VR Bowling',
+      gameTitle: 'VR Game',
     }
   },
 });

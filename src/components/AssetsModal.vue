@@ -1,25 +1,14 @@
 <template>
-  <my-modal
-    :title="Assets"
-    :message="message"
-    @close="$emit('close')"
-  />
-
-  <h3>Bowlingbaan</h3>
-  <h3>Bowlingbal</h3>
-  <h3>Kegels</h3>
-  <h3>Hekjes</h3>
-
+  <div>
+    <h4>Bowlingbal</h4>
+    <h4>Bowlingbaan</h4>
+    <h4>Kegels</h4>
+    <h4>Hekjes</h4>
+    <div>
+      <label>
+        <input type="checkbox" v-model="hekjes">
+        Wil je hekjes?
+      </label>
+    </div>
+  </div>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  name: 'AssetsModal',
-  props: {
-    title: String,
-    message: String
-  }
-});
-</script>

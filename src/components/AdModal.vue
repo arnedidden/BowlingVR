@@ -6,6 +6,7 @@
       <img class="Image" :src="imageUrl" alt="Uploaded Image">
     </div>
     <h6 class="Errormessage" v-if="errorMessage">{{ errorMessage }}</h6>
+    <button @click="uploadFile">Uploaden</button>
   </my-modal>
 </template>
 
@@ -25,6 +26,27 @@ export default defineComponent({
     };
   },
   methods: {
+    uploadFile() {
+
+      if(this.imageUrl == null) {
+        alert('Er is geen afbeelding geselecteerd');
+        return;
+      }
+
+      var reader = new FileReader();
+      let url: string = this.imageUrl ?? "";
+
+      fetch(url).then(async (response) => {
+        reader.readAsDataURL(await response.blob());
+        reader.onloadend = function() {
+          //
+          var base64data = reader.result;
+          console.log(base64data);
+        }
+      });
+
+
+    },
     handleFileInput(files: FileList) {
       const file = files.item(0);
       if (file) {
@@ -43,14 +65,12 @@ export default defineComponent({
           return;
         }
 
-        // Set image URL and reset error message
         this.imageUrl = URL.createObjectURL(file);
         this.errorMessage = '';
       }
     }
   },
   beforeUnmount() {
-    // Clean up the URL created for the image to avoid memory leaks
     if (this.imageUrl) {
       URL.revokeObjectURL(this.imageUrl);
     }

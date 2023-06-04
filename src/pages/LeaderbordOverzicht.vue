@@ -1,13 +1,13 @@
 <template>
-  <template v-if="game.game">
-    <h1 class="gameTitle">Spelnaam: {{ game.game.name }}</h1>
+ <template v-if="game">
+    <h1 class="gameTitle">Spelnaam: {{ game.name }}</h1>
     <div class="wrapper">
       <div class="lboard_section">
         <LeaderboardMember>
           <template #number_name
             ><p style="font-size: 16px; font-weight: 600">
               <span style="margin-right: 1rem">1</span
-              >{{ game.game.leaderboard[0].name }}
+              >{{ sortedLeaderboard[0].name }}
             </p></template
           >
           <template #innerbar
@@ -18,7 +18,7 @@
           ></template>
           <template #points
             ><div style="font-size: 16px; font-weight: 600;">
-              {{ game.game.leaderboard[0].totalScore }}
+              {{ sortedLeaderboard[0].totalScore }}
             </div>
             </template>
         </LeaderboardMember>
@@ -37,8 +37,8 @@
         </div>
         <div class="lboard_wrap">
           <div class="lboard_item">
-            <LeaderboardMember 
-              v-for="(item, index) in game.game.leaderboard"
+            <LeaderboardMember
+              v-for="(item, index) in sortedLeaderboard"
               :key="index"
             >
               <template #number_name
@@ -61,6 +61,7 @@
       </div>
     </div>
   </template>
+    <template v-else>ERROR LOADING PAGE</template>
 </template>
 
 <script lang="ts">
@@ -78,19 +79,27 @@ export default defineComponent({
       Title: false,
       Assets: false,
       Ads: false,
-      gameTitle: 'VR Bowling',
+      gameTitle: 'VR game',
     };
   },
 
   setup() {
     const { getLeaderbordForGame } = useBowling();
     const game = ref();
+    const sortedLeaderboard = ref();
     const route = useRoute();
     // const router = useRoute();
     const { id } = route.params;
     const getLeaderBord = async() => {
       const leaderbord = await getLeaderbordForGame(`${id}`);
-      return game.value = leaderbord;
+      sortedLeaderboard.value = leaderbord.sortedLeaderboard;
+      game.value = leaderbord.game;
+      console.log(sortedLeaderboard);
+
+      return {
+        sortedLeaderboard,
+        game
+      }
     };
 
     getLeaderBord();
@@ -98,7 +107,8 @@ export default defineComponent({
     //   router.push({ name: ROUTE_NAMES.scoreboard }
     // }
     return {
-      game, 
+      game,
+      sortedLeaderboard
       // detailsOfGame
     };
   },

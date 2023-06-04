@@ -1,49 +1,95 @@
-<template>
-  <q-page class="row items-center justify-evenly">
-    <example-component
-      title="Example component"
-      active
-      :todos="todos"
-      :meta="meta"
-    ></example-component>
-  </q-page>
-</template>
+  <template v-if="game">
+    <h1>GAMES</h1>
+    <div class="games">
+      <div class="game" v-for="(item, index) in game.data" :key="index">
+        <div class="title">{{ item.name }}</div>
+        <div class="links">
+
+          <div @click="goToLeaderboard(item._id)" class="arrow">Leaderboard</div>
+          <div @click="goToConfig(item._id)" class="arrow">Configuratie</div>
+        </div>
+      </div>
+    </div>
+  </template>
+<style>
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+  .games{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding:1rem;
+    background: gray;
+    border: 2px solid black;
+    margin: 1rem;
+    border-radius: 2rem;
+    gap: 2rem;
+  }
+  .game{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding:1rem;
+    background: gray;
+    border: 2px solid black;
+    gap: 1rem;
+    border-radius: 2rem;;
+  }
+.links{
+display: flex;
+gap: 1rem;
+color: aliceblue;
+}
+.arrow{
+  transition: all 0.5s;
+}
+  .arrow:hover{
+    cursor: pointer;
+    border-bottom: 2px solid white;
+  }
+  .title{
+    color: aliceblue;
+  }
+</style>
 
 <script lang="ts">
-import { Todo, Meta } from 'components/models';
-import ExampleComponent from 'components/ExampleComponent.vue';
 import { defineComponent, ref } from 'vue';
+import { useBowling } from 'src/services/bowling.service';
+import { useRouter } from 'vue-router';
+import { ROUTE_NAMES } from 'src/router/routes';
 
 export default defineComponent({
   name: 'IndexPage',
-  components: { ExampleComponent },
   setup() {
-    const todos = ref<Todo[]>([
-      {
-        id: 1,
-        content: 'ct1'
-      },
-      {
-        id: 2,
-        content: 'ct2'
-      },
-      {
-        id: 3,
-        content: 'ct3'
-      },
-      {
-        id: 4,
-        content: 'ct4'
-      },
-      {
-        id: 5,
-        content: 'ct5'
-      }
-    ]);
-    const meta = ref<Meta>({
-      totalCount: 1200
-    });
-    return { todos, meta };
-  }
+    const { getLeaderboards } = useBowling();
+    const game = ref();
+    const router = useRouter();
+    const getLeaderBords = async () => {
+      const leaderbord = await getLeaderboards();
+      return (game.value = leaderbord);
+    };
+    getLeaderBords();
+    const goToLeaderboard = (param: string): void => {
+      void router.push({
+        name: ROUTE_NAMES.LEADERBORD,
+        params: {
+          id: param,
+        },
+      });
+    };
+    const goToConfig = (param: string): void => {
+      void router.push({
+        name: ROUTE_NAMES.CONFIGURATIE_OVERZICHT,
+        params: {
+          id: param,
+        },
+      });
+    };
+    console.log(game);
+    return { game, goToLeaderboard, goToConfig };
+  },
 });
 </script>

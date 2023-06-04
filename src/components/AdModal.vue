@@ -33,14 +33,14 @@ export default defineComponent({
         return;
       }
 
-      var reader = new FileReader();
+      const reader = new FileReader();
       let url: string = this.imageUrl ?? "";
 
       fetch(url).then(async (response) => {
         reader.readAsDataURL(await response.blob());
         reader.onloadend = function() {
           //
-          var base64data = reader.result;
+          const base64data = reader.result;
           console.log(base64data);
         }
       });

@@ -15,30 +15,53 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import axios from 'axios';
+import { useRoute } from 'vue-router';
+import { useBowling } from 'src/services/bowling.service';
+
 
 export default defineComponent({
   name: 'TitleModal',
   props: {
     title: String,
     message: String,
+
   },
   setup(props, { emit }) {
     const gameName = ref('');
+    const route = useRoute();
+    const { id } = route.params;
+
 
     const submitGameName = () => {
-      const postData = { gameName: gameName.value };
+  const postData = {
+    _id: id,
+    name: gameName.value,
+    bowlingBall: {
+      color: null
+    },
+    bowlingPins: {
+      color: null
+    },
+    bowlingLane: {
+      color: null
+    },
+    leaderboard: null
+  };
 
-      axios
-        .put('https://api.code-coaching.dev/eindwerken-2022-jaar-2/team_eevee_config', postData)
-        .then(response => {
-          console.log(response);
-          emit('game-name-selected', gameName.value);
-          gameName.value = '';
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    };
+  axios
+    .put(`https://api.code-coaching.dev/eindwerken-2022-jaar-2/team_eevee_config/${id}`, postData)
+    .then(response => {
+      console.log(response);
+      console.log(postData);
+
+
+      emit('game-name-selected', gameName.value);
+      gameName.value = '';
+    })
+    .catch(error => {
+      console.error(error);
+    });
+};
 
     return {
       gameName,

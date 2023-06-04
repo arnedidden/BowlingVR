@@ -2,6 +2,11 @@ import { Game } from 'src/components/models';
 import { api } from 'src/boot/axios';
 
 const useBowling = () => {
+  const getLeaderboards = async () =>{
+    const result = await api.get('/team_eevee_config/');
+    const data = result.data.data;
+    return {data};
+  }
   const getLeaderbordForGame = async (id: string) => {
     
       
@@ -23,13 +28,16 @@ const useBowling = () => {
       },
       leaderboard: bowlgame[0].leaderboard
     };
+    const sortedLeaderboard = game.leaderboard.sort((a,b) => b.totalScore - a.totalScore);
     
-    return { game };
+    
+    return { game, sortedLeaderboard };
     
   };
 
   return {
     getLeaderbordForGame,
+    getLeaderboards
   };
 };
 

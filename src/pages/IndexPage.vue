@@ -21,13 +21,14 @@ body{
 }
   .games{
     display: flex;
-    justify-content: flex-start;
+    flex-direction: column;
     align-items: center;
     padding:1rem;
     background: gray;
     border: 2px solid black;
     margin: 1rem;
     border-radius: 2rem;
+    gap: 2rem;
   }
 
   .game{

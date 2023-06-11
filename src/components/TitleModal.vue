@@ -1,12 +1,8 @@
 <template v-if="bowlingData">
-  <my-modal
-    :title="title"
-    :message="message"
-    @close="$emit('close')"
-  >
+  <my-modal :title="title" :message="message" @close="$emit('close')">
     <h3 class="title">Kies de naam van het spel</h3>
     <form @submit.prevent="submitGameName">
-      <input class="inputbox" type="text" v-model="gameName" placeholder="">
+      <input class="inputbox" type="text" v-model="gameName" placeholder="" />
       <button class="inputboxBtn" type="submit">Bevestigen</button>
     </form>
   </my-modal>
@@ -18,13 +14,11 @@ import axios from 'axios';
 import { useRoute } from 'vue-router';
 import { useBowling } from 'src/services/bowling.service';
 
-
 export default defineComponent({
   name: 'TitleModal',
   props: {
     title: String,
     message: String,
-
   },
   setup(props, { emit }) {
     const gameName = ref();
@@ -33,39 +27,39 @@ export default defineComponent({
     const { getLeaderbordForGame } = useBowling();
     const bowlingData = ref();
 
-
     const submitGameName = async () => {
-    try {
-      const bowlingAssets = await getLeaderbordForGame(`${id}`);
-      bowlingData.value = bowlingAssets.game;
-      bowlingData.value.name = gameName.value;
+      try {
+        const bowlingAssets = await getLeaderbordForGame(`${id}`);
+        bowlingData.value = bowlingAssets.game;
+        bowlingData.value.name = gameName.value;
 
-      await axios
-        .put(`https://api.code-coaching.dev/eindwerken-2022-jaar-2/team_eevee_config/${id}`, bowlingData.value)
-        .then(response => {
-          console.log(response);
-          console.log(bowlingData.value);
+        await axios
+          .put(
+            `https://api.code-coaching.dev/eindwerken-2022-jaar-2/team_eevee_config/${id}`,
+            bowlingData.value
+          )
+          .then((response) => {
+            console.log(response);
+            console.log(bowlingData.value);
 
-          emit('game-name-selected', gameName.value);
-          gameName.value = '';
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    } catch (error) {
-      console.error(error);
-    }
-  };
+            emit('game-name-selected', gameName.value);
+            gameName.value = '';
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
     return {
       gameName,
       submitGameName,
       bowlingData,
-
     };
-  }
+  },
 });
-
 </script>
 
 <style lang="scss" scoped>

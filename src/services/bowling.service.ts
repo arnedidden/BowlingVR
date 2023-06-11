@@ -14,7 +14,6 @@ const useBowling = () => {
 
 
     const game: Game = {
-      // _id: bowlgame[0]._id,
       name: bowlgame[0].name,
       bowlingBall: {
           color: bowlgame[0].bowlingBall.color

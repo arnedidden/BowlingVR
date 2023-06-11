@@ -40,4 +40,6 @@ const useBowling = () => {
   };
 };
 
-export { useBowling };
+export
+{ useBowling };
+

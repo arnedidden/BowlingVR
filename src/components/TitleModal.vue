@@ -1,4 +1,4 @@
-<template>
+<template v-if="bowlingData">
   <my-modal
     :title="title"
     :message="message"
@@ -27,48 +27,45 @@ export default defineComponent({
 
   },
   setup(props, { emit }) {
-    const gameName = ref('');
+    const gameName = ref();
     const route = useRoute();
     const { id } = route.params;
+    const { getLeaderbordForGame } = useBowling();
+    const bowlingData = ref();
 
 
-    const submitGameName = () => {
-  const postData = {
-    _id: id,
-    name: gameName.value,
-    bowlingBall: {
-      color: null
-    },
-    bowlingPins: {
-      color: null
-    },
-    bowlingLane: {
-      color: null
-    },
-    leaderboard: null
-  };
+    const submitGameName = async () => {
+    try {
+      const bowlingAssets = await getLeaderbordForGame(`${id}`);
+      bowlingData.value = bowlingAssets.game;
+      bowlingData.value.name = gameName.value;
 
-  axios
-    .put(`https://api.code-coaching.dev/eindwerken-2022-jaar-2/team_eevee_config/${id}`, postData)
-    .then(response => {
-      console.log(response);
-      console.log(postData);
+      await axios
+        .put(`https://api.code-coaching.dev/eindwerken-2022-jaar-2/team_eevee_config/${id}`, bowlingData.value)
+        .then(response => {
+          console.log(response);
+          console.log(bowlingData.value);
 
-
-      emit('game-name-selected', gameName.value);
-      gameName.value = '';
-    })
-    .catch(error => {
+          emit('game-name-selected', gameName.value);
+          gameName.value = '';
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    } catch (error) {
       console.error(error);
-    });
-};
+    }
+  };
 
     return {
       gameName,
-      submitGameName
+      submitGameName,
+      bowlingData,
+
     };
-  },
+  }
 });
+
 </script>
 
 <style lang="scss" scoped>

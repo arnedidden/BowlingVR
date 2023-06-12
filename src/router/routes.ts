@@ -1,16 +1,13 @@
-
 import { RouteRecordRaw, NavigationGuardNext } from 'vue-router';
 import { useAuth } from 'src/services/auth.service';
 
 const { user, verify } = useAuth();
 
 export const ROUTE_NAMES = {
-
   CONFIGURATIE_OVERZICHT: 'configuratie',
   LEADERBORD: 'leaderbord',
   ADMIN: 'admin',
-  HOME: 'home'
-
+  HOME: 'home',
 };
 
 const mustBeLoggedIn = async (next: NavigationGuardNext) => {
@@ -26,7 +23,6 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
-    
     children: [
       {
         path: '',
@@ -52,20 +48,21 @@ const routes: RouteRecordRaw[] = [
       {
         name: ROUTE_NAMES.CONFIGURATIE_OVERZICHT,
 
-        path: '/configuratie/:id', component: () => import('pages/ConfiguratieOverzicht.vue') },
+        path: '/configuratie/:id',
+        component: () => import('pages/ConfiguratieOverzicht.vue'),
+      },
       {
         name: ROUTE_NAMES.LEADERBORD,
-        path: '/leaderbord/:id', component: () => import('pages/LeaderbordOverzicht.vue'),
+        path: '/leaderbord/:id',
+        component: () => import('pages/LeaderbordOverzicht.vue'),
       },
-
-  ],
-
+    ],
   },
 
   // Always leave this as last one,
   // but you can also remove it
   {
-    path: '/:catchAll(.*)*',
+    path: '/',
     component: () => import('pages/ErrorNotFound.vue'),
   },
 ];

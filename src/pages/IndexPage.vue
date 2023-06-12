@@ -46,7 +46,6 @@ export default defineComponent({
         },
       });
     };
-    console.log(game);
     return { game, goToLeaderboard, goToConfig };
   },
 });

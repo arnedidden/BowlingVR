@@ -30,6 +30,7 @@ export interface Game {
   bowlingLane: {
     color: string
   },
-  leaderboard: Array<LeaderboardItem>
+  leaderboard: Array<LeaderboardItem>,
+  reclame?: Array<string>
 }
 

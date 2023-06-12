@@ -1,5 +1,6 @@
 <template>
- <template v-if="game">
+  <GoBackButton></GoBackButton>
+  <template v-if="game">
     <h1 class="gameTitle">Spelnaam: {{ game.name }}</h1>
     <div class="wrapper">
       <div class="lboard_section">
@@ -13,14 +14,14 @@
           <template #innerbar
             ><div
               class="inner_bar"
-              :style="{ width: game.game.leaderboard[0].totalScore + '%' }"
+              :style="{ width: sortedLeaderboard[0].totalScore + '%' }"
             ></div
           ></template>
           <template #points
-            ><div style="font-size: 16px; font-weight: 600;">
+            ><div style="font-size: 16px; font-weight: 600">
               {{ sortedLeaderboard[0].totalScore }}
             </div>
-            </template>
+          </template>
         </LeaderboardMember>
         <div class="lboard_wrap">
           <img src="../../public/img/download.jpg" alt="image" height="360" />
@@ -43,7 +44,7 @@
             >
               <template #number_name
                 ><p>
-                  <span style="margin-right: 1rem">{{ index + 1}}</span
+                  <span style="margin-right: 1rem">{{ index + 1 }}</span
                   >{{ item.name }}
                 </p></template
               >
@@ -61,18 +62,20 @@
       </div>
     </div>
   </template>
-    <template v-else>ERROR LOADING PAGE</template>
+  <template v-else>ERROR LOADING PAGE</template>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import LeaderboardMember from 'components/LeaderboardMember.vue';
 import { useBowling } from 'src/services/bowling.service';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+import GoBackButton from 'src/components/goBackButton.vue';
 
 export default defineComponent({
   components: {
     LeaderboardMember,
+    GoBackButton,
   },
   data() {
     return {
@@ -88,27 +91,29 @@ export default defineComponent({
     const game = ref();
     const sortedLeaderboard = ref();
     const route = useRoute();
+    const router = useRouter();
     // const router = useRoute();
     const { id } = route.params;
-    const getLeaderBord = async() => {
+    const getLeaderBord = async () => {
       const leaderbord = await getLeaderbordForGame(`${id}`);
       sortedLeaderboard.value = leaderbord.sortedLeaderboard;
       game.value = leaderbord.game;
       console.log(sortedLeaderboard);
-
       return {
         sortedLeaderboard,
-        game
-      }
+        game,
+      };
     };
 
     getLeaderBord();
     // const detailsOfGame = (param: string) => {
     //   router.push({ name: ROUTE_NAMES.scoreboard }
     // }
+    const goBack = () => void router.go(-1);
     return {
       game,
-      sortedLeaderboard
+      sortedLeaderboard,
+      goBack,
       // detailsOfGame
     };
   },
@@ -122,7 +127,14 @@ export default defineComponent({
   padding: 0;
   box-sizing: border-box;
 }
-
+.arrowBack {
+  width: fit-content;
+  margin: 0;
+}
+.arrowBack:hover {
+  border-bottom: 2px solid black;
+  cursor: pointer;
+}
 .topPlayerNumber_name {
   font-size: 18px;
   font-weight: 600;

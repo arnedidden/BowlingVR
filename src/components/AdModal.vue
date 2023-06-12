@@ -1,9 +1,13 @@
 <template>
   <my-modal :title="title" :message="message" @close="$emit('close')">
     <h3 class="title">Upload hier jouw reclame</h3>
-    <input class="Uploadbtn" type="file" @change="handleFileInput($event.target.files)">
+    <input
+      class="Uploadbtn"
+      type="file"
+      @change="handleFileInput($event.target.files)"
+    />
     <div v-if="imageUrl">
-      <img class="Image" :src="imageUrl" alt="Uploaded Image">
+      <img class="Image" :src="imageUrl" alt="Uploaded Image" />
     </div>
     <h6 class="Errormessage" v-if="errorMessage">{{ errorMessage }}</h6>
     <button @click="uploadFile">Uploaden</button>
@@ -17,35 +21,32 @@ export default defineComponent({
   name: 'AdModal',
   props: {
     title: String,
-    message: String
+    message: String,
   },
   data() {
     return {
       imageUrl: null as string | null,
-      errorMessage: '' as string
+      errorMessage: '' as string,
     };
   },
   methods: {
     uploadFile() {
-
-      if(this.imageUrl == null) {
+      if (this.imageUrl == null) {
         alert('Er is geen afbeelding geselecteerd');
         return;
       }
 
       const reader = new FileReader();
-      let url: string = this.imageUrl ?? "";
+      let url: string = this.imageUrl ?? '';
 
       fetch(url).then(async (response) => {
         reader.readAsDataURL(await response.blob());
-        reader.onloadend = function() {
+        reader.onloadend = function () {
           //
           const base64data = reader.result;
           console.log(base64data);
-        }
+        };
       });
-
-
     },
     handleFileInput(files: FileList) {
       const file = files.item(0);
@@ -60,7 +61,8 @@ export default defineComponent({
         // Check file type
         const allowedTypes = ['image/png', 'image/svg+xml', 'image/jpeg'];
         if (!allowedTypes.includes(file.type)) {
-          this.errorMessage = 'Alleen bestanden van het type PNG, SVG en JPEG/JPG zijn toegestaan.';
+          this.errorMessage =
+            'Alleen bestanden van het type PNG, SVG en JPEG/JPG zijn toegestaan.';
           this.imageUrl = null;
           return;
         }
@@ -68,13 +70,13 @@ export default defineComponent({
         this.imageUrl = URL.createObjectURL(file);
         this.errorMessage = '';
       }
-    }
+    },
   },
   beforeUnmount() {
     if (this.imageUrl) {
       URL.revokeObjectURL(this.imageUrl);
     }
-  }
+  },
 });
 </script>
 
@@ -84,13 +86,13 @@ export default defineComponent({
   margin-top: 5em;
   margin: 1em;
 }
-.title{
+.title {
   margin: 0.3em;
 }
-.Uploadbtn{
+.Uploadbtn {
   margin: 1em;
 }
-.Errormessage{
+.Errormessage {
   font-size: 1em;
   margin: 1em;
   color: darkred;

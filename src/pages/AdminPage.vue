@@ -71,53 +71,7 @@ import { useAuth } from 'src/services/auth.service';
 import { api } from 'src/boot/axios';
 
 export default defineComponent({
-  props: {
-    title: String,
-    message: String,
-  },
-
-  data() {
-    return {
-      imageUrl: null as string | null,
-      errorMessage: '' as string,
-      // gameName: '',
-      // ball: '',
-      // pins: '',
-      // lane: '',
-    };
-  },
-  methods: {
-    handleFileInput(files: FileList) {
-      const file = files.item(0);
-      if (file) {
-        // Check file size
-        if (file.size > 1000000) {
-          this.errorMessage = 'Bestandsgrootte mag niet groter zijn dan 1MB.';
-          this.imageUrl = null;
-          return;
-        }
-
-        // Check file type
-        const allowedTypes = ['image/png', 'image/svg+xml', 'image/jpeg'];
-        if (!allowedTypes.includes(file.type)) {
-          this.errorMessage =
-            'Alleen bestanden van het type PNG, SVG en JPEG/JPG zijn toegestaan.';
-          this.imageUrl = null;
-          return;
-        }
-
-        // Set image URL and reset error message
-        this.imageUrl = URL.createObjectURL(file);
-        this.errorMessage = '';
-      }
-    },
-  },
-  beforeUnmount() {
-    // Clean up the URL created for the image to avoid memory leaks
-    if (this.imageUrl) {
-      URL.revokeObjectURL(this.imageUrl);
-    }
-  },
+  
   setup() {
     const { user } = useAuth();
     const gameName = ref('');

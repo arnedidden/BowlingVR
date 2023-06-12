@@ -1,4 +1,3 @@
-
 <template>
   <template v-if="user">
     <h1>Admin</h1>
@@ -34,7 +33,7 @@
             </div>
             <div class="colorchoice">
               <h5>Lane</h5>
-              <select v-model="Lane">
+              <select v-model="lane">
                 <option value="GREEN" selected>GREEN</option>
                 <option value="YELLLOW">YELLLOW</option>
                 <option value="RED">RED</option>
@@ -46,8 +45,8 @@
         <div class="gameCreationItem">
           <h3 class="title">Upload je reclame</h3>
           <input
-            class="Uploadbtn"
-            type="file"
+            type="text"
+            v-model="img"
             @change="handleFileInput($event.target.files)"
           />
           <div v-if="imageUrl">
@@ -57,7 +56,9 @@
       </div>
     </form>
     <div class="buttonDiv">
-      <button type="submit" @click="submitGame()">Creëer spel configuratie</button>
+      <button type="submit" @click="submitGame()">
+        Creëer spel configuratie
+      </button>
     </div>
   </template>
   <template v-else>
@@ -67,16 +68,22 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { useAuth } from 'src/services/auth.service';
+import { api } from 'src/boot/axios';
 
 export default defineComponent({
   props: {
     title: String,
     message: String,
   },
+
   data() {
     return {
       imageUrl: null as string | null,
-      errorMessage: '' as string
+      errorMessage: '' as string,
+      // gameName: '',
+      // ball: '',
+      // pins: '',
+      // lane: '',
     };
   },
   methods: {
@@ -93,7 +100,8 @@ export default defineComponent({
         // Check file type
         const allowedTypes = ['image/png', 'image/svg+xml', 'image/jpeg'];
         if (!allowedTypes.includes(file.type)) {
-          this.errorMessage = 'Alleen bestanden van het type PNG, SVG en JPEG/JPG zijn toegestaan.';
+          this.errorMessage =
+            'Alleen bestanden van het type PNG, SVG en JPEG/JPG zijn toegestaan.';
           this.imageUrl = null;
           return;
         }
@@ -102,7 +110,7 @@ export default defineComponent({
         this.imageUrl = URL.createObjectURL(file);
         this.errorMessage = '';
       }
-    }
+    },
   },
   beforeUnmount() {
     // Clean up the URL created for the image to avoid memory leaks
@@ -115,29 +123,41 @@ export default defineComponent({
     const gameName = ref('');
     const ball = ref('');
     const pins = ref('');
-    const Lane = ref('');
+    const lane = ref('');
+    const img = ref('');
     const submitGame = () => {
       const title = gameName.value;
       const bowlingBalColor = ball.value;
       const pinsColor = pins.value;
-      const laneColor = Lane.value;
+      const laneColor = lane.value;
+      const reclame = img.value;
       const game = {
-      name: title,
-      bowlingBall: {
-          color: bowlingBalColor
-      },
-      bowlingPins: {
-          color: pinsColor
-      },
-      bowlingLane: {
-          color: laneColor
-      },
-      leaderboard: []
+        name: title,
+        bowlingBall: {
+          color: bowlingBalColor,
+        },
+        bowlingPins: {
+          color: pinsColor,
+        },
+        bowlingLane: {
+          color: laneColor,
+        },
+        leaderboard: [],
+        reclame: [reclame],
+      };
+      api
+        .post(
+          'https://api.code-coaching.dev/eindwerken-2022-jaar-2/team_eevee_config',
+          game
+        )
+        .then((response) =>
+          alert(`Game succesvol aangemaakt met id: ${response.data._id}`)
+        )
+        .catch((error) => {
+          alert(`error: ${error}`);
+        });
     };
-    console.log(game);
-    
-    }
-    return { user, submitGame, gameName, ball, pins, Lane };
+    return { user, submitGame, gameName, ball, pins, lane, img };
   },
 });
 </script>

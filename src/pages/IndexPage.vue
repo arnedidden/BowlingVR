@@ -1,14 +1,16 @@
-<template v-if="game">
-  <h1>GAMES</h1>
-  <div class="games">
-    <div class="game" v-for="(item, index) in game.data" :key="index">
-      <div class="title">{{ item.name }}</div>
-      <div class="links">
-        <div @click="goToLeaderboard(item._id)" class="arrow">Leaderboard</div>
-        <div @click="goToConfig(item._id)" class="arrow">Configuratie</div>
+<template>
+  <template v-if="game">
+    <h1>GAMES</h1>
+    <div class="games">
+      <div class="game" v-for="(item, index) in game.data" :key="index">
+        <div class="title">{{ item.name }}</div>
+        <div class="links">
+          <div @click="goToLeaderboard(item._id)" class="link">Leaderboard</div>
+          <div @click="goToConfig(item._id)" class="link">Configuratie</div>
+        </div>
       </div>
     </div>
-  </div>
+  </template>
 </template>
 
 <script lang="ts">

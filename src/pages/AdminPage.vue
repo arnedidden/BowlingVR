@@ -4,58 +4,56 @@
     <p>
       User: <strong>{{ user.github.username }}</strong>
     </p>
+    <GoToIndexPageButton></GoToIndexPageButton>
     <form @submit.prevent="submitGame">
-      <div class="gameCreation">
-        <div class="gameCreationItem">
+      <div class="game-creation">
+        <div class="game-creation-item">
           <h3 class="title">Kies de naam van het spel</h3>
           <input type="text" v-model="gameName" placeholder="" />
         </div>
-        <div class="gameCreationItem">
+        <div class="game-creation-item">
           <h3 class="title">Kies de kleuren van het spel</h3>
-          <div class="choicesOfColor">
-            <div class="colorchoice">
+          <div class="choices-of-color">
+            <div class="color-choice">
               <h5>Ball</h5>
               <select v-model="ball">
-                <option value="GREEN" selected>GREEN</option>
-                <option value="YELLLOW">YELLLOW</option>
-                <option value="RED">RED</option>
-                <option value="BLUE">BLUE</option>
+                <option value="GREEN" class="green">GREEN</option>
+                <option value="YELLLOW" class="yellow">YELLLOW</option>
+                <option value="RED" class="red">RED</option>
+                <option value="BLUE" class="blue">BLUE</option>
               </select>
             </div>
-            <div class="colorchoice">
+            <div class="color-choice">
               <h5>Pins</h5>
               <select v-model="pins">
-                <option value="GREEN" selected>GREEN</option>
-                <option value="YELLLOW">YELLLOW</option>
-                <option value="RED">RED</option>
-                <option value="BLUE">BLUE</option>
+                <option value="GREEN" class="green">GREEN</option>
+                <option value="YELLLOW" class="yellow">YELLLOW</option>
+                <option value="RED" class="red">RED</option>
+                <option value="BLUE" class="blue">BLUE</option>
               </select>
             </div>
-            <div class="colorchoice">
+            <div class="color-choice">
               <h5>Lane</h5>
               <select v-model="lane">
-                <option value="GREEN" selected>GREEN</option>
-                <option value="YELLLOW">YELLLOW</option>
-                <option value="RED">RED</option>
-                <option value="BLUE">BLUE</option>
+                <option value="GREEN" class="green">GREEN</option>
+                <option value="YELLLOW" class="yellow">YELLLOW</option>
+                <option value="RED" class="red">RED</option>
+                <option value="BLUE" class="blue">BLUE</option>
               </select>
             </div>
           </div>
         </div>
-        <div class="gameCreationItem">
+        <div class="game-creation-item">
           <h3 class="title">Upload je reclame</h3>
+          <p>plak een image url in het vak</p>
           <input
             type="text"
             v-model="img"
-            @change="handleFileInput($event.target.files)"
           />
-          <div v-if="imageUrl">
-            <img class="Image" :src="imageUrl" alt="Uploaded Image" />
-          </div>
         </div>
       </div>
     </form>
-    <div class="buttonDiv">
+    <div class="button-div">
       <button type="submit" @click="submitGame()">
         Creëer spel configuratie
       </button>
@@ -68,11 +66,15 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { useAuth } from 'src/services/auth.service';
-import { api } from 'src/boot/axios';
+import { useBowling } from 'src/services/bowling.service';
+import GoToIndexPageButton from 'src/components/GoToIndexPageButton.vue';
 
 export default defineComponent({
-  
+  components: {
+    GoToIndexPageButton
+  },
   setup() {
+    const {createGame} = useBowling();
     const { user } = useAuth();
     const gameName = ref('');
     const ball = ref('');
@@ -99,37 +101,32 @@ export default defineComponent({
         leaderboard: [],
         reclame: [reclame],
       };
-      api
-        .post(
-          'https://api.code-coaching.dev/eindwerken-2022-jaar-2/team_eevee_config',
-          game
-        )
-        .then((response) =>
-          alert(`Game succesvol aangemaakt met id: ${response.data._id}`)
-        )
-        .catch((error) => {
-          alert(`error: ${error}`);
-        });
+      createGame(game);
+      gameName.value = '';
+      ball.value  = '';
+      pins.value  = '';
+      lane.value  = '';
+      img.value  = '';
     };
     return { user, submitGame, gameName, ball, pins, lane, img };
   },
 });
 </script>
-<style>
-.gameCreation {
+<style scoped>
+.game-creation {
   display: flex;
   justify-content: space-around;
 }
 
-.gameCreationItem {
+.game-creation-item {
   width: 30%;
 }
-.choicesOfColor {
+.choices-of-color {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
-.colorchoice {
+.color-choice {
   display: flex;
   justify-content: space-around;
   gap: 1rem;
@@ -139,8 +136,25 @@ select {
   height: 50%;
   align-self: center;
 }
-.buttonDiv {
+.button-div {
   display: flex;
   justify-content: center;
+}
+
+.green{
+  background-color: green;
+  color: aliceblue;
+}
+.yellow{
+  background-color: yellow;
+  color: black;
+}
+.red{
+  background-color: red;
+  color: aliceblue;
+}
+.blue{
+  background-color: blue;
+  color: aliceblue;
 }
 </style>

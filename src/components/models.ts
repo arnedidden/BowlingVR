@@ -19,7 +19,6 @@ export interface LeaderboardItem {
 }
 
 export interface Game {
-  _id: string,
   name: string,
   bowlingBall: {
     color: string
@@ -30,6 +29,7 @@ export interface Game {
   bowlingLane: {
     color: string
   },
-  leaderboard: Array<LeaderboardItem>
+  leaderboard: Array<LeaderboardItem>,
+  reclame: Array<string>
 }
 

@@ -16,30 +16,33 @@
           <div class="choices-of-color">
             <div class="color-choice">
               <h5>Ball</h5>
-              <select v-model="ball">
+              <select v-model="ball" onchange="changeColorOfBall($event)">
                 <option value="GREEN" class="green">GREEN</option>
                 <option value="YELLLOW" class="yellow">YELLLOW</option>
                 <option value="RED" class="red">RED</option>
                 <option value="BLUE" class="blue">BLUE</option>
               </select>
+              <div id="ball-color" class="color-div"></div>
             </div>
             <div class="color-choice">
               <h5>Pins</h5>
-              <select v-model="pins">
+              <select v-model="pins" onchange="changeColorOfPins($event)">
                 <option value="GREEN" class="green">GREEN</option>
                 <option value="YELLLOW" class="yellow">YELLLOW</option>
                 <option value="RED" class="red">RED</option>
                 <option value="BLUE" class="blue">BLUE</option>
               </select>
+              <div id="pins-color" class="color-div"></div>
             </div>
             <div class="color-choice">
               <h5>Lane</h5>
-              <select v-model="lane">
+              <select v-model="lane" onchange="changeColorOfLane($event)">
                 <option value="GREEN" class="green">GREEN</option>
                 <option value="YELLLOW" class="yellow">YELLLOW</option>
                 <option value="RED" class="red">RED</option>
                 <option value="BLUE" class="blue">BLUE</option>
               </select>
+              <div id="lane-color" class="color-div"></div>
             </div>
           </div>
         </div>
@@ -74,6 +77,8 @@ export default defineComponent({
     GoToIndexPageButton
   },
   setup() {
+    
+   
     const {createGame} = useBowling();
     const { user } = useAuth();
     const gameName = ref('');
@@ -156,5 +161,10 @@ select {
 .blue{
   background-color: blue;
   color: aliceblue;
+}
+
+.color-div{
+  height: 100%;
+  width: 100px;
 }
 </style>

@@ -16,7 +16,7 @@
           <div class="choices-of-color">
             <div class="color-choice">
               <h5>Ball</h5>
-              <select v-model="ball" onchange="changeColorOfBall($event)">
+              <select v-model="ball" >
                 <option value="GREEN" class="green">GREEN</option>
                 <option value="YELLLOW" class="yellow">YELLLOW</option>
                 <option value="RED" class="red">RED</option>
@@ -26,7 +26,7 @@
             </div>
             <div class="color-choice">
               <h5>Pins</h5>
-              <select v-model="pins" onchange="changeColorOfPins($event)">
+              <select v-model="pins" >
                 <option value="GREEN" class="green">GREEN</option>
                 <option value="YELLLOW" class="yellow">YELLLOW</option>
                 <option value="RED" class="red">RED</option>
@@ -36,7 +36,7 @@
             </div>
             <div class="color-choice">
               <h5>Lane</h5>
-              <select v-model="lane" onchange="changeColorOfLane($event)">
+              <select v-model="lane" >
                 <option value="GREEN" class="green">GREEN</option>
                 <option value="YELLLOW" class="yellow">YELLLOW</option>
                 <option value="RED" class="red">RED</option>

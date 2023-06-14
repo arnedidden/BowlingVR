@@ -30,6 +30,6 @@ export interface Game {
     color: string
   },
   leaderboard: Array<LeaderboardItem>,
-  reclame: Array<string>
+  reclame?: Array<string>
 }
 

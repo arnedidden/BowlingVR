@@ -7,30 +7,20 @@ const useBowling = () => {
     const data = result.data.data;
     return { data };
   };
-  const getLeaderbordForGame = async (id: string) => {
+  const getLeaderBoardForGame = async (id: string) => {
     const result = await api.get(`/team_eevee_config/${id}`);
-
-    const bowlgame = result.data.data;
-
-    const game: Game = {
-      name: bowlgame[0].name,
-      bowlingBall: {
-        color: bowlgame[0].bowlingBall.color,
-      },
-      bowlingPins: {
-        color: bowlgame[0].bowlingPins.color,
-      },
-      bowlingLane: {
-        color: bowlgame[0].bowlingLane.color,
-      },
-      leaderboard: bowlgame[0].leaderboard,
-      reclame: bowlgame[0].reclame,
-    };
+    const game: Game = result.data.data[0];
     const sortedLeaderboard = game.leaderboard.sort(
       (a, b) => b.totalScore - a.totalScore
     );
 
     return { game, sortedLeaderboard };
+  };
+
+  const updateGame = async (id: string, game: Game) => {
+    delete game._id;
+    api.put(`team_eevee_config/${id}`, game);
+
   };
   const createGame = async (game: Game) => {
     api
@@ -49,6 +39,7 @@ const useBowling = () => {
     getLeaderbordForGame,
     getLeaderboards,
     createGame
+    updateGame,
   };
 };
 

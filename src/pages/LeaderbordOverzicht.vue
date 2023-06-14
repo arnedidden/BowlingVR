@@ -18,10 +18,10 @@
             ></div
           ></template>
           <template #points
-            ><div style="font-size: 16px; font-weight: 600;">
+            ><div style="font-size: 16px; font-weight: 600">
               {{ sortedLeaderboard[0].totalScore }}
             </div>
-            </template>
+          </template>
         </LeaderboardMember>
         <div class="lboard_wrap">
           <img src="../../public/img/download.jpg" alt="image" height="360" />
@@ -38,13 +38,13 @@
         </div>
         <div class="lboard_wrap">
           <div class="lboard_item">
-            <LeaderboardMember 
+            <LeaderboardMember
               v-for="(item, index) in sortedLeaderboard"
               :key="index"
             >
               <template #number_name
                 ><p>
-                  <span style="margin-right: 1rem">{{ index + 1}}</span
+                  <span style="margin-right: 1rem">{{ index + 1 }}</span
                   >{{ item.name }}
                 </p></template
               >
@@ -75,35 +75,33 @@ import GoBackButton from 'src/components/goBackButton.vue';
 export default defineComponent({
   components: {
     LeaderboardMember,
-    GoBackButton
-},
+    GoBackButton,
+  },
   data() {
     return {
       Title: false,
       Assets: false,
       Ads: false,
-      gameTitle: 'VR Bowling',
+      gameTitle: 'VR game',
     };
   },
 
   setup() {
-    const { getLeaderbordForGame } = useBowling();
+    const { getLeaderBoardForGame } = useBowling();
     const game = ref();
     const sortedLeaderboard = ref();
     const route = useRoute();
     const router = useRouter();
     // const router = useRoute();
     const { id } = route.params;
-    const getLeaderBord = async() => {
-      const leaderbord = await getLeaderbordForGame(`${id}`);
+    const getLeaderBord = async () => {
+      const leaderbord = await getLeaderBoardForGame(`${id}`);
       sortedLeaderboard.value = leaderbord.sortedLeaderboard;
       game.value = leaderbord.game;
-      console.log(sortedLeaderboard);
-      
       return {
         sortedLeaderboard,
-        game
-      }
+        game,
+      };
     };
 
     getLeaderBord();
@@ -114,7 +112,7 @@ export default defineComponent({
     return {
       game,
       sortedLeaderboard,
-      goBack
+      goBack,
       // detailsOfGame
     };
   },
@@ -128,11 +126,11 @@ export default defineComponent({
   padding: 0;
   box-sizing: border-box;
 }
-.arrowBack{
+.arrowBack {
   width: fit-content;
   margin: 0;
 }
-.arrowBack:hover{
+.arrowBack:hover {
   border-bottom: 2px solid black;
   cursor: pointer;
 }

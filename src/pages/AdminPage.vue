@@ -16,7 +16,7 @@
           <div class="choices-of-color">
             <div class="color-choice">
               <h5>Ball</h5>
-              <select v-model="ball" >
+              <select v-model="ball">
                 <option value="GREEN" class="green">GREEN</option>
                 <option value="YELLLOW" class="yellow">YELLLOW</option>
                 <option value="RED" class="red">RED</option>
@@ -26,7 +26,7 @@
             </div>
             <div class="color-choice">
               <h5>Pins</h5>
-              <select v-model="pins" >
+              <select v-model="pins">
                 <option value="GREEN" class="green">GREEN</option>
                 <option value="YELLLOW" class="yellow">YELLLOW</option>
                 <option value="RED" class="red">RED</option>
@@ -36,7 +36,7 @@
             </div>
             <div class="color-choice">
               <h5>Lane</h5>
-              <select v-model="lane" >
+              <select v-model="lane">
                 <option value="GREEN" class="green">GREEN</option>
                 <option value="YELLLOW" class="yellow">YELLLOW</option>
                 <option value="RED" class="red">RED</option>
@@ -49,10 +49,7 @@
         <div class="game-creation-item">
           <h3 class="title">Upload je reclame</h3>
           <p>plak een image url in het vak</p>
-          <input
-            type="text"
-            v-model="img"
-          />
+          <input type="text" v-model="img" />
         </div>
       </div>
     </form>
@@ -63,7 +60,7 @@
     </div>
   </template>
   <template v-else>
-    <p>This page is only accessible to users that are logged in.</p>
+    <p>Deze pagina is enkel beschikbaar indien je ingelogd bent.</p>
   </template>
 </template>
 <script lang="ts">
@@ -74,12 +71,10 @@ import GoToIndexPageButton from 'src/components/GoToIndexPageButton.vue';
 
 export default defineComponent({
   components: {
-    GoToIndexPageButton
+    GoToIndexPageButton,
   },
   setup() {
-    
-   
-    const {createGame} = useBowling();
+    const { createGame } = useBowling();
     const { user } = useAuth();
     const gameName = ref('');
     const ball = ref('');
@@ -108,10 +103,10 @@ export default defineComponent({
       };
       createGame(game);
       gameName.value = '';
-      ball.value  = '';
-      pins.value  = '';
-      lane.value  = '';
-      img.value  = '';
+      ball.value = '';
+      pins.value = '';
+      lane.value = '';
+      img.value = '';
     };
     return { user, submitGame, gameName, ball, pins, lane, img };
   },
@@ -146,24 +141,24 @@ select {
   justify-content: center;
 }
 
-.green{
+.green {
   background-color: green;
   color: aliceblue;
 }
-.yellow{
+.yellow {
   background-color: yellow;
   color: black;
 }
-.red{
+.red {
   background-color: red;
   color: aliceblue;
 }
-.blue{
+.blue {
   background-color: blue;
   color: aliceblue;
 }
 
-.color-div{
+.color-div {
   height: 100%;
   width: 100px;
 }

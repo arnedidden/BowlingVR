@@ -82,6 +82,7 @@ export default defineComponent({
     );
 
     const game = ref({
+
       name: '',
       bowlingBall: { color: '' },
       bowlingLane: { color: '' },
@@ -105,8 +106,11 @@ export default defineComponent({
     const saveGame = () => {
       game.value.reclame = [reclame.value];
       const id = route.params.id.toString();
+      console.log(id);
+
       updateGame(id, game.value);
     };
+
 
     return {
       game,

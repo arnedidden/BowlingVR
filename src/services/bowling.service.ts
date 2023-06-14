@@ -20,6 +20,7 @@ const useBowling = () => {
   };
 
   const updateGame = async (id: string, game: Game) => {
+    delete game._id;
     api.put(`team_eevee_config/${id}`, game);
   };
 

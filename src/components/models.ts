@@ -19,7 +19,6 @@ export interface LeaderboardItem {
 }
 
 export interface Game {
-  _id?: string,
   name: string,
   bowlingBall: {
     color: string

@@ -1,11 +1,33 @@
 <template>
   <template v-if="game">
-    <h1>GAMES</h1>
+    <div class="overlay"></div>
+
+    <div class="text">
+      <div class="wrapper">
+        <div id="G" class="letter">G</div>
+        <div class="shadow">G</div>
+      </div>
+      <div class="wrapper">
+        <div id="A" class="letter">A</div>
+        <div class="shadow">A</div>
+      </div>
+      <div class="wrapper">
+        <div id="M" class="letter">M</div>
+        <div class="shadow">M</div>
+      </div>
+      <div class="wrapper">
+        <div id="E" class="letter">E</div>
+        <div class="shadow">E</div>
+      </div>
+      <div class="wrapper">
+        <div id="S" class="letter">S</div>
+        <div class="shadow">S</div>
+      </div>
+    </div>
     <div class="games">
       <div class="game" v-for="(item, index) in game.data" :key="index">
         <div class="title">{{ item.name }}</div>
         <div class="links">
-
           <div @click="goToLeaderboard(item._id)" class="link">Leaderboard</div>
           <div @click="goToConfig(item._id)" class="link">Configuratie</div>
         </div>
@@ -13,49 +35,141 @@
     </div>
   </template>
 </template>
-<style>
-body{
+<style lang="scss">
+body {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #c8c8a9;
 }
-  .games{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding:1rem;
-    background: gray;
-    border: 2px solid black;
-    margin: 1rem;
-    border-radius: 2rem;
-    gap: 2rem;
-  }
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 5vh;
+  z-index: 100;
 
-  .game{
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding:1rem;
-    background: gray;
-    border: 2px solid black;  
-    gap: 1rem;
-    border-radius: 2rem;;
-  }
-.links{
-display: flex;  
-gap: 1rem;
-color: aliceblue;
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    0deg,
+    rgb(0, 0, 0) 75%,
+    rgba(0, 0, 0, 0.9) 80%,
+    rgba(255, 255, 255, 0.25) 95%,
+    rgba(255, 255, 255, 0) 100%
+  );
 }
 
-  .link:hover{
-    cursor: pointer;
-    border-bottom: 2px solid white;
-  }
+.text {
+  font-family: 'Yanone Kaffeesatz';
+  font-size: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  width: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  user-select: none;
 
-  .title{
-    color: aliceblue;
+  .wrapper {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    .letter {
+      transition: ease-out 1s;
+      transform: translateY(40%);
+    }
+    .shadow {
+      transform: scale(1, -1);
+      color: #999;
+      transition: ease-in 5s, ease-out 5s;
+    }
+    &:hover {
+      .letter {
+        transform: translateY(-20%);
+      }
+      .shadow {
+        opacity: 0;
+        transform: translateY(20%);
+      }
+    }
   }
+}
+.games {
+  position: relative;
+  left: 25%;
+  width: 50%;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  border: 2px solid black;
+  gap: 2rem;
+  background-image: url('https://wallpaperaccess.com/full/2907976.jpg');
+}
+
+
+.game {
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  background: #0000006e;
+  border: 2px solid deeppink;
+  gap: 1rem;
+}
+
+.game:hover {
+  transform: scale(105%);
+  transition: transform 0.4s ease-in-out;
+}
+.links {
+  display: flex;
+  gap: 1rem;
+  box-shadow: inset 0 0 0 0 #54b3d6;
+  color: #000000;
+  margin: 0 -0.25rem;
+  padding: 0 0.25rem;
+  transition: color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+.link {
+  color: #ffffff;
+  position: relative;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+}
+
+.link::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  border-radius: 4px;
+  background-color: #e710c3;
+  bottom: 0;
+  left: 0;
+  transform-origin: right;
+  transform: scaleX(0);
+  transition: transform 0.3s ease-in-out;
+}
+
+.link:hover::before {
+  transform-origin: left;
+  transform: scaleX(1);
+}
+
+.title {
+  font-size: 15px;
+  color: rgb(250, 250, 250);
+  left: 50%;
+  right: 50%;
+  cursor: default;
+  user-select: none;
+}
 </style>
+
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { useBowling } from 'src/services/bowling.service';

@@ -39,45 +39,28 @@
         <div class="lboard_wrap">
           <div class="lboard_item">
             <div class="scoreboard">
-            <div v-for="(item, index) in sortedLeaderboard" :key="index">
-
+              <div v-for="(item, index) in sortedLeaderboard" :key="index">
                 <div class="speler-row">
-                  <div class="speler-naam">{{ item.name }}}</div>
-                  <div class="frame-row">
-                    <div class="frame">1</div>
-                    <div class="frame">2</div>
-                    <div class="frame">3</div>
-                    <div class="frame">4</div>
-                    <div class="frame">5</div>
-                    <div class="frame">6</div>
-                    <div class="frame">7</div>
-                    <div class="frame">8</div>
-                    <div class="frame">9</div>
-                    <div class="frame">10</div>
+                  <div class="speler-naam">{{ item.name }}</div>
+                  <div
+                    class="frame-row"
+                    v-for="(turn, index) in item.turns"
+                    :key="index"
+                  >
+                    <div class="frame">Turn:{{ turn.turn }}</div>
+                    <div class="score">Score:{{ turn.score }}</div>
+                    <div class="pins">Pins:{{ turn.pinsHit }}</div>
                   </div>
-                  <div class="score-row">
-                    <div class="score">-</div>
-                    <div class="score">-</div>
-                    <div class="score">-</div>
-                    <div class="score">-</div>
-                    <div class="score">-</div>
-                    <div class="score">-</div>
-                    <div class="score">-</div>
-                    <div class="score">-</div>
-                    <div class="score">-</div>
-                    <div class="score">-</div>
+                  <div class="totalScore">
+                    Total Score: {{ item.totalScore }}
                   </div>
-
-                </div>
-
-
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
+    </div>
   </template>
   <template v-else>ERROR LOADING PAGE</template>
 </template>
@@ -130,7 +113,6 @@ export default defineComponent({
       game,
       sortedLeaderboard,
       goBack,
-
     };
   },
 });

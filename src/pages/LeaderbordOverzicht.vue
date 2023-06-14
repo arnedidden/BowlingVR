@@ -1,7 +1,7 @@
 <template>
-  <GoBackButton></GoBackButton>
   <template v-if="game">
-    <h1 class="gameTitle">Spelnaam: {{ game.name }}</h1>
+    <div class="backbtn"><GoBackButton></GoBackButton></div>
+    <h1 class="gameTitle">{{ game.name }}</h1>
     <div class="wrapper">
       <div class="lboard_section">
         <LeaderboardMember>
@@ -18,10 +18,10 @@
             ></div
           ></template>
           <template #points
-            ><div style="font-size: 16px; font-weight: 600;">
+            ><div style="font-size: 16px; font-weight: 600">
               {{ sortedLeaderboard[0].totalScore }}
             </div>
-            </template>
+          </template>
         </LeaderboardMember>
         <div class="lboard_wrap">
           <img src="../../public/img/download.jpg" alt="image" height="360" />
@@ -38,13 +38,13 @@
         </div>
         <div class="lboard_wrap">
           <div class="lboard_item">
-            <LeaderboardMember 
+            <LeaderboardMember
               v-for="(item, index) in sortedLeaderboard"
               :key="index"
             >
               <template #number_name
                 ><p>
-                  <span style="margin-right: 1rem">{{ index + 1}}</span
+                  <span style="margin-right: 1rem">{{ index + 1 }}</span
                   >{{ item.name }}
                 </p></template
               >
@@ -75,8 +75,8 @@ import GoBackButton from 'src/components/goBackButton.vue';
 export default defineComponent({
   components: {
     LeaderboardMember,
-    GoBackButton
-},
+    GoBackButton,
+  },
   data() {
     return {
       Title: false,
@@ -94,16 +94,16 @@ export default defineComponent({
     const router = useRouter();
     // const router = useRoute();
     const { id } = route.params;
-    const getLeaderBord = async() => {
+    const getLeaderBord = async () => {
       const leaderbord = await getLeaderbordForGame(`${id}`);
       sortedLeaderboard.value = leaderbord.sortedLeaderboard;
       game.value = leaderbord.game;
       console.log(sortedLeaderboard);
-      
+
       return {
         sortedLeaderboard,
-        game
-      }
+        game,
+      };
     };
 
     getLeaderBord();
@@ -114,7 +114,7 @@ export default defineComponent({
     return {
       game,
       sortedLeaderboard,
-      goBack
+      goBack,
       // detailsOfGame
     };
   },
@@ -127,12 +127,13 @@ export default defineComponent({
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  user-select: none;
 }
-.arrowBack{
+.arrowBack {
   width: fit-content;
   margin: 0;
 }
-.arrowBack:hover{
+.arrowBack:hover {
   border-bottom: 2px solid black;
   cursor: pointer;
 }
@@ -151,10 +152,18 @@ export default defineComponent({
   width: 500px;
   height: 400px;
   margin: 100px auto 0;
-  background: #f94f62;
+  background-image: url('https://wallpaperaccess.com/full/2907976.jpg');
   border-radius: 5px;
   padding: 25px 40px;
   position: relative;
+  opacity: 0.6;
+}
+
+.lboard_section:first-child:hover {
+  opacity: 1;
+}
+.lboard_section:last-child:hover {
+  opacity: 1;
 }
 
 .lboard_section ul {
@@ -178,7 +187,7 @@ export default defineComponent({
   position: absolute;
   top: 70px;
   left: 40px;
-  background: #ffd300;
+  background: #c8c8a9;
   width: 100%;
   height: 100%;
   border-radius: 5px;
@@ -212,8 +221,29 @@ export default defineComponent({
 }
 
 .gameTitle {
+  font-family: 'Yanone Kaffeesatz';
+  font-size: 50px;
   display: flex;
   justify-content: center;
-  font-style: italic;
+  align-items: center;
+  user-select: none;
+  background-image: linear-gradient(to right, #c8c8a9, #c8c8a9 50%, #000 10%);
+  background-size: 200% 100%;
+  background-position: -100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 1s ease-in-out;
+}
+.gameTitle:hover {
+  background-position: 0;
+  color: #fff;
+  text-shadow: 0 0 2px #c8c8a9, 0 0 1px #000000, 0 0 10px #c8c8a9,
+    0 0 100px #c8c8a9;
+}
+
+.backbtn {
+  display: flex;
+  margin-left: 10px;
+  margin-top: 10px;
 }
 </style>

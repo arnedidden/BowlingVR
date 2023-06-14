@@ -16,7 +16,7 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'LeaderboardMember'
+  name: 'LeaderboardMember',
 });
 </script>
 <style lang="scss">
@@ -26,7 +26,7 @@ export default defineComponent({
 }
 
 .name_bar p {
-  color: #3a3d51;
+  color: white;
 }
 
 .name_bar p span {
@@ -45,7 +45,7 @@ export default defineComponent({
 
 .points {
   width: 100px;
-  color: #3a3d51;
+  color: white;
 }
 
 .lboard_mem {
@@ -59,28 +59,26 @@ export default defineComponent({
   padding-top: 0;
 }
 
-.arrow:hover{
+.arrow:hover {
   cursor: pointer;
   animation: scale 1s linear infinite;
 }
 
-@keyframes scale{
-  0%{
-    transform: scale(1.0);
+@keyframes scale {
+  0% {
+    transform: scale(1);
   }
-  25%{
+  25% {
     transform: scale(1.1);
   }
-  50%{
+  50% {
     transform: scale(1.2);
   }
-  75%{
+  75% {
     transform: scale(1.1);
   }
-  10%{
-    transform: scale(1.0);
+  10% {
+    transform: scale(1);
   }
-
-
 }
 </style>

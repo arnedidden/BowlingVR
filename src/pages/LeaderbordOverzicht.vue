@@ -47,9 +47,9 @@
                     v-for="(turn, index) in item.turns"
                     :key="index"
                   >
-                    <div class="frame">Turn:{{ turn.turn }}</div>
-                    <div class="score">Score:{{ turn.score }}</div>
-                    <div class="pins">Pins:{{ turn.pinsHit }}</div>
+                    <div class="frame">Turn: {{ turn.turn }}</div>
+                    <div class="score">Score: {{ turn.score }}</div>
+                    <div class="pins">Pins: {{ turn.pinsHit }}</div>
                   </div>
                   <div class="totalScore">
                     Total Score: {{ item.totalScore }}
@@ -222,11 +222,10 @@ body {
 .scoreboard {
   margin: 50px auto;
   padding: 20px;
-  background-color: #333;
+  background-color: #000;
   border-radius: 10px;
   color: #fff;
   font-size: 24px;
-  text-align: center;
 }
 
 .header {
@@ -238,6 +237,8 @@ body {
 .speler-naam {
   flex-basis: 30%;
   font-size: 30px;
+  text-align: center;
+  text-shadow: 2px 2px 3px deeppink;
 }
 
 .frame-row {
@@ -246,14 +247,15 @@ body {
 
 .frame {
   flex-basis: 10%;
-  margin-right: 10px;
-  background-color: #fff;
-  border: 2px solid #333;
+  margin: 8px;
+  background-color: #333;
+  border: 2px solid #fff;
   border-radius: 10px;
-  color: #333;
-  font-size: 20px;
+  color: #fff;
+  font-size: 16px;
   font-weight: bold;
   text-align: center;
+  padding: 8px;
 }
 
 .score-row {
@@ -263,14 +265,20 @@ body {
 
 .score {
   flex-basis: 10%;
-  margin-right: 10px;
-  background-color: #fff;
-  border: 2px solid #333;
+  margin: 8px;
+  background-color: #333;
+  border: 2px solid #fff;
   border-radius: 10px;
-  color: #333;
-  font-size: 30px;
+  color: #fff;
+  font-size: 16px;
   font-weight: bold;
   text-align: center;
+  padding: 8px;
+}
+
+.totalScore {
+  text-align: center;
+  text-shadow: 2px 2px 3px deeppink;
 }
 
 .game-time {
@@ -278,5 +286,17 @@ body {
   font-size: 18px;
   color: #333;
   text-align: center;
+}
+.pins {
+  flex-basis: 10%;
+  margin: 8px;
+  background-color: #333;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  padding: 8px;
 }
 </style>

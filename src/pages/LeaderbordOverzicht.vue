@@ -184,6 +184,7 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  box-shadow: 8px 8px 16px black;
 }
 
 .lboard_wrap .lboard_item {
@@ -227,6 +228,7 @@ body {
   border-radius: 10px;
   color: #fff;
   font-size: 24px;
+  box-shadow: 8px 8px 16px grey;
 }
 
 .header {
@@ -239,17 +241,19 @@ body {
   flex-basis: 30%;
   font-size: 30px;
   text-align: center;
-  text-shadow: 2px 2px 3px deeppink;
+  text-shadow: 3px 3px 6px deeppink;
+  padding: 1rem;
 }
 
 .frame-row {
   display: flex;
+  box-shadow: 3px 3px 6px deeppink;
 }
 
 .frame {
   flex-basis: 10%;
   margin: 8px;
-  background-color: #333;
+  background-color: deeppink;
   border: 2px solid #fff;
   border-radius: 10px;
   color: #fff;
@@ -267,7 +271,7 @@ body {
 .score {
   flex-basis: 10%;
   margin: 8px;
-  background-color: #333;
+  background-color: deeppink;
   border: 2px solid #fff;
   border-radius: 10px;
   color: #fff;
@@ -279,7 +283,8 @@ body {
 
 .totalScore {
   text-align: center;
-  text-shadow: 2px 2px 3px deeppink;
+  text-shadow: 3px 3px 6px deeppink;
+  padding: 1rem;
 }
 
 .game-time {
@@ -291,7 +296,7 @@ body {
 .pins {
   flex-basis: 10%;
   margin: 8px;
-  background-color: #333;
+  background-color: deeppink;
   border: 2px solid #fff;
   border-radius: 10px;
   color: #fff;

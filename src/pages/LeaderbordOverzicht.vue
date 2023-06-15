@@ -48,8 +48,9 @@
                     :key="index"
                   >
                     <div class="frame">Turn: {{ turn.turn }}</div>
-                    <div class="score">Score: {{ turn.score }}</div>
                     <div class="pins">Pins: {{ turn.pinsHit }}</div>
+                    <div class="score">Score: {{ turn.score }}</div>
+
                   </div>
                   <div class="totalScore">
                     Total Score: {{ item.totalScore }}

@@ -7,6 +7,7 @@ const useBowling = () => {
     const data = result.data.data;
     return { data };
   };
+
   const getLeaderBoardForGame = async (id: string) => {
     const result = await api.get(`/team_eevee_config/${id}`);
     const game: Game = result.data.data[0];

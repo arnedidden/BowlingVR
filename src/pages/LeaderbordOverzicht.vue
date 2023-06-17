@@ -38,25 +38,25 @@
         </div>
         <div class="lboard_wrap">
           <div class="lboard_item">
-            <LeaderboardMember
-              v-for="(item, index) in sortedLeaderboard"
-              :key="index"
-            >
-              <template #number_name
-                ><p>
-                  <span style="margin-right: 1rem">{{ index + 1 }}</span
-                  >{{ item.name }}
-                </p></template
-              >
-              <template #innerbar
-                ><div
-                  class="inner_bar"
-                  :style="{ width: item.totalScore + '%' }"
-                ></div
-              ></template>
-              <template #points>{{ item.totalScore }}</template>
-              <template #arrow>&#129138;</template>
-            </LeaderboardMember>
+            <div class="scoreboard">
+              <div v-for="(item, index) in sortedLeaderboard" :key="index">
+                <div class="speler-row">
+                  <div class="speler-naam">{{ item.name }}</div>
+                  <div
+                    class="frame-row"
+                    v-for="(turn, index) in item.turns"
+                    :key="index"
+                  >
+                    <div class="frame">Turn:{{ turn.turn }}</div>
+                    <div class="score">Score:{{ turn.score }}</div>
+                    <div class="pins">Pins:{{ turn.pinsHit }}</div>
+                  </div>
+                  <div class="totalScore">
+                    Total Score: {{ item.totalScore }}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -92,12 +92,13 @@ export default defineComponent({
     const sortedLeaderboard = ref();
     const route = useRoute();
     const router = useRouter();
-    // const router = useRoute();
+
     const { id } = route.params;
     const getLeaderBord = async () => {
       const leaderbord = await getLeaderBoardForGame(`${id}`);
       sortedLeaderboard.value = leaderbord.sortedLeaderboard;
       game.value = leaderbord.game;
+
       return {
         sortedLeaderboard,
         game,
@@ -105,15 +106,12 @@ export default defineComponent({
     };
 
     getLeaderBord();
-    // const detailsOfGame = (param: string) => {
-    //   router.push({ name: ROUTE_NAMES.scoreboard }
-    // }
+
     const goBack = () => void router.go(-1);
     return {
       game,
       sortedLeaderboard,
       goBack,
-      // detailsOfGame
     };
   },
 });
@@ -213,5 +211,71 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   font-style: italic;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+}
+
+.scoreboard {
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #333;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 24px;
+  text-align: center;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.speler-naam {
+  flex-basis: 30%;
+  font-size: 30px;
+}
+
+.frame-row {
+  display: flex;
+}
+
+.frame {
+  flex-basis: 10%;
+  margin-right: 10px;
+  background-color: #fff;
+  border: 2px solid #333;
+  border-radius: 10px;
+  color: #333;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.score-row {
+  display: flex;
+  margin-top: 10px;
+}
+
+.score {
+  flex-basis: 10%;
+  margin-right: 10px;
+  background-color: #fff;
+  border: 2px solid #333;
+  border-radius: 10px;
+  color: #333;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.game-time {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #333;
+  text-align: center;
 }
 </style>

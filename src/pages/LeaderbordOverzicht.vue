@@ -18,10 +18,10 @@
             ></div
           ></template>
           <template #points
-            ><div style="font-size: 16px; font-weight: 600;">
+            ><div style="font-size: 16px; font-weight: 600">
               {{ sortedLeaderboard[0].totalScore }}
             </div>
-            </template>
+          </template>
         </LeaderboardMember>
         <div class="lboard_wrap">
           <img src="../../public/img/download.jpg" alt="image" height="360" />
@@ -38,25 +38,26 @@
         </div>
         <div class="lboard_wrap">
           <div class="lboard_item">
-            <LeaderboardMember 
-              v-for="(item, index) in sortedLeaderboard"
-              :key="index"
-            >
-              <template #number_name
-                ><p>
-                  <span style="margin-right: 1rem">{{ index + 1}}</span
-                  >{{ item.name }}
-                </p></template
-              >
-              <template #innerbar
-                ><div
-                  class="inner_bar"
-                  :style="{ width: item.totalScore + '%' }"
-                ></div
-              ></template>
-              <template #points>{{ item.totalScore }}</template>
-              <template #arrow>&#129138;</template>
-            </LeaderboardMember>
+            <div class="scoreboard">
+              <div v-for="(item, index) in sortedLeaderboard" :key="index">
+                <div class="speler-row">
+                  <div class="speler-naam">{{ item.name }}</div>
+                  <div
+                    class="frame-row"
+                    v-for="(turn, index) in item.turns"
+                    :key="index"
+                  >
+                    <div class="frame">Turn: {{ turn.turn }}</div>
+                    <div class="pins">Pins: {{ turn.pinsHit }}</div>
+                    <div class="score">Score: {{ turn.score }}</div>
+
+                  </div>
+                  <div class="totalScore">
+                    Total Score: {{ item.totalScore }}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -75,47 +76,43 @@ import GoBackButton from 'src/components/goBackButton.vue';
 export default defineComponent({
   components: {
     LeaderboardMember,
-    GoBackButton
-},
+    GoBackButton,
+  },
   data() {
     return {
       Title: false,
       Assets: false,
       Ads: false,
-      gameTitle: 'VR Bowling',
+      gameTitle: 'VR game',
     };
   },
 
   setup() {
-    const { getLeaderbordForGame } = useBowling();
+    const { getLeaderBoardForGame } = useBowling();
     const game = ref();
     const sortedLeaderboard = ref();
     const route = useRoute();
     const router = useRouter();
-    // const router = useRoute();
+
     const { id } = route.params;
-    const getLeaderBord = async() => {
-      const leaderbord = await getLeaderbordForGame(`${id}`);
+    const getLeaderBord = async () => {
+      const leaderbord = await getLeaderBoardForGame(`${id}`);
       sortedLeaderboard.value = leaderbord.sortedLeaderboard;
       game.value = leaderbord.game;
-      console.log(sortedLeaderboard);
-      
+
       return {
         sortedLeaderboard,
-        game
-      }
+        game,
+      };
     };
 
     getLeaderBord();
-    // const detailsOfGame = (param: string) => {
-    //   router.push({ name: ROUTE_NAMES.scoreboard }
-    // }
+
     const goBack = () => void router.go(-1);
     return {
       game,
       sortedLeaderboard,
-      goBack
-      // detailsOfGame
+      goBack,
     };
   },
 });
@@ -128,11 +125,11 @@ export default defineComponent({
   padding: 0;
   box-sizing: border-box;
 }
-.arrowBack{
+.arrowBack {
   width: fit-content;
   margin: 0;
 }
-.arrowBack:hover{
+.arrowBack:hover {
   border-bottom: 2px solid black;
   cursor: pointer;
 }
@@ -186,6 +183,7 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  box-shadow: 8px 8px 16px black;
 }
 
 .lboard_wrap .lboard_item {
@@ -215,5 +213,95 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   font-style: italic;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+}
+
+.scoreboard {
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #000;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 24px;
+  box-shadow: 8px 8px 16px grey;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.speler-naam {
+  flex-basis: 30%;
+  font-size: 30px;
+  text-align: center;
+  text-shadow: 3px 3px 6px deeppink;
+  padding: 1rem;
+}
+
+.frame-row {
+  display: flex;
+  box-shadow: 3px 3px 6px deeppink;
+}
+
+.frame {
+  flex-basis: 10%;
+  margin: 8px;
+  background-color: deeppink;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  padding: 8px;
+}
+
+.score-row {
+  display: flex;
+  margin-top: 10px;
+}
+
+.score {
+  flex-basis: 10%;
+  margin: 8px;
+  background-color: deeppink;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  padding: 8px;
+}
+
+.totalScore {
+  text-align: center;
+  text-shadow: 3px 3px 6px deeppink;
+  padding: 1rem;
+}
+
+.game-time {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #333;
+  text-align: center;
+}
+.pins {
+  flex-basis: 10%;
+  margin: 8px;
+  background-color: deeppink;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  padding: 8px;
 }
 </style>

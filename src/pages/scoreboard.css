@@ -1,0 +1,65 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+}
+
+.scoreboard {
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #333;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 24px;
+  text-align: center;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.speler-naam {
+  flex-basis: 30%;
+  font-size: 30px;
+}
+
+.frame-row {
+  display: flex;
+}
+
+.frame {
+  flex-basis: 10%;
+  margin-right: 10px;
+  background-color: #fff;
+  border: 2px solid #333;
+  border-radius: 10px;
+  color: #333;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.score-row {
+  display: flex;
+  margin-top: 10px;
+}
+
+.score {
+  flex-basis: 10%;
+  margin-right: 10px;
+  background-color: #fff;
+  border: 2px solid #333;
+  border-radius: 10px;
+  color: #333;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.game-time {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #333;
+  text-align: center;
+}

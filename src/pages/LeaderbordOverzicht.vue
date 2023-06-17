@@ -47,9 +47,10 @@
                     v-for="(turn, index) in item.turns"
                     :key="index"
                   >
-                    <div class="frame">Turn:{{ turn.turn }}</div>
-                    <div class="score">Score:{{ turn.score }}</div>
-                    <div class="pins">Pins:{{ turn.pinsHit }}</div>
+                    <div class="frame">Turn: {{ turn.turn }}</div>
+                    <div class="pins">Pins: {{ turn.pinsHit }}</div>
+                    <div class="score">Score: {{ turn.score }}</div>
+
                   </div>
                   <div class="totalScore">
                     Total Score: {{ item.totalScore }}
@@ -182,6 +183,7 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  box-shadow: 8px 8px 16px black;
 }
 
 .lboard_wrap .lboard_item {
@@ -221,11 +223,11 @@ body {
 .scoreboard {
   margin: 50px auto;
   padding: 20px;
-  background-color: #333;
+  background-color: #000;
   border-radius: 10px;
   color: #fff;
   font-size: 24px;
-  text-align: center;
+  box-shadow: 8px 8px 16px grey;
 }
 
 .header {
@@ -237,22 +239,27 @@ body {
 .speler-naam {
   flex-basis: 30%;
   font-size: 30px;
+  text-align: center;
+  text-shadow: 3px 3px 6px deeppink;
+  padding: 1rem;
 }
 
 .frame-row {
   display: flex;
+  box-shadow: 3px 3px 6px deeppink;
 }
 
 .frame {
   flex-basis: 10%;
-  margin-right: 10px;
-  background-color: #fff;
-  border: 2px solid #333;
+  margin: 8px;
+  background-color: deeppink;
+  border: 2px solid #fff;
   border-radius: 10px;
-  color: #333;
-  font-size: 20px;
+  color: #fff;
+  font-size: 16px;
   font-weight: bold;
   text-align: center;
+  padding: 8px;
 }
 
 .score-row {
@@ -262,14 +269,21 @@ body {
 
 .score {
   flex-basis: 10%;
-  margin-right: 10px;
-  background-color: #fff;
-  border: 2px solid #333;
+  margin: 8px;
+  background-color: deeppink;
+  border: 2px solid #fff;
   border-radius: 10px;
-  color: #333;
-  font-size: 30px;
+  color: #fff;
+  font-size: 16px;
   font-weight: bold;
   text-align: center;
+  padding: 8px;
+}
+
+.totalScore {
+  text-align: center;
+  text-shadow: 3px 3px 6px deeppink;
+  padding: 1rem;
 }
 
 .game-time {
@@ -277,5 +291,17 @@ body {
   font-size: 18px;
   color: #333;
   text-align: center;
+}
+.pins {
+  flex-basis: 10%;
+  margin: 8px;
+  background-color: deeppink;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  padding: 8px;
 }
 </style>

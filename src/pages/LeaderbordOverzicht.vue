@@ -82,12 +82,12 @@ export default defineComponent({
       Title: false,
       Assets: false,
       Ads: false,
-      gameTitle: 'VR Bowling',
+      gameTitle: 'VR game',
     };
   },
 
   setup() {
-    const { getLeaderbordForGame } = useBowling();
+    const { getLeaderBoardForGame } = useBowling();
     const game = ref();
     const sortedLeaderboard = ref();
     const route = useRoute();
@@ -95,10 +95,9 @@ export default defineComponent({
 
     const { id } = route.params;
     const getLeaderBord = async () => {
-      const leaderbord = await getLeaderbordForGame(`${id}`);
+      const leaderbord = await getLeaderBoardForGame(`${id}`);
       sortedLeaderboard.value = leaderbord.sortedLeaderboard;
       game.value = leaderbord.game;
-      console.log(sortedLeaderboard);
 
       return {
         sortedLeaderboard,

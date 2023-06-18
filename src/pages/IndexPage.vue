@@ -37,29 +37,56 @@
   </template>
 </template>
 
+<script lang="ts">
+import { defineComponent, ref } from 'vue';
+import { useBowling } from 'src/services/bowling.service';
+import { useRouter } from 'vue-router';
+import { ROUTE_NAMES } from 'src/router/routes';
+import GoToAdminPageButton from 'src/components/GoToAdminPageButton.vue';
+
+export default defineComponent({
+  name: 'IndexPage',
+
+  components:{
+    GoToAdminPageButton
+  },
+
+  setup() {
+    const { getLeaderboards } = useBowling();
+    const game = ref();
+    const router = useRouter();
+    const getLeaderBords = async () => {
+      const leaderbord = await getLeaderboards();
+      return (game.value = leaderbord);
+    };
+    getLeaderBords();
+    const goToLeaderboard = (param: string): void => {
+      void router.push({
+        name: ROUTE_NAMES.LEADERBORD,
+        params: {
+          id: param,
+        },
+      });
+    };
+    const goToConfig = (param: string): void => {
+      void router.push({
+        name: ROUTE_NAMES.CONFIGURATIE_OVERZICHT,
+        params: {
+          id: param,
+        },
+      });
+    };
+    return { game, goToLeaderboard, goToConfig };
+  },
+});
+</script>
+
 <style lang="scss">
 body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #c8c8a9;
-}
-.overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 5vh;
-  z-index: 100;
-
-  background: rgb(255, 255, 255);
-  background: linear-gradient(
-    0deg,
-    rgb(0, 0, 0) 75%,
-    rgba(0, 0, 0, 0.9) 80%,
-    rgba(255, 255, 255, 0.25) 95%,
-    rgba(255, 255, 255, 0) 100%
-  );
+  background: #866bca;
 }
 
 .text {
@@ -107,17 +134,17 @@ body {
   align-items: center;
   justify-content: center;
   padding: 1rem;
+  margin-bottom: 100px;
   border: 2px solid black;
   gap: 2rem;
   background-image: url('https://wallpaperaccess.com/full/2907976.jpg');
 }
 
-
 .game {
   display: block;
   width: 100%;
   padding: 1rem;
-  background: #0000006e;
+  background: #ffffff44;
   border: 2px solid deeppink;
   gap: 1rem;
 }
@@ -129,11 +156,9 @@ body {
 .links {
   display: flex;
   gap: 1rem;
-  box-shadow: inset 0 0 0 0 #54b3d6;
-  color: #000000;
+  color: #ce1111;
   margin: 0 -0.25rem;
   padding: 0 0.25rem;
-  transition: color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 .link {
   color: #ffffff;
@@ -141,6 +166,10 @@ body {
   text-decoration: none;
   cursor: pointer;
   user-select: none;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: bold;
 }
 
 .link::before {
@@ -163,103 +192,10 @@ body {
 }
 
 .title {
-  font-size: 15px;
-  color: rgb(250, 250, 250);
-  left: 50%;
-  right: 50%;
-  cursor: default;
   user-select: none;
+  font-weight: bold;
+  text-decoration: dashed;
+  color: white;
 }
 </style>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
-import { useBowling } from 'src/services/bowling.service';
-import { useRouter } from 'vue-router';
-import { ROUTE_NAMES } from 'src/router/routes';
-import GoToAdminPageButton from 'src/components/GoToAdminPageButton.vue';
-
-export default defineComponent({
-  name: 'IndexPage',
-
-  components:{
-    GoToAdminPageButton
-  },
-
-  setup() {
-    const { getLeaderboards } = useBowling();
-    const game = ref();
-    const router = useRouter();
-    const getLeaderBords = async () => {
-      const leaderbord = await getLeaderboards();
-      return (game.value = leaderbord);
-    };
-    getLeaderBords();
-    const goToLeaderboard = (param: string): void => {
-      void router.push({
-        name: ROUTE_NAMES.LEADERBORD,
-        params: {
-          id: param,
-        },
-      });
-    };
-    const goToConfig = (param: string): void => {
-      void router.push({
-        name: ROUTE_NAMES.CONFIGURATIE_OVERZICHT,
-        params: {
-          id: param,
-        },
-      });
-    };
-    return { game, goToLeaderboard, goToConfig };
-  },
-});
-</script>
-
-<style scoped>
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.games {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem;
-  background: gray;
-  border: 2px solid black;
-  margin: 1rem;
-  border-radius: 2rem;
-  gap: 2rem;
-}
-.game {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  padding: 1rem;
-  background: gray;
-  border: 2px solid black;
-  gap: 1rem;
-  border-radius: 2rem;
-}
-.links {
-  display: flex;
-  gap: 1rem;
-  color: aliceblue;
-}
-.link:hover {
-  cursor: pointer;
-  border-bottom: 2px solid white;
-}
-.arrow {
-  transition: all 0.5s;
-}
-.arrow:hover {
-  cursor: pointer;
-  border-bottom: 2px solid white;
-}
-.title {
-  color: aliceblue;
-}
-</style>

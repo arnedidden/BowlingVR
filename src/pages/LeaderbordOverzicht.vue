@@ -50,7 +50,6 @@
                     <div class="frame">Turn: {{ turn.turn }}</div>
                     <div class="pins">Pins: {{ turn.pinsHit }}</div>
                     <div class="score">Score: {{ turn.score }}</div>
-
                   </div>
                   <div class="totalScore">
                     Total Score: {{ item.totalScore }}
@@ -153,6 +152,11 @@ export default defineComponent({
   border-radius: 5px;
   padding: 25px 40px;
   position: relative;
+  transition: 0.2s ease-in-out;
+}
+
+.lboard_section:hover {
+  transform: scale(1.01);
 }
 
 .lboard_section ul {
@@ -167,7 +171,6 @@ export default defineComponent({
   cursor: pointer;
 }
 
-.lboard_section ul li:hover,
 .lboard_section ul li.active {
   color: #fff;
 }
@@ -185,6 +188,11 @@ export default defineComponent({
   flex-direction: column;
   gap: 1rem;
   box-shadow: 8px 8px 16px black;
+  transition: 0.2s ease-in-out;
+}
+
+.lboard_wrap:hover {
+  transform: scale(1.05);
 }
 
 .lboard_wrap .lboard_item {
@@ -222,13 +230,24 @@ body {
 }
 
 .scoreboard {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: row;
+  user-select: none;
   margin: 50px auto;
-  padding: 20px;
-  background-color: #000;
-  border-radius: 10px;
+  padding: 25px;
+  background-color: #000000;
+  border-radius: 5px;
   color: #fff;
   font-size: 24px;
-  box-shadow: 8px 8px 16px grey;
+  box-shadow: 8px 8px 16px black;
+  width: 500px;
+  transition: 0.2s ease-in-out;
+}
+
+.scoreboard:hover {
+  transform: scale(1.05);
 }
 
 .header {
@@ -246,8 +265,9 @@ body {
 }
 
 .frame-row {
+  box-shadow: 4px 4px 7px deeppink;
   display: flex;
-  box-shadow: 3px 3px 6px deeppink;
+  width: auto;
 }
 
 .frame {

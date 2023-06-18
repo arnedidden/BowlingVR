@@ -29,7 +29,12 @@
     <q-input filled type="text" v-model="game.name" placeholder="" />
 
     <h4 class="title">
-      Kleur bowlingbal <q-btn :color="game.bowlingBall.color.toLowerCase()" />
+      Kleur bowlingbal
+      <q-btn
+        class="btncolor"
+        text-color="dark"
+        :color="game.bowlingBall.color.toLowerCase()"
+      />
     </h4>
     <div class="buttons">
       <q-btn
@@ -64,7 +69,12 @@
     </div>
 
     <h4 class="title">
-      Kleur bowlinglaan <q-btn :color="game.bowlingLane.color.toLowerCase()" />
+      Kleur bowlinglaan
+      <q-btn
+        class="btncolor"
+        text-color="dark"
+        :color="game.bowlingLane.color.toLowerCase()"
+      />
     </h4>
     <div class="buttons">
       <q-btn
@@ -99,7 +109,12 @@
     </div>
 
     <h4 class="title">
-      Kleur bowlingpins <q-btn :color="game.bowlingPins.color.toLowerCase()" />
+      Kleur bowlingpins
+      <q-btn
+        class="btncolor"
+        text-color="dark"
+        :color="game.bowlingPins.color.toLowerCase()"
+      />
     </h4>
     <div class="buttons">
       <q-btn
@@ -141,7 +156,9 @@
       placeholder="e.g. https://vuetiful.dev/img/john-duck.png"
     />
 
-    <q-btn class="q-mt-xl" color="primary" @click="saveGame">Opslaan</q-btn>
+    <q-btn class="btnSave" text-color="dark" color="primary" @click="saveGame"
+      >Opslaan</q-btn
+    >
   </div>
 </template>
 
@@ -252,6 +269,12 @@ body {
   gap: 1rem;
 }
 
+.btncolor {
+  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 2px 2px 0px 0px, 2px 2px 0px 0px,
+    3px 3px 0px 0px;
+  color: #000;
+}
+
 .title {
   font-family: 'Meta', sans-serif;
   margin-bottom: 1rem;
@@ -335,5 +358,39 @@ body {
   box-shadow: 0px 0px 0px 0px;
   top: 5px;
   left: 5px;
+}
+
+.btn:hover {
+  scale: 1.1;
+}
+
+.btnSave {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #000;
+  cursor: pointer;
+  border: 1px solid;
+  padding: 0.25em 0.5em;
+  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px,
+    5px 5px 0px 0px;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.btnSave:active {
+  box-shadow: 0px 0px 0px 0px;
+  top: 5px;
+  left: 5px;
+}
+
+.btnSave:hover {
+  scale: 1.1;
 }
 </style>

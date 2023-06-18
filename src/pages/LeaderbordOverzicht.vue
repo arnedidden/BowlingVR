@@ -1,42 +1,46 @@
 <template>
   <GoBackButton></GoBackButton>
   <template v-if="game">
-    <h1 class="gameTitle">Spelnaam: {{ game.name }}</h1>
-    <div class="wrapper">
-      <div class="lboard_section">
-        <LeaderboardMember>
-          <template #number_name
-            ><p style="font-size: 16px; font-weight: 600">
-              <span style="margin-right: 1rem">1</span
-              >{{ sortedLeaderboard[0].name }}
-            </p></template
-          >
-          <template #innerbar
-            ><div
-              class="inner_bar"
-              :style="{ width: sortedLeaderboard[0].totalScore + '%' }"
-            ></div
-          ></template>
-          <template #points
-            ><div style="font-size: 16px; font-weight: 600">
-              {{ sortedLeaderboard[0].totalScore }}
-            </div>
-          </template>
-        </LeaderboardMember>
-        <div class="lboard_wrap">
-          <img src="../../public/img/download.jpg" alt="image" height="360" />
-        </div>
-      </div>
-      <div class="lboard_section">
-        <div class="lboard_tabs">
-          <div class="tabs">
-            <ul>
-              <li class="active" data-li="leaderbord">Leaderbord</li>
-              <!-- <li data-li="detailpagina">Detailpagina</li> -->
-            </ul>
+    <h1 class="gameTitle">{{ game.name }}</h1>
+    <div class="wrappers">
+      <div class="wrapper1">
+        <div class="lboard_section1">
+          <LeaderboardMember>
+            <template #number_name
+              ><p style="font-size: 16px; font-weight: 600">
+                <span style="margin-right: 1rem">1</span
+                >{{ sortedLeaderboard[0].name }}
+              </p></template
+            >
+            <template #innerbar
+              ><div
+                class="inner_bar"
+                :style="{ width: sortedLeaderboard[0].totalScore + '%' }"
+              ></div
+            ></template>
+            <template #points
+              ><div style="font-size: 16px; font-weight: 600">
+                {{ sortedLeaderboard[0].totalScore }}
+              </div>
+            </template>
+          </LeaderboardMember>
+          <div class="lboard_wrap">
+            <img src="../../public/img/download.jpg" alt="image" height="360" />
           </div>
         </div>
-        <div class="lboard_wrap">
+      </div>
+      <div class="wrapper"></div>
+      <div class="wrapper2">
+        <div class="lboard_section2">
+          <div class="lboard_tabs">
+            <div class="tabs">
+              <ul>
+                <li class="lboardTitle" data-li="leaderbord">Leaderboard</li>
+                <!-- <li data-li="detailpagina">Detailpagina</li> -->
+              </ul>
+            </div>
+          </div>
+
           <div class="lboard_item">
             <div class="scoreboard">
               <div v-for="(item, index) in sortedLeaderboard" :key="index">
@@ -47,9 +51,13 @@
                     v-for="(turn, index) in item.turns"
                     :key="index"
                   >
-                    <div class="frame">Turn: {{ turn.turn }}</div>
-                    <div class="pins">Pins: {{ turn.pinsHit }}</div>
-                    <div class="score">Score: {{ turn.score }}</div>
+                    <div class="wrap">
+                      <div class="frame">Turn: {{ turn.turn }}</div>
+                    </div>
+                    <div class="wrap2">
+                      <div class="pins">Pins: {{ turn.pinsHit }}</div>
+                      <div class="score">Score: {{ turn.score }}</div>
+                    </div>
                   </div>
                   <div class="totalScore">
                     Total Score: {{ item.totalScore }}
@@ -118,12 +126,16 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+body {
+  background-color: #866bca !important;
+}
 * {
   list-style: none;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  user-select: none;
 }
 .arrowBack {
   width: fit-content;
@@ -137,33 +149,66 @@ export default defineComponent({
   font-size: 18px;
   font-weight: 600;
 }
+
+.wrappers {
+  display: flex;
+}
+
 .wrapper {
-  width: 100%;
+  width: 10%;
+}
+.wrapper1 {
+  margin-left: 10px;
+  width: 30%;
   height: 100%;
   display: flex;
   flex-wrap: wrap;
 }
+.wrapper2 {
+  width: 60%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 25px;
+}
 
-.lboard_section {
-  width: 500px;
+.lboard_section1 {
+  width: 100%;
   height: 400px;
   margin: 100px auto 0;
-  background: #f94f62;
+  background: #07bccc;
   border-radius: 5px;
   padding: 25px 40px;
   position: relative;
   transition: 0.2s ease-in-out;
+  box-shadow: 8px 8px 16px black;
 }
 
-.lboard_section:hover {
+.lboard_section2 {
+  width: 100%;
+  height: 400px;
+  margin: 100px auto 0;
+  background: #07bccc;
+  border-radius: 5px;
+  padding: 25px 40px;
+  position: relative;
+  transition: 0.2s ease-in-out;
+  box-shadow: 8px 8px 16px black;
+}
+
+.lboard_section1:hover {
   transform: scale(1.01);
 }
 
-.lboard_section ul {
+.lboard_section2:hover {
+  transform: scale(1.01);
+}
+
+.lboard_section1 ul {
   display: flex;
 }
 
-.lboard_section ul li {
+.lboard_section1 ul li {
   margin-right: 50px;
   font-size: 18px;
   font-weight: 600;
@@ -177,9 +222,9 @@ export default defineComponent({
 
 .lboard_wrap {
   position: absolute;
-  top: 70px;
+  top: 100px;
   left: 40px;
-  background: #ffd300;
+  background: white;
   width: 100%;
   height: 100%;
   border-radius: 5px;
@@ -197,6 +242,12 @@ export default defineComponent({
 
 .lboard_wrap .lboard_item {
   padding: 25px;
+}
+
+.lboardTitle {
+  font-family: 'Meta', sans-serif;
+  font-size: 20px;
+  font-weight: bolder;
 }
 
 .inner_bar {
@@ -219,45 +270,47 @@ export default defineComponent({
 }
 
 .gameTitle {
-  display: flex;
-  justify-content: center;
-  font-style: italic;
+  transition: all 0.5s;
+  text-align: center;
+  -webkit-text-stroke: 4px #d6f4f4;
+  font-variation-settings: 'wght' 900, 'ital' 1;
+  color: transparent;
+  font-family: 'Meta', sans-serif;
+  text-shadow: 10px 10px 0px #07bccc, 15px 15px 0px #e601c0,
+    20px 20px 0px #e9019a, 25px 25px 0px #f40468, 45px 45px 10px #482896;
+  cursor: pointer;
+  padding-bottom: 20px;
 }
 
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
+.gameTitle:hover {
+  font-variation-settings: 'wght' 100, 'ital' 0;
+  text-shadow: none;
 }
 
 .scoreboard {
-  align-items: center;
-  justify-content: center;
+  user-select: none;
   display: flex;
   flex-direction: row;
-  user-select: none;
-  margin: 50px auto;
-  padding: 25px;
-  background-color: #000000;
+  margin: 20px;
+  padding: 10px;
+  background-color: rgb(255, 255, 255);
   border-radius: 5px;
-  color: #fff;
+  color: black;
   font-size: 24px;
   box-shadow: 8px 8px 16px black;
-  width: 500px;
+  width: 100%;
   transition: 0.2s ease-in-out;
 }
 
 .scoreboard:hover {
   transform: scale(1.05);
 }
-
-.header {
+.speler-row {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
+  flex-direction: row;
 }
-
 .speler-naam {
-  flex-basis: 30%;
+  width: 20%;
   font-size: 30px;
   text-align: center;
   text-shadow: 3px 3px 6px deeppink;
@@ -265,64 +318,84 @@ body {
 }
 
 .frame-row {
-  box-shadow: 4px 4px 7px deeppink;
-  display: flex;
+  max-width: 20%;
+  box-shadow: 4px 4px 7px black;
+  border: 1px solid #ccc;
   width: auto;
+  background-color: #07bccc;
+}
+
+.wrap {
+  width: 100%;
 }
 
 .frame {
-  flex-basis: 10%;
   margin: 8px;
   background-color: deeppink;
   border: 2px solid #fff;
   border-radius: 10px;
-  color: #fff;
+  color: black;
   font-size: 16px;
   font-weight: bold;
   text-align: center;
   padding: 8px;
 }
-
-.score-row {
+.wrap2 {
   display: flex;
-  margin-top: 10px;
 }
-
 .score {
-  flex-basis: 10%;
+  width: 60px;
   margin: 8px;
   background-color: deeppink;
   border: 2px solid #fff;
   border-radius: 10px;
-  color: #fff;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  padding: 8px;
+  flex-direction: row;
+}
+
+.pins {
+  width: 60px;
+  margin: 8px;
+  background-color: deeppink;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  color: black;
   font-size: 16px;
   font-weight: bold;
   text-align: center;
   padding: 8px;
 }
-
 .totalScore {
+  width: 20%;
+  font-size: 30px;
   text-align: center;
   text-shadow: 3px 3px 6px deeppink;
   padding: 1rem;
 }
 
-.game-time {
-  margin-top: 20px;
-  font-size: 18px;
-  color: #333;
-  text-align: center;
-}
-.pins {
-  flex-basis: 10%;
-  margin: 8px;
-  background-color: deeppink;
-  border: 2px solid #fff;
-  border-radius: 10px;
-  color: #fff;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  padding: 8px;
+@media only screen and (max-width: 1200px) {
+  .wrappers {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .wrapper1 {
+    width: 60%;
+  }
+  .wrapper {
+    margin-top: 50px;
+  }
+  .wrapper2 {
+    width: 60%;
+  }
+  .speler-row {
+    display: grid;
+    width: 750px;
+  }
 }
 </style>

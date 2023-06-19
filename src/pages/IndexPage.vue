@@ -24,10 +24,10 @@
         <div class="shadow">S</div>
       </div>
     </div>
-    <GoToAdminPageButton></GoToAdminPageButton>
+    <div class="nextGame"><GoToAdminPageButton></GoToAdminPageButton></div>
     <div class="games">
       <div class="game" v-for="(item, index) in game.data" :key="index">
-        <div class="title">{{ item.name }}</div>
+        <div class="linkTitle">{{ item.name }}</div>
         <div class="links">
           <div @click="goToLeaderboard(item._id)" class="link">Leaderboard</div>
           <div @click="goToConfig(item._id)" class="link">Configuratie</div>
@@ -47,8 +47,8 @@ import GoToAdminPageButton from 'src/components/GoToAdminPageButton.vue';
 export default defineComponent({
   name: 'IndexPage',
 
-  components:{
-    GoToAdminPageButton
+  components: {
+    GoToAdminPageButton,
   },
 
   setup() {
@@ -191,11 +191,19 @@ body {
   transform: scaleX(1);
 }
 
-.title {
+.linkTitle {
   user-select: none;
   font-weight: bold;
   text-decoration: dashed;
   color: white;
 }
-</style>
 
+.nextGame {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-top: 25px;
+  padding-bottom: 50px;
+}
+</style>

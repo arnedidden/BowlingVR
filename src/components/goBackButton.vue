@@ -51,4 +51,7 @@ export default defineComponent({
   top: 5px;
   left: 5px;
 }
+.label:hover {
+  scale: 1.1;
+}
 </style>

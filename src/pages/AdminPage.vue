@@ -18,7 +18,7 @@
               <h5>Ball</h5>
               <select v-model="ball">
                 <option value="GREEN" class="green">GREEN</option>
-                <option value="YELLLOW" class="yellow">YELLLOW</option>
+                <option value="YELLOW" class="yellow">YELLOW</option>
                 <option value="RED" class="red">RED</option>
                 <option value="BLUE" class="blue">BLUE</option>
               </select>
@@ -28,7 +28,7 @@
               <h5>Pins</h5>
               <select v-model="pins">
                 <option value="GREEN" class="green">GREEN</option>
-                <option value="YELLLOW" class="yellow">YELLLOW</option>
+                <option value="YELLOW" class="yellow">YELLOW</option>
                 <option value="RED" class="red">RED</option>
                 <option value="BLUE" class="blue">BLUE</option>
               </select>
@@ -38,7 +38,7 @@
               <h5>Lane</h5>
               <select v-model="lane">
                 <option value="GREEN" class="green">GREEN</option>
-                <option value="YELLLOW" class="yellow">YELLLOW</option>
+                <option value="YELLOW" class="yellow">YELLOW</option>
                 <option value="RED" class="red">RED</option>
                 <option value="BLUE" class="blue">BLUE</option>
               </select>

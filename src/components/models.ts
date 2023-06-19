@@ -9,7 +9,8 @@ export interface Meta {
 
 export interface Turn {
   turn: number,
-  score: number
+  score: number,
+  subTotal?: number
 }
 
 export interface LeaderboardItem {

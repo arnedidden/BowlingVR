@@ -1,7 +1,7 @@
 <template>
   <span class="go-back">
     <button @click="goBack" class="label">
-      <i class="fa-solid fa-circle-chevron-left"></i>
+      <span class="arrow"></span>
       Back
     </button>
   </span>
@@ -45,6 +45,16 @@ export default defineComponent({
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+}
+.arrow {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-top: 2px solid #000;
+  border-right: 2px solid #000;
+  transform: rotate(-135deg);
+  margin-right: 6px;
+  color: #000;
 }
 .label:active {
   box-shadow: 0px 0px 0px 0px;

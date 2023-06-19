@@ -3,30 +3,30 @@
     <div class="usericon">
       <img src="../../public/img/pngwing.com.png" alt="user icon"> <strong>{{ user.github.username }}</strong>
     </div>
-    <div class="q-pa-md">
-      <h2 class="game-title">{{ game.name }}</h2>
-      <div class="text">
-        <div class="wrapper">
-          <div id="O" class="letter">O</div>
-        </div>
-        <div class="wrapper">
-          <div id="P" class="letter">P</div>
-        </div>
-        <div class="wrapper">
-          <div id="T" class="letter">T</div>
-        </div>
-        <div class="wrapper">
-          <div id="I" class="letter">I</div>
-        </div>
-        <div class="wrapper">
-          <div id="O" class="letter">O</div>
-        </div>
-        <div class="wrapper">
-          <div id="N" class="letter">N</div>
-        </div>
-        <div class="wrapper">
-          <div id="S" class="letter">S</div>
-        </div>
+  <div>
+    <terug-knop class="terug-knop">
+      <span class="arrow"></span>
+      Terug
+    </terug-knop>
+  </div>
+
+  <div class="q-pa-md">
+    <h2 class="game-title">{{ game.name }}</h2>
+    <div class="text">
+      <div class="wrapper">
+        <div id="O" class="letter">O</div>
+      </div>
+      <div class="wrapper">
+        <div id="P" class="letter">P</div>
+      </div>
+      <div class="wrapper">
+        <div id="T" class="letter">T</div>
+      </div>
+      <div class="wrapper">
+        <div id="I" class="letter">I</div>
+      </div>
+      <div class="wrapper">
+        <div id="O" class="letter">O</div>
       </div>
 
       <h4 class="title">Naam van het spel</h4>
@@ -184,9 +184,13 @@ import { useRoute, useRouter } from 'vue-router';
 import { Game } from 'src/components/models';
 import { useAuth } from 'src/services/auth.service';
 import { ROUTE_NAMES } from 'src/router/routes';
+import TerugKnop from 'src/components/TerugKnop.vue';
 
 export default defineComponent({
   name: 'App',
+  components: {
+    TerugKnop,
+  },
   setup() {
     const route = useRoute();
     const { getLeaderBoardForGame, updateGame } = useBowling();
@@ -436,4 +440,5 @@ img{
   font-family: 'Open Sans', sans-serif;
   font-size: 50px;
 }
+
 </style>

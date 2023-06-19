@@ -1,6 +1,8 @@
 <template>
   <template v-if="user">
-    User: <strong>{{ user.github.username }}</strong>
+    <div class="usericon">
+      <img src="../../public/img/pngwing.com.png" alt="user icon"> <strong>{{ user.github.username }}</strong>
+    </div>
     <div class="q-pa-md">
       <h2 class="game-title">{{ game.name }}</h2>
       <div class="text">
@@ -163,17 +165,25 @@
       >
     </div>
   </template>
-  <template v-else>
-    <p>Deze pagina is enkel beschikbaar indien je ingelogd bent.</p>
+  <template v-if="!user">
+    <div class="logindiv">
+      <h1 class="notloggedin">
+        Deze pagina is enkel beschikbaar indien je ingelogd bent
+      </h1>
+      <q-btn class="btnSave" text-color="dark" color="primary" @click="logIn"
+        >Log In</q-btn
+      >
+    </div>
   </template>
 </template>
 
 <script lang="ts" scoped>
 import { Ref, defineComponent, ref, watch } from 'vue';
 import { useBowling } from 'src/services/bowling.service';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { Game } from 'src/components/models';
 import { useAuth } from 'src/services/auth.service';
+import { ROUTE_NAMES } from 'src/router/routes';
 
 export default defineComponent({
   name: 'App',
@@ -181,7 +191,7 @@ export default defineComponent({
     const route = useRoute();
     const { getLeaderBoardForGame, updateGame } = useBowling();
     const reclame = ref('');
-
+    const router = useRouter();
     watch(
       route,
       async () => {
@@ -195,7 +205,11 @@ export default defineComponent({
       },
       { immediate: true }
     );
-
+    const logIn = ():void => {
+      void router.push({
+        name: ROUTE_NAMES.LOGIN,
+      });
+    }
     const game = ref({
       name: '',
       bowlingBall: { color: '' },
@@ -231,6 +245,7 @@ export default defineComponent({
       updatePins,
       saveGame,
       user,
+      logIn
     };
   },
 });
@@ -240,6 +255,16 @@ export default defineComponent({
 body {
   background-color: #866bca;
   user-select: none;
+}
+.usericon{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+img{
+  height: 20px;
+  width: inherit;
 }
 .option-title {
   display: flex;
@@ -291,6 +316,7 @@ body {
   padding: 5px 0;
   position: relative;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: all 0.3s ease-in-out;
 }
@@ -398,5 +424,16 @@ body {
 
 .btnSave:hover {
   scale: 1.1;
+}
+.logindiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+.notloggedin {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 50px;
 }
 </style>

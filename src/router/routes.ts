@@ -8,6 +8,7 @@ export const ROUTE_NAMES = {
   LEADERBORD: 'leaderbord',
   ADMIN: 'admin',
   HOME: 'home',
+  LOGIN: 'login'
 };
 
 const mustBeLoggedIn = async (next: NavigationGuardNext) => {
@@ -43,6 +44,7 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: '/login',
+        name: ROUTE_NAMES.LOGIN,
         component: () => import('pages/LoginPage.vue'),
       },
       {

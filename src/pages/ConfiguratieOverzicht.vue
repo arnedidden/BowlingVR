@@ -1,4 +1,11 @@
 <template>
+  <div>
+    <terug-knop class="terug-knop">
+      <span class="arrow"></span>
+      Terug
+    </terug-knop>
+  </div>
+
   <div class="q-pa-md">
     <h2 class="game-title">{{ game.name }}</h2>
     <div class="text">
@@ -167,9 +174,14 @@ import { Ref, defineComponent, ref, watch } from 'vue';
 import { useBowling } from 'src/services/bowling.service';
 import { useRoute } from 'vue-router';
 import { Game } from 'src/components/models';
+import TerugKnop from 'src/components/TerugKnop.vue';
+
 
 export default defineComponent({
   name: 'App',
+  components: {
+    TerugKnop,
+  },
   setup() {
     const route = useRoute();
     const { getLeaderBoardForGame, updateGame } = useBowling();
@@ -393,4 +405,6 @@ body {
 .btnSave:hover {
   scale: 1.1;
 }
+
+
 </style>

@@ -1,6 +1,18 @@
 <template>
+  <template v-if="user">
+  <div class="usericon">
+    <img src="../../public/img/pngwing.com.png" alt="user icon" >
+    <strong>{{ user.github.username }}</strong>
+  </div>
+  <div>
+    <terug-knop class="terug-knop">
+      <span class="arrow"></span>
+      Terug
+    </terug-knop>
+  </div>
+
   <div class="q-pa-md">
- <h2 class="game-title">{{ game.name }}</h2>
+    <h2 class="game-title">{{ game.name }}</h2>
     <div class="text">
       <div class="wrapper">
         <div id="O" class="letter">O</div>
@@ -17,31 +29,17 @@
       <div class="wrapper">
         <div id="O" class="letter">O</div>
       </div>
-    <h4 class="title">Naam van het spel</h4>
-    <q-input filled type="text" v-model="game.name" placeholder="" />
+      <div class="wrapper">
+        <div id="N" class="letter">N</div>
+      </div>
+      <div class="wrapper">
+        <div id="S" class="letter">S</div>
+      </div>
+      </div>
+      <h4 class="title">Naam van het spel</h4>
+      <q-input filled type="text" v-model="game.name" placeholder="" />
 
-    <h4 class="title">
-      Kleur bowlingbal <q-btn :color="game.bowlingBall.color.toLowerCase()" />
-    </h4>
-    <div class="buttons">
-      <q-btn color="red" @click="updateBall('RED')">Rood</q-btn>
-      <q-btn color="green" @click="updateBall('GREEN')">Groen</q-btn>
-      <q-btn color="blue" @click="updateBall('BLUE')">Blauw</q-btn>
-      <q-btn color="yellow" text-color="dark" @click="updateBall('YELLOW')">
-        Geel
-      </q-btn>
-      
-  <template v-if="user">
-    <div class="usericon">
-      <img src="../../public/img/pngwing.com.png" alt="user icon"> <strong>{{ user.github.username }}</strong>
-    </div>
-  <div>
-    <terug-knop class="terug-knop">
-      <span class="arrow"></span>
-      Terug
-    </terug-knop>
-  </div>
-
+<div>
       <h4 class="title">
         Kleur bowlingbal
         <q-btn
@@ -169,34 +167,44 @@
         v-model="reclame"
         placeholder="e.g. https://vuetiful.dev/img/john-duck.png"
       />
-       <q-btn class="btnSave" text-color="dark" color="primary" @click="saveGame(); icon=true">Opslaan</q-btn>
- 
-    <q-dialog v-model="icon">
-      <q-card>
-        <q-card-section class="row items-center q-pb-none">
-          <div class="text-h6">Have fun!</div>
-          <q-space />
-          <q-btn icon="close" flat round dense v-close-popup />
-        </q-card-section>
-        <q-card-section>
-          Your game has successfully been updated.
-        </q-card-section>
-      </q-card>
-    </q-dialog>
-  </div>
-    </div>
-  </template>
-  <template v-if="!user">
-    <div class="logindiv">
-      <h1 class="notloggedin">
-        Deze pagina is enkel beschikbaar indien je ingelogd bent
-      </h1>
-      <q-btn class="btnSave" text-color="dark" color="primary" @click="logIn"
-        >Log In</q-btn
+      <q-btn
+        class="btnSave"
+        text-color="dark"
+        color="primary"
+        @click="
+          saveGame();
+          icon = true;
+        "
+        >Opslaan</q-btn
       >
+
+      <q-dialog v-model="icon">
+        <q-card>
+          <q-card-section class="row items-center q-pb-none">
+            <div class="text-h6">Have fun!</div>
+            <q-space />
+            <q-btn icon="close" flat round dense v-close-popup />
+          </q-card-section>
+          <q-card-section>
+            Your game has successfully been updated.
+          </q-card-section>
+        </q-card>
+      </q-dialog>
     </div>
-  </template>
-  
+  </div>
+</template>
+<template v-if="!user">
+  <div class="logindiv">
+    <h1 class="notloggedin">
+      Deze pagina is enkel beschikbaar indien je ingelogd bent
+    </h1>
+    <q-btn class="btnSave" text-color="dark" color="primary" @click="logIn"
+      >Log In</q-btn
+    >
+  </div>
+</template>
+</template>
+
 <script lang="ts" scoped>
 import { Ref, defineComponent, ref, watch } from 'vue';
 import { useBowling } from 'src/services/bowling.service';
@@ -230,11 +238,11 @@ export default defineComponent({
       { immediate: true }
     );
 
-    const logIn = ():void => {
+    const logIn = (): void => {
       void router.push({
         name: ROUTE_NAMES.LOGIN,
       });
-    }
+    };
 
     const game = ref({
       name: '',
@@ -257,10 +265,8 @@ export default defineComponent({
       game.value.reclame = [reclame.value];
       const id = route.params.id.toString();
       updateGame(id, game.value);
-
-
     };
-   
+
     const { user } = useAuth();
 
     return {
@@ -272,7 +278,7 @@ export default defineComponent({
       saveGame,
       icon: ref(false),
       user,
-      logIn
+      logIn,
     };
   },
 });
@@ -283,13 +289,13 @@ body {
   background-color: #866bca;
   user-select: none;
 }
-.usericon{
+.usericon {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100px;
 }
-img{
+img {
   height: 20px;
   width: inherit;
 }
@@ -463,5 +469,4 @@ img{
   font-family: 'Open Sans', sans-serif;
   font-size: 50px;
 }
-
 </style>

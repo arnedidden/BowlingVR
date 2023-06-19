@@ -57,6 +57,7 @@
                     <div class="wrap2">
                       <div class="pins">Pins: {{ turn.pinsHit }}</div>
                       <div class="score">Score: {{ turn.score }}</div>
+                      <div v-if="index > 0" class="score">totalscore: {{ turn.subTotal }}</div>
                     </div>
                   </div>
                   <div class="totalScore">

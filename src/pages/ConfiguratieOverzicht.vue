@@ -1,4 +1,8 @@
 <template>
+  <template v-if="user">
+    <div class="usericon">
+      <img src="../../public/img/pngwing.com.png" alt="user icon"> <strong>{{ user.github.username }}</strong>
+    </div>
   <div>
     <terug-knop class="terug-knop">
       <span class="arrow"></span>
@@ -24,158 +28,163 @@
       <div class="wrapper">
         <div id="O" class="letter">O</div>
       </div>
-      <div class="wrapper">
-        <div id="N" class="letter">N</div>
+
+      <h4 class="title">Naam van het spel</h4>
+      <q-input filled type="text" v-model="game.name" placeholder="" />
+
+      <h4 class="title">
+        Kleur bowlingbal
+        <q-btn
+          class="btncolor"
+          text-color="dark"
+          :color="game.bowlingBall.color.toLowerCase()"
+        />
+      </h4>
+      <div class="buttons">
+        <q-btn
+          class="btn"
+          color="red"
+          text-color="dark"
+          @click="updateBall('RED')"
+          >Rood</q-btn
+        >
+        <q-btn
+          class="btn"
+          color="green"
+          text-color="dark"
+          @click="updateBall('GREEN')"
+          >Groen</q-btn
+        >
+        <q-btn
+          class="btn"
+          color="blue"
+          text-color="dark"
+          @click="updateBall('BLUE')"
+          >Blauw</q-btn
+        >
+        <q-btn
+          class="btn"
+          color="yellow"
+          text-color="dark"
+          @click="updateBall('YELLOW')"
+        >
+          Geel
+        </q-btn>
       </div>
-      <div class="wrapper">
-        <div id="S" class="letter">S</div>
+
+      <h4 class="title">
+        Kleur bowlinglaan
+        <q-btn
+          class="btncolor"
+          text-color="dark"
+          :color="game.bowlingLane.color.toLowerCase()"
+        />
+      </h4>
+      <div class="buttons">
+        <q-btn
+          class="btn"
+          color="red"
+          text-color="dark"
+          @click="updateLane('RED')"
+          >Rood</q-btn
+        >
+        <q-btn
+          class="btn"
+          color="green"
+          text-color="dark"
+          @click="updateLane('GREEN')"
+          >Groen</q-btn
+        >
+        <q-btn
+          class="btn"
+          color="blue"
+          text-color="dark"
+          @click="updateLane('BLUE')"
+          >Blauw</q-btn
+        >
+        <q-btn
+          class="btn"
+          color="yellow"
+          text-color="dark"
+          @click="updateLane('YELLOW')"
+        >
+          Geel
+        </q-btn>
       </div>
-    </div>
 
-    <h4 class="title">Naam van het spel</h4>
-    <q-input filled type="text" v-model="game.name" placeholder="" />
+      <h4 class="title">
+        Kleur bowlingpins
+        <q-btn
+          class="btncolor"
+          text-color="dark"
+          :color="game.bowlingPins.color.toLowerCase()"
+        />
+      </h4>
+      <div class="buttons">
+        <q-btn
+          class="btn"
+          color="red"
+          text-color="dark"
+          @click="updatePins('RED')"
+          >Rood</q-btn
+        >
+        <q-btn
+          class="btn"
+          color="green"
+          text-color="dark"
+          @click="updatePins('GREEN')"
+          >Groen</q-btn
+        >
+        <q-btn
+          class="btn"
+          color="blue"
+          text-color="dark"
+          @click="updatePins('BLUE')"
+          >Blauw</q-btn
+        >
+        <q-btn
+          class="btn"
+          color="yellow"
+          text-color="dark"
+          @click="updatePins('YELLOW')"
+        >
+          Geel
+        </q-btn>
+      </div>
 
-    <h4 class="title">
-      Kleur bowlingbal
-      <q-btn
-        class="btncolor"
-        text-color="dark"
-        :color="game.bowlingBall.color.toLowerCase()"
+      <h4 class="title">Reclame</h4>
+      <q-input
+        filled
+        type="text"
+        v-model="reclame"
+        placeholder="e.g. https://vuetiful.dev/img/john-duck.png"
       />
-    </h4>
-    <div class="buttons">
-      <q-btn
-        class="btn"
-        color="red"
-        text-color="dark"
-        @click="updateBall('RED')"
-        >Rood</q-btn
+
+      <q-btn class="btnSave" text-color="dark" color="primary" @click="saveGame"
+        >Opslaan</q-btn
       >
-      <q-btn
-        class="btn"
-        color="green"
-        text-color="dark"
-        @click="updateBall('GREEN')"
-        >Groen</q-btn
-      >
-      <q-btn
-        class="btn"
-        color="blue"
-        text-color="dark"
-        @click="updateBall('BLUE')"
-        >Blauw</q-btn
-      >
-      <q-btn
-        class="btn"
-        color="yellow"
-        text-color="dark"
-        @click="updateBall('YELLOW')"
-      >
-        Geel
-      </q-btn>
     </div>
-
-    <h4 class="title">
-      Kleur bowlinglaan
-      <q-btn
-        class="btncolor"
-        text-color="dark"
-        :color="game.bowlingLane.color.toLowerCase()"
-      />
-    </h4>
-    <div class="buttons">
-      <q-btn
-        class="btn"
-        color="red"
-        text-color="dark"
-        @click="updateLane('RED')"
-        >Rood</q-btn
+  </template>
+  <template v-if="!user">
+    <div class="logindiv">
+      <h1 class="notloggedin">
+        Deze pagina is enkel beschikbaar indien je ingelogd bent
+      </h1>
+      <q-btn class="btnSave" text-color="dark" color="primary" @click="logIn"
+        >Log In</q-btn
       >
-      <q-btn
-        class="btn"
-        color="green"
-        text-color="dark"
-        @click="updateLane('GREEN')"
-        >Groen</q-btn
-      >
-      <q-btn
-        class="btn"
-        color="blue"
-        text-color="dark"
-        @click="updateLane('BLUE')"
-        >Blauw</q-btn
-      >
-      <q-btn
-        class="btn"
-        color="yellow"
-        text-color="dark"
-        @click="updateLane('YELLOW')"
-      >
-        Geel
-      </q-btn>
     </div>
-
-    <h4 class="title">
-      Kleur bowlingpins
-      <q-btn
-        class="btncolor"
-        text-color="dark"
-        :color="game.bowlingPins.color.toLowerCase()"
-      />
-    </h4>
-    <div class="buttons">
-      <q-btn
-        class="btn"
-        color="red"
-        text-color="dark"
-        @click="updatePins('RED')"
-        >Rood</q-btn
-      >
-      <q-btn
-        class="btn"
-        color="green"
-        text-color="dark"
-        @click="updatePins('GREEN')"
-        >Groen</q-btn
-      >
-      <q-btn
-        class="btn"
-        color="blue"
-        text-color="dark"
-        @click="updatePins('BLUE')"
-        >Blauw</q-btn
-      >
-      <q-btn
-        class="btn"
-        color="yellow"
-        text-color="dark"
-        @click="updatePins('YELLOW')"
-      >
-        Geel
-      </q-btn>
-    </div>
-
-    <h4 class="title">Reclame</h4>
-    <q-input
-      filled
-      type="text"
-      v-model="reclame"
-      placeholder="e.g. https://vuetiful.dev/img/john-duck.png"
-    />
-
-    <q-btn class="btnSave" text-color="dark" color="primary" @click="saveGame"
-      >Opslaan</q-btn
-    >
-  </div>
+  </template>
 </template>
 
 <script lang="ts" scoped>
 import { Ref, defineComponent, ref, watch } from 'vue';
 import { useBowling } from 'src/services/bowling.service';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { Game } from 'src/components/models';
+import { useAuth } from 'src/services/auth.service';
+import { ROUTE_NAMES } from 'src/router/routes';
 import TerugKnop from 'src/components/TerugKnop.vue';
-
 
 export default defineComponent({
   name: 'App',
@@ -186,7 +195,7 @@ export default defineComponent({
     const route = useRoute();
     const { getLeaderBoardForGame, updateGame } = useBowling();
     const reclame = ref('');
-
+    const router = useRouter();
     watch(
       route,
       async () => {
@@ -200,7 +209,11 @@ export default defineComponent({
       },
       { immediate: true }
     );
-
+    const logIn = ():void => {
+      void router.push({
+        name: ROUTE_NAMES.LOGIN,
+      });
+    }
     const game = ref({
       name: '',
       bowlingBall: { color: '' },
@@ -225,11 +238,9 @@ export default defineComponent({
     const saveGame = () => {
       game.value.reclame = [reclame.value];
       const id = route.params.id.toString();
-      console.log(id);
-
       updateGame(id, game.value);
     };
-
+    const { user } = useAuth();
     return {
       game,
       reclame,
@@ -237,6 +248,8 @@ export default defineComponent({
       updateLane,
       updatePins,
       saveGame,
+      user,
+      logIn
     };
   },
 });
@@ -246,6 +259,16 @@ export default defineComponent({
 body {
   background-color: #866bca;
   user-select: none;
+}
+.usericon{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+img{
+  height: 20px;
+  width: inherit;
 }
 .option-title {
   display: flex;
@@ -297,6 +320,7 @@ body {
   padding: 5px 0;
   position: relative;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: all 0.3s ease-in-out;
 }
@@ -405,6 +429,16 @@ body {
 .btnSave:hover {
   scale: 1.1;
 }
-
+.logindiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+.notloggedin {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 50px;
+}
 
 </style>

@@ -48,7 +48,7 @@ const useBowling = () => {
     getLeaderboards,
     createGame,
     updateGame,
-    deleteGame
+    deleteGame,
   };
 };
 

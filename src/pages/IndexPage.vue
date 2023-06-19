@@ -46,7 +46,10 @@
                     type="button"
                     class="yesbutton"
                     v-close-popup
-                    @click="deleteGameButton(item._id); deleted = true"
+                    @click="
+                      deleteGameButton(item._id);
+                      deleted = true;
+                    "
                   >
                     Yes!
                   </button>
@@ -62,7 +65,14 @@
               <q-card-section class="row items-center q-pb-none">
                 <div class="text-h6">Note!</div>
                 <q-space />
-                <q-btn icon="close" flat round dense v-close-popup />
+                <q-btn
+                  icon="close"
+                  flat
+                  round
+                  dense
+                  v-close-popup
+                  @click="reloadPage"
+                />
               </q-card-section>
               <q-card-section>
                 Your game has successfully been deleted.
@@ -117,6 +127,10 @@ export default defineComponent({
     const deleteGameButton = (param: string) => {
       deleteGame(param);
     };
+
+    const reloadPage = () => {
+      location.reload();
+    };
     return {
       game,
       goToLeaderboard,
@@ -124,6 +138,7 @@ export default defineComponent({
       deleteGameButton,
       icon: ref(false),
       deleted: ref(false),
+      reloadPage,
     };
   },
 });

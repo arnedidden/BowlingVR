@@ -56,9 +56,9 @@
                     </div>
                     <div class="wrap2">
                       <div class="pins">Pins: {{ turn.pinsHit }}</div>
-                      <div class="score">Score: {{ turn.score }}</div>
+                      <!-- <div class="score">Score: {{ turn.score }}</div> -->
                       <div v-if="index > 0" class="score">
-                        totalscore: {{ turn.subTotal }}
+                        total: {{ turn.subTotal }}
                       </div>
                     </div>
                   </div>
@@ -297,7 +297,7 @@ body {
 .scoreboard {
   user-select: none;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin: 20px;
   padding: 10px;
   background-color: rgb(255, 255, 255);
@@ -305,7 +305,7 @@ body {
   color: black;
   font-size: 24px;
   box-shadow: 8px 8px 16px black;
-  width: 100%;
+  width: fit-content;
   transition: 0.2s ease-in-out;
 }
 
@@ -325,7 +325,7 @@ body {
 }
 
 .frame-row {
-  max-width: 20%;
+  max-width: fit-content;
   box-shadow: 4px 4px 7px black;
   border: 1px solid #ccc;
   width: auto;
@@ -351,7 +351,7 @@ body {
   display: flex;
 }
 .score {
-  width: 60px;
+  width: fit-content;
   margin: 8px;
   background-color: deeppink;
   border: 2px solid #fff;

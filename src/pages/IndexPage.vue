@@ -31,6 +31,27 @@
         <div class="links">
           <div @click="goToLeaderboard(item._id)" class="link">Leaderboard</div>
           <div @click="goToConfig(item._id)" class="link">Configuratie</div>
+          <div @click="icon = true" class="link">Delete game</div>
+          <q-dialog v-model="icon">
+            <q-card>
+              <q-card-section class="row items-center q-pb-none">
+                <div class="text-h6">
+                  Are you sure you want to delete this game?
+                </div>
+                <q-space />
+              </q-card-section>
+              <q-card-section>
+                <button
+                  type="button"
+                  class="yesbutton"
+                  @click="deleteGameButton(item._id)"
+                >
+                  Yes!
+                </button>
+                <button type="button" class="nobutton" v-close-popup>NO!</button>
+              </q-card-section>
+            </q-card>
+          </q-dialog>
         </div>
       </div>
     </div>
@@ -76,7 +97,14 @@ export default defineComponent({
         },
       });
     };
-    return { game, goToLeaderboard, goToConfig };
+    const deleteGameButton = (param: string) => {};
+    return {
+      game,
+      goToLeaderboard,
+      goToConfig,
+      deleteGameButton,
+      icon: ref(false),
+    };
   },
 });
 </script>

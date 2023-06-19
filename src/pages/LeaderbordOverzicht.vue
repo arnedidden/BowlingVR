@@ -57,7 +57,9 @@
                     <div class="wrap2">
                       <div class="pins">Pins: {{ turn.pinsHit }}</div>
                       <div class="score">Score: {{ turn.score }}</div>
-                      <div v-if="index > 0" class="score">totalscore: {{ turn.subTotal }}</div>
+                      <div v-if="index > 0" class="score">
+                        totalscore: {{ turn.subTotal }}
+                      </div>
                     </div>
                   </div>
                   <div class="totalScore">
@@ -80,6 +82,7 @@ import LeaderboardMember from 'components/LeaderboardMember.vue';
 import { useBowling } from 'src/services/bowling.service';
 import { useRoute, useRouter } from 'vue-router';
 import GoBackButton from 'src/components/goBackButton.vue';
+import { ROUTE_NAMES } from 'src/router/routes';
 
 export default defineComponent({
   components: {
@@ -116,7 +119,11 @@ export default defineComponent({
 
     getLeaderBord();
 
-    const goBack = () => void router.go(-1);
+    const goBack = (): void => {
+      void router.push({
+        name: ROUTE_NAMES.HOME,
+      });
+    };
     return {
       game,
       sortedLeaderboard,

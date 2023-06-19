@@ -4,12 +4,11 @@ import { useAuth } from 'src/services/auth.service';
 const { user, verify } = useAuth();
 
 export const ROUTE_NAMES = {
-
   CONFIGURATIE_OVERZICHT: 'configuratie',
   LEADERBORD: 'leaderbord',
   ADMIN: 'admin',
-  HOME: 'home'
-
+  HOME: 'home',
+  LOGIN: 'login'
 };
 
 const mustBeLoggedIn = async (next: NavigationGuardNext) => {
@@ -45,18 +44,24 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: '/login',
+        name: ROUTE_NAMES.LOGIN,
         component: () => import('pages/LoginPage.vue'),
       },
       {
         name: ROUTE_NAMES.CONFIGURATIE_OVERZICHT,
 
-        path: '/configuratie/:id', component: () => import('pages/ConfiguratieOverzicht.vue') },
+        path: '/configuratie/:id',
+        beforeEnter: async (to, from, next) => {
+          await mustBeLoggedIn(next);
+        },
+        component: () => import('pages/ConfiguratieOverzicht.vue'),
+      },
       {
         name: ROUTE_NAMES.LEADERBORD,
-        path: '/leaderbord/:id', component: () => import('pages/LeaderbordOverzicht.vue'),
+        path: '/leaderbord/:id',
+        component: () => import('pages/LeaderbordOverzicht.vue'),
       },
-  ],
-
+    ],
   },
 
   // Always leave this as last one,
@@ -65,7 +70,6 @@ const routes: RouteRecordRaw[] = [
     path: '/',
     component: () => import('pages/ErrorNotFound.vue'),
   },
-
 ];
 
 export default routes;

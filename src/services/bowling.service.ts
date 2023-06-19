@@ -7,13 +7,24 @@ const useBowling = () => {
     const data = result.data.data;
     return { data };
   };
+
   const getLeaderBoardForGame = async (id: string) => {
     const result = await api.get(`/team_eevee_config/${id}`);
     const game: Game = result.data.data[0];
     const sortedLeaderboard = game.leaderboard.sort(
       (a, b) => b.totalScore - a.totalScore
     );
-
+    sortedLeaderboard.forEach((leaderboardItem) => {
+      leaderboardItem.turns.forEach((turn, index) => {
+        if (index === 0) {
+          turn.subTotal = turn.score;
+        } else {
+          const previousTurn = leaderboardItem.turns[index - 1];
+          const previousTurnSubTotal = previousTurn.subTotal || 0;
+          turn.subTotal = previousTurnSubTotal + turn.score;
+        }
+      });
+    });
     return { game, sortedLeaderboard };
   };
 

@@ -1,9 +1,9 @@
 <template>
   <template v-if="user">
+    <div class="usericon">
+      <img src="../../public/img/pngwing.com.png" alt="user icon"> <strong>{{ user.github.username }}</strong>
+    </div>
     <h1>Admin</h1>
-    <p>
-      User: <strong>{{ user.github.username }}</strong>
-    </p>
     <GoToIndexPageButton></GoToIndexPageButton>
     <form @submit.prevent="submitGame">
       <div class="game-creation">
@@ -18,7 +18,7 @@
               <h5>Ball</h5>
               <select v-model="ball">
                 <option value="GREEN" class="green">GREEN</option>
-                <option value="YELLLOW" class="yellow">YELLLOW</option>
+                <option value="YELLOW" class="yellow">YELLOW</option>
                 <option value="RED" class="red">RED</option>
                 <option value="BLUE" class="blue">BLUE</option>
               </select>
@@ -28,7 +28,7 @@
               <h5>Pins</h5>
               <select v-model="pins">
                 <option value="GREEN" class="green">GREEN</option>
-                <option value="YELLLOW" class="yellow">YELLLOW</option>
+                <option value="YELLOW" class="yellow">YELLOW</option>
                 <option value="RED" class="red">RED</option>
                 <option value="BLUE" class="blue">BLUE</option>
               </select>
@@ -38,7 +38,7 @@
               <h5>Lane</h5>
               <select v-model="lane">
                 <option value="GREEN" class="green">GREEN</option>
-                <option value="YELLLOW" class="yellow">YELLLOW</option>
+                <option value="YELLOW" class="yellow">YELLOW</option>
                 <option value="RED" class="red">RED</option>
                 <option value="BLUE" class="blue">BLUE</option>
               </select>
@@ -125,6 +125,16 @@ export default defineComponent({
 });
 </script>
 <style scoped>
+.usericon{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+img{
+  height: 20px;
+  width: inherit;
+}
 .game-creation {
   display: flex;
   justify-content: space-around;

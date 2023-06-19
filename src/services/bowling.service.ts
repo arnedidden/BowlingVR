@@ -31,12 +31,12 @@ const useBowling = () => {
   const updateGame = async (id: string, game: Game) => {
     delete game._id;
     api.put(`team_eevee_config/${id}`, game)
-    .then(() =>
-        alert('Game succesvol geüpdatet')
-      )
-      .catch((error) => {
-        alert(`error: ${error}`);
-      });
+  //   .then(() =>
+  //       alert('Game succesvol geüpdatet')
+  //     )
+  //     .catch((error) => {
+  //       alert(`error: ${error}`);
+  //     });
 
   };
   const createGame = async (game: Game) => {
@@ -45,12 +45,12 @@ const useBowling = () => {
         'https://api.code-coaching.dev/eindwerken-2022-jaar-2/team_eevee_config',
         game
       )
-      .then((response) =>
-        alert(`Game succesvol aangemaakt met id: ${response.data._id}`)
-      )
-      .catch((error) => {
-        alert(`error: ${error}`);
-      });
+      // .then((response) =>
+      //   alert(`Game succesvol aangemaakt met id: ${response.data._id}`)
+      // )
+      // .catch((error) => {
+      //   alert(`error: ${error}`);
+      // });
   };
   return {
     getLeaderBoardForGame,

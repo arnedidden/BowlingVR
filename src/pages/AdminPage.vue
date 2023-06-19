@@ -54,9 +54,21 @@
       </div>
     </form>
     <div class="button-div">
-      <button type="submit" @click="submitGame()">
+      <button type="submit" @click="submitGame(); icon=true">
         Creëer spel configuratie
       </button>
+      <q-dialog v-model="icon">
+      <q-card>
+        <q-card-section class="row items-center q-pb-none">
+          <div class="text-h6">Enjoy your game!</div>
+          <q-space />
+          <q-btn icon="close" flat round dense v-close-popup />
+        </q-card-section>
+        <q-card-section>
+          Your game has successfully been made.
+        </q-card-section>
+      </q-card>
+    </q-dialog>
     </div>
   </template>
   <template v-else>
@@ -108,7 +120,7 @@ export default defineComponent({
       lane.value = '';
       img.value = '';
     };
-    return { user, submitGame, gameName, ball, pins, lane, img };
+    return { user, submitGame, gameName, ball, pins, lane, img, icon:ref(false) };
   },
 });
 </script>

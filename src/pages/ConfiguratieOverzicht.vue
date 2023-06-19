@@ -1,7 +1,6 @@
 <template>
   <div class="q-pa-md">
     <h2 class="game-title">Spelnaam: {{ game.name }}</h2>
-    <h3 class="option-title">Options</h3>
 
     <h4 class="title">Naam van het spel</h4>
     <q-input filled type="text" v-model="game.name" placeholder="" />
@@ -50,7 +49,20 @@
       placeholder="e.g. https://vuetiful.dev/img/john-duck.png"
     />
 
-    <q-btn class="q-mt-xl" color="primary" @click="saveGame">Opslaan</q-btn>
+    <q-btn class="q-mt-xl" color="primary" @click="saveGame(); icon=true">Opslaan</q-btn>
+ 
+    <q-dialog v-model="icon">
+      <q-card>
+        <q-card-section class="row items-center q-pb-none">
+          <div class="text-h6">Have fun!</div>
+          <q-space />
+          <q-btn icon="close" flat round dense v-close-popup />
+        </q-card-section>
+        <q-card-section>
+          Your game has successfully been updated.
+        </q-card-section>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
@@ -80,9 +92,7 @@ export default defineComponent({
       },
       { immediate: true }
     );
-
     const game = ref({
-
       name: '',
       bowlingBall: { color: '' },
       bowlingLane: { color: '' },
@@ -90,27 +100,21 @@ export default defineComponent({
       leaderboard: [],
       reclame: [],
     }) as Ref<Game>;
-
     const updateBall = (color: string) => {
       game.value.bowlingBall.color = color;
     };
-
     const updateLane = (color: string) => {
       game.value.bowlingLane.color = color;
     };
-
     const updatePins = (color: string) => {
       game.value.bowlingPins.color = color;
     };
-
     const saveGame = () => {
       game.value.reclame = [reclame.value];
       const id = route.params.id.toString();
-      console.log(id);
-
       updateGame(id, game.value);
-    };
 
+    };
 
     return {
       game,
@@ -119,6 +123,7 @@ export default defineComponent({
       updateLane,
       updatePins,
       saveGame,
+      icon: ref(false),
     };
   },
 });

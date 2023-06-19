@@ -49,6 +49,9 @@ const routes: RouteRecordRaw[] = [
         name: ROUTE_NAMES.CONFIGURATIE_OVERZICHT,
 
         path: '/configuratie/:id',
+        beforeEnter: async (to, from, next) => {
+          await mustBeLoggedIn(next);
+        },
         component: () => import('pages/ConfiguratieOverzicht.vue'),
       },
       {

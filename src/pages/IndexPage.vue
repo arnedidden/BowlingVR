@@ -31,6 +31,54 @@
         <div class="links">
           <div @click="goToLeaderboard(item._id)" class="link">Leaderboard</div>
           <div @click="goToConfig(item._id)" class="link">Configuratie</div>
+          <div @click="icon = true" class="link">Delete game</div>
+          <q-dialog v-model="icon">
+            <q-card>
+              <q-card-section class="row items-center q-pb-none">
+                <div class="text-h6">
+                  Are you sure you want to delete this game?
+                </div>
+                <q-space />
+              </q-card-section>
+              <q-card-section>
+                <div class="buttons">
+                  <button
+                    type="button"
+                    class="yesbutton"
+                    v-close-popup
+                    @click="
+                      deleteGameButton(item._id);
+                      deleted = true;
+                    "
+                  >
+                    Yes!
+                  </button>
+                  <button type="button" class="nobutton" v-close-popup>
+                    NO!
+                  </button>
+                </div>
+              </q-card-section>
+            </q-card>
+          </q-dialog>
+          <q-dialog v-model="deleted">
+            <q-card>
+              <q-card-section class="row items-center q-pb-none">
+                <div class="text-h6">Note!</div>
+                <q-space />
+                <q-btn
+                  icon="close"
+                  flat
+                  round
+                  dense
+                  v-close-popup
+                  @click="reloadPage"
+                />
+              </q-card-section>
+              <q-card-section>
+                Your game has successfully been deleted.
+              </q-card-section>
+            </q-card>
+          </q-dialog>
         </div>
       </div>
     </div>
@@ -52,7 +100,7 @@ export default defineComponent({
   },
 
   setup() {
-    const { getLeaderboards } = useBowling();
+    const { getLeaderboards, deleteGame } = useBowling();
     const game = ref();
     const router = useRouter();
     const getLeaderBords = async () => {
@@ -76,7 +124,22 @@ export default defineComponent({
         },
       });
     };
-    return { game, goToLeaderboard, goToConfig };
+    const deleteGameButton = (param: string) => {
+      deleteGame(param);
+    };
+
+    const reloadPage = () => {
+      location.reload();
+    };
+    return {
+      game,
+      goToLeaderboard,
+      goToConfig,
+      deleteGameButton,
+      icon: ref(false),
+      deleted: ref(false),
+      reloadPage,
+    };
   },
 });
 </script>
@@ -205,5 +268,23 @@ body {
   text-align: center;
   padding-top: 25px;
   padding-bottom: 50px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.yesbutton {
+  background-color: rgb(15, 78, 15);
+  color: #ffffff;
+  border-radius: 1rem;
+  padding: 0.5rem;
+}
+.nobutton {
+  background-color: rgb(107, 23, 23);
+  color: #ffffff;
+  border-radius: 1rem;
+  padding: 0.5rem;
 }
 </style>

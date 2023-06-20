@@ -1,9 +1,6 @@
 <template>
   <div>
-    <terug-knop class="terug-knop">
-      <span class="arrow"></span>
-      Terug
-    </terug-knop>
+    <GoBackButton></GoBackButton>
   </div>
 
   <div class="q-pa-md">
@@ -174,13 +171,13 @@ import { Ref, defineComponent, ref, watch } from 'vue';
 import { useBowling } from 'src/services/bowling.service';
 import { useRoute } from 'vue-router';
 import { Game } from 'src/components/models';
-import TerugKnop from 'src/components/TerugKnop.vue';
+import GoBackButton from 'src/components/goBackButton.vue';
 
 
 export default defineComponent({
   name: 'App',
   components: {
-    TerugKnop,
+    GoBackButton
   },
   setup() {
     const route = useRoute();

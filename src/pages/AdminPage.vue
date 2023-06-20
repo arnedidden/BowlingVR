@@ -1,10 +1,11 @@
 <template>
+<GoBackButton></GoBackButton>
   <template v-if="user">
-    <h1>Admin</h1>
+    <h3>Admin</h3>
     <p>
       User: <strong>{{ user.github.username }}</strong>
     </p>
-    <GoToIndexPageButton></GoToIndexPageButton>
+    
     <form @submit.prevent="submitGame">
       <div class="game-creation">
         <div class="game-creation-item">
@@ -67,11 +68,11 @@
 import { defineComponent, ref } from 'vue';
 import { useAuth } from 'src/services/auth.service';
 import { useBowling } from 'src/services/bowling.service';
-import GoToIndexPageButton from 'src/components/GoToIndexPageButton.vue';
+import GoBackButton from 'src/components/goBackButton.vue';
 
 export default defineComponent({
   components: {
-    GoToIndexPageButton,
+    GoBackButton
   },
   setup() {
     const { createGame } = useBowling();

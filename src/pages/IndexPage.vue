@@ -24,7 +24,7 @@
         <div class="shadow">S</div>
       </div>
     </div>
-    <div class="nextGame"><GoToAdminPageButton></GoToAdminPageButton></div>
+    <div class="nextGame"><GoBackButton></GoBackButton></div>
     <div class="games">
       <div class="game" v-for="(item, index) in game.data" :key="index">
         <div class="linkTitle">{{ item.name }}</div>
@@ -42,13 +42,13 @@ import { defineComponent, ref } from 'vue';
 import { useBowling } from 'src/services/bowling.service';
 import { useRouter } from 'vue-router';
 import { ROUTE_NAMES } from 'src/router/routes';
-import GoToAdminPageButton from 'src/components/GoToAdminPageButton.vue';
+import GoBackButton from 'src/components/goBackButton.vue';
 
 export default defineComponent({
   name: 'IndexPage',
 
   components: {
-    GoToAdminPageButton,
+    GoBackButton,
   },
 
   setup() {

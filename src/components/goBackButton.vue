@@ -5,11 +5,16 @@
       Back
     </button>
   </span>
+   <span class="go-back">
+    <button @click="goToAdminPage" class="label">Create New Game</button>
+  </span>
+  
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { useRouter } from 'vue-router';
+import { ROUTE_NAMES } from 'src/router/routes';
 
 export default defineComponent({
   name: 'BackButton',
@@ -19,8 +24,22 @@ export default defineComponent({
     function goBack() {
       window.history.length > 1 ? router.go(-1) : router.push('/');
     }
+
+    const goToAdminPage = (): void => {
+      void router.push({
+        name: ROUTE_NAMES.ADMIN,
+      });
+    };
+
+    const goToIndexPage = (): void => {
+      void router.push({
+        name: ROUTE_NAMES.HOME
+      });
+    };
     return {
       goBack,
+      goToAdminPage,
+      goToIndexPage,
     };
   },
 });
@@ -64,4 +83,6 @@ export default defineComponent({
 .label:hover {
   scale: 1.1;
 }
+
+
 </style>

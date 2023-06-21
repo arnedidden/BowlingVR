@@ -1,8 +1,8 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated> </q-header>
+    <q-header elevated></q-header>
 
-    <q-page-container>
+    <q-page-container class="padding">
       <router-view />
     </q-page-container>
   </q-layout>
@@ -19,3 +19,8 @@ export default defineComponent({
   },
 });
 </script>
+<style>
+  .padding{
+    padding: 1rem;
+  }
+</style>

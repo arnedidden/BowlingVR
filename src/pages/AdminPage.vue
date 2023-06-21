@@ -8,15 +8,15 @@
     <form @submit.prevent="submitGame">
       <div class="game-creation">
         <div class="game-creation-item">
-          <h3 class="title">Kies de naam van het spel</h3>
-          <input type="text" v-model="gameName" placeholder="" />
+          <h3 class="title">Game name:</h3>
+          <input class="input" type="text" v-model="gameName" placeholder=" " />
         </div>
         <div class="game-creation-item">
-          <h3 class="title">Kies de kleuren van het spel</h3>
+          <h3 class="title">Game colors:</h3>
           <div class="choices-of-color">
             <div class="color-choice">
               <h5>Ball</h5>
-              <select v-model="ball">
+              <select class="input" v-model="ball">
                 <option value="GREEN" class="green">GREEN</option>
                 <option value="YELLOW" class="yellow">YELLOW</option>
                 <option value="RED" class="red">RED</option>
@@ -26,7 +26,7 @@
             </div>
             <div class="color-choice">
               <h5>Pins</h5>
-              <select v-model="pins">
+              <select class="input" v-model="pins">
                 <option value="GREEN" class="green">GREEN</option>
                 <option value="YELLOW" class="yellow">YELLOW</option>
                 <option value="RED" class="red">RED</option>
@@ -36,7 +36,7 @@
             </div>
             <div class="color-choice">
               <h5>Lane</h5>
-              <select v-model="lane">
+              <select class="input" v-model="lane">
                 <option value="GREEN" class="green">GREEN</option>
                 <option value="YELLOW" class="yellow">YELLOW</option>
                 <option value="RED" class="red">RED</option>
@@ -47,14 +47,14 @@
           </div>
         </div>
         <div class="game-creation-item">
-          <h3 class="title">Upload je reclame</h3>
-          <p>plak een image url in het vak</p>
-          <input type="text" v-model="img" />
+          <h3 class="title">Upload adds</h3>
+          <p>Paste an image url in the box</p>
+          <input class="input" type="text" v-model="img" />
         </div>
       </div>
     </form>
     <div class="button-div">
-      <button type="submit" @click="submitGame(); icon=true">
+      <button type="submit" class="btn" @click="submitGame(); icon=true">
         Creëer spel configuratie
       </button>
       <q-dialog v-model="icon">
@@ -124,7 +124,31 @@ export default defineComponent({
   },
 });
 </script>
-<style scoped>
+
+<style lang="scss" scoped>
+body {
+  user-select: none;
+  background: #866bca;
+}
+@font-face {
+  src: url('https://www.axis-praxis.org/fonts/webfonts/MetaVariableDemo-Set.woff2')
+    format('woff2');
+  font-family: 'Meta';
+  font-style: normal;
+  font-weight: normal;
+}
+.pageTitle {
+  transition: all 0.5s;
+  text-align: center;
+  -webkit-text-stroke: 4px #d6f4f4;
+  font-variation-settings: 'wght' 900, 'ital' 1;
+  color: transparent;
+  font-family: 'Meta', sans-serif;
+  text-shadow: 10px 10px 0px #07bccc, 15px 15px 0px #e601c0,
+    20px 20px 0px #e9019a, 25px 25px 0px #f40468, 45px 45px 10px #482896;
+  cursor: pointer;
+  padding-bottom: 20px;
+}
 .usericon{
   display: flex;
   justify-content: center;
@@ -135,6 +159,7 @@ img{
   height: 20px;
   width: inherit;
 }
+
 .game-creation {
   display: flex;
   justify-content: space-around;
@@ -142,6 +167,8 @@ img{
 
 .game-creation-item {
   width: 30%;
+  display: flex;
+  flex-direction: column;
 }
 .choices-of-color {
   display: flex;
@@ -161,6 +188,14 @@ select {
 .button-div {
   display: flex;
   justify-content: center;
+  margin-bottom: 40px;
+}
+
+.returnbtn {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 40px;
+  padding-top: 40px;
 }
 
 .green {
@@ -178,5 +213,100 @@ select {
 .blue {
   background-color: blue;
   color: aliceblue;
+}
+.color-div {
+  height: 100%;
+  width: 100px;
+}
+
+.title {
+  font-size: 35px;
+  margin-bottom: 1rem;
+  margin-top: 0px;
+  background-image: linear-gradient(to right, #54b3d6, #54b3d6 50%, #000 50%);
+  background-size: 200% 100%;
+  background-position: -100%;
+  display: inline-block;
+  padding: 5px 0;
+  position: relative;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.3s ease-in-out;
+}
+
+.title::before {
+  content: '';
+  background: #000000;
+  display: block;
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  transition: all 0.3s ease-in-out;
+}
+
+.title:hover {
+  background-position: 0;
+}
+
+.title:hover::before {
+  width: 100%;
+}
+.btn {
+  font-weight: bold;
+  background-color: #482896;
+  margin-left: 25px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #000;
+  cursor: pointer;
+  border: 3px solid;
+  padding: 0.25em 0.5em;
+  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px,
+    5px 5px 0px 0px;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+.btn:active {
+  box-shadow: 0px 0px 0px 0px;
+  top: 5px;
+  left: 5px;
+}
+
+.btn:hover {
+  scale: 1.1;
+}
+
+@media only screen and (max-width: 1200px) {
+  .game-creation {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .game-creation-item {
+    width: 80%;
+  }
+}
+
+body {
+  background-color: #866bca;
+  background-position: center;
+  background-origin: content-box;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.input {
+  background-color: #482896;
+  color: white;
 }
 </style>

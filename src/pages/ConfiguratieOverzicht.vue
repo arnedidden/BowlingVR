@@ -1,4 +1,16 @@
 <template>
+  <template v-if="user">
+    <div>
+      <terug-knop class="terug-knop">
+        <span class="arrow"></span>
+        Terug
+      </terug-knop>
+    </div>
+    <div class="usericon">
+      <img src="../../public/img/pngwing.com.png" alt="user icon" >
+      <strong>{{ user.github.username }}</strong>
+    </div>
+    
   <div class="q-pa-md">
     <h2 class="game-title">{{ game.name }}</h2>
     <div class="text">
@@ -23,158 +35,195 @@
       <div class="wrapper">
         <div id="S" class="letter">S</div>
       </div>
-    </div>
+      </div>
+      <h4 class="title">Naam van het spel</h4>
+      <q-input filled type="text" v-model="game.name" placeholder="" />
 
-    <h4 class="title">Naam van het spel</h4>
-    <q-input filled type="text" v-model="game.name" placeholder="" />
+<div>
+      <h4 class="title">
+        Kleur bowlingbal
+        <q-btn
+          class="btncolor"
+          text-color="dark"
+          :color="game.bowlingBall.color.toLowerCase()"
+        />
+      </h4>
+      <div class="buttons">
+        <q-btn
+          class="btn"
+          color="red"
+          text-color="dark"
+          @click="updateBall('RED')"
+          >Rood</q-btn
+        >
+        <q-btn
+          class="btn"
+          color="green"
+          text-color="dark"
+          @click="updateBall('GREEN')"
+          >Groen</q-btn
+        >
+        <q-btn
+          class="btn"
+          color="blue"
+          text-color="dark"
+          @click="updateBall('BLUE')"
+          >Blauw</q-btn
+        >
+        <q-btn
+          class="btn"
+          color="yellow"
+          text-color="dark"
+          @click="updateBall('YELLOW')"
+        >
+          Geel
+        </q-btn>
+      </div>
 
-    <h4 class="title">
-      Kleur bowlingbal
-      <q-btn
-        class="btncolor"
-        text-color="dark"
-        :color="game.bowlingBall.color.toLowerCase()"
+      <h4 class="title">
+        Kleur bowlinglaan
+        <q-btn
+          class="btncolor"
+          text-color="dark"
+          :color="game.bowlingLane.color.toLowerCase()"
+        />
+      </h4>
+      <div class="buttons">
+        <q-btn
+          class="btn"
+          color="red"
+          text-color="dark"
+          @click="updateLane('RED')"
+          >Rood</q-btn
+        >
+        <q-btn
+          class="btn"
+          color="green"
+          text-color="dark"
+          @click="updateLane('GREEN')"
+          >Groen</q-btn
+        >
+        <q-btn
+          class="btn"
+          color="blue"
+          text-color="dark"
+          @click="updateLane('BLUE')"
+          >Blauw</q-btn
+        >
+        <q-btn
+          class="btn"
+          color="yellow"
+          text-color="dark"
+          @click="updateLane('YELLOW')"
+        >
+          Geel
+        </q-btn>
+      </div>
+
+      <h4 class="title">
+        Kleur bowlingpins
+        <q-btn
+          class="btncolor"
+          text-color="dark"
+          :color="game.bowlingPins.color.toLowerCase()"
+        />
+      </h4>
+      <div class="buttons">
+        <q-btn
+          class="btn"
+          color="red"
+          text-color="dark"
+          @click="updatePins('RED')"
+          >Rood</q-btn
+        >
+        <q-btn
+          class="btn"
+          color="green"
+          text-color="dark"
+          @click="updatePins('GREEN')"
+          >Groen</q-btn
+        >
+        <q-btn
+          class="btn"
+          color="blue"
+          text-color="dark"
+          @click="updatePins('BLUE')"
+          >Blauw</q-btn
+        >
+        <q-btn
+          class="btn"
+          color="yellow"
+          text-color="dark"
+          @click="updatePins('YELLOW')"
+        >
+          Geel
+        </q-btn>
+      </div>
+
+      <h4 class="title">Reclame</h4>
+      <q-input
+        filled
+        type="text"
+        v-model="reclame"
+        placeholder="e.g. https://vuetiful.dev/img/john-duck.png"
       />
-    </h4>
-    <div class="buttons">
       <q-btn
-        class="btn"
-        color="red"
+        class="btnSave"
         text-color="dark"
-        @click="updateBall('RED')"
-        >Rood</q-btn
+        color="primary"
+        @click="
+          saveGame();
+          icon = true;
+        "
+        >Opslaan</q-btn
       >
-      <q-btn
-        class="btn"
-        color="green"
-        text-color="dark"
-        @click="updateBall('GREEN')"
-        >Groen</q-btn
-      >
-      <q-btn
-        class="btn"
-        color="blue"
-        text-color="dark"
-        @click="updateBall('BLUE')"
-        >Blauw</q-btn
-      >
-      <q-btn
-        class="btn"
-        color="yellow"
-        text-color="dark"
-        @click="updateBall('YELLOW')"
-      >
-        Geel
-      </q-btn>
+
+      <q-dialog v-model="icon">
+        <q-card>
+          <q-card-section class="row items-center q-pb-none">
+            <div class="text-h6">Have fun!</div>
+            <q-space />
+            <q-btn icon="close" flat round dense v-close-popup />
+          </q-card-section>
+          <q-card-section>
+            Your game has successfully been updated.
+          </q-card-section>
+        </q-card>
+      </q-dialog>
     </div>
-
-    <h4 class="title">
-      Kleur bowlinglaan
-      <q-btn
-        class="btncolor"
-        text-color="dark"
-        :color="game.bowlingLane.color.toLowerCase()"
-      />
-    </h4>
-    <div class="buttons">
-      <q-btn
-        class="btn"
-        color="red"
-        text-color="dark"
-        @click="updateLane('RED')"
-        >Rood</q-btn
-      >
-      <q-btn
-        class="btn"
-        color="green"
-        text-color="dark"
-        @click="updateLane('GREEN')"
-        >Groen</q-btn
-      >
-      <q-btn
-        class="btn"
-        color="blue"
-        text-color="dark"
-        @click="updateLane('BLUE')"
-        >Blauw</q-btn
-      >
-      <q-btn
-        class="btn"
-        color="yellow"
-        text-color="dark"
-        @click="updateLane('YELLOW')"
-      >
-        Geel
-      </q-btn>
-    </div>
-
-    <h4 class="title">
-      Kleur bowlingpins
-      <q-btn
-        class="btncolor"
-        text-color="dark"
-        :color="game.bowlingPins.color.toLowerCase()"
-      />
-    </h4>
-    <div class="buttons">
-      <q-btn
-        class="btn"
-        color="red"
-        text-color="dark"
-        @click="updatePins('RED')"
-        >Rood</q-btn
-      >
-      <q-btn
-        class="btn"
-        color="green"
-        text-color="dark"
-        @click="updatePins('GREEN')"
-        >Groen</q-btn
-      >
-      <q-btn
-        class="btn"
-        color="blue"
-        text-color="dark"
-        @click="updatePins('BLUE')"
-        >Blauw</q-btn
-      >
-      <q-btn
-        class="btn"
-        color="yellow"
-        text-color="dark"
-        @click="updatePins('YELLOW')"
-      >
-        Geel
-      </q-btn>
-    </div>
-
-    <h4 class="title">Reclame</h4>
-    <q-input
-      filled
-      type="text"
-      v-model="reclame"
-      placeholder="e.g. https://vuetiful.dev/img/john-duck.png"
-    />
-
-    <q-btn class="btnSave" text-color="dark" color="primary" @click="saveGame"
-      >Opslaan</q-btn
+  </div>
+</template>
+<template v-if="!user">
+  <div class="logindiv">
+    <h1 class="notloggedin">
+      Deze pagina is enkel beschikbaar indien je ingelogd bent
+    </h1>
+    <q-btn class="btnSave" text-color="dark" color="primary" @click="logIn"
+      >Log In</q-btn
     >
   </div>
+</template>
 </template>
 
 <script lang="ts" scoped>
 import { Ref, defineComponent, ref, watch } from 'vue';
 import { useBowling } from 'src/services/bowling.service';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { Game } from 'src/components/models';
+import { useAuth } from 'src/services/auth.service';
+import { ROUTE_NAMES } from 'src/router/routes';
+import TerugKnop from 'src/components/TerugKnop.vue';
 
 export default defineComponent({
   name: 'App',
+  components: {
+    TerugKnop,
+  },
   setup() {
     const route = useRoute();
     const { getLeaderBoardForGame, updateGame } = useBowling();
     const reclame = ref('');
-
+    const router = useRouter();
     watch(
       route,
       async () => {
@@ -189,6 +238,12 @@ export default defineComponent({
       { immediate: true }
     );
 
+    const logIn = (): void => {
+      void router.push({
+        name: ROUTE_NAMES.LOGIN,
+      });
+    };
+
     const game = ref({
       name: '',
       bowlingBall: { color: '' },
@@ -197,26 +252,22 @@ export default defineComponent({
       leaderboard: [],
       reclame: [],
     }) as Ref<Game>;
-
     const updateBall = (color: string) => {
       game.value.bowlingBall.color = color;
     };
-
     const updateLane = (color: string) => {
       game.value.bowlingLane.color = color;
     };
-
     const updatePins = (color: string) => {
       game.value.bowlingPins.color = color;
     };
-
     const saveGame = () => {
       game.value.reclame = [reclame.value];
       const id = route.params.id.toString();
-      console.log(id);
-
       updateGame(id, game.value);
     };
+
+    const { user } = useAuth();
 
     return {
       game,
@@ -225,6 +276,9 @@ export default defineComponent({
       updateLane,
       updatePins,
       saveGame,
+      icon: ref(false),
+      user,
+      logIn,
     };
   },
 });
@@ -234,6 +288,16 @@ export default defineComponent({
 body {
   background-color: #866bca;
   user-select: none;
+}
+.usericon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+img {
+  height: 20px;
+  width: inherit;
 }
 .option-title {
   display: flex;
@@ -258,10 +322,6 @@ body {
   cursor: pointer;
   padding-bottom: 20px;
 }
-.game-title:hover {
-  font-variation-settings: 'wght' 100, 'ital' 0;
-  text-shadow: none;
-}
 
 .buttons {
   display: flex;
@@ -285,6 +345,7 @@ body {
   padding: 5px 0;
   position: relative;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: all 0.3s ease-in-out;
 }
@@ -392,5 +453,16 @@ body {
 
 .btnSave:hover {
   scale: 1.1;
+}
+.logindiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+.notloggedin {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 50px;
 }
 </style>

@@ -1,11 +1,10 @@
 <template>
   <template v-if="user">
-    <p>
-      User: <strong>{{ user.github.username }}</strong>
-    </p>
-
-    <h1 class="pageTitle">Admin-page</h1>
-    <div class="returnbtn"><GoToIndexPageButton></GoToIndexPageButton></div>
+    <div class="usericon">
+      <img src="../../public/img/pngwing.com.png" alt="user icon"> <strong>{{ user.github.username }}</strong>
+    </div>
+    <h1>Admin</h1>
+    <GoToIndexPageButton></GoToIndexPageButton>
     <form @submit.prevent="submitGame">
       <div class="game-creation">
         <div class="game-creation-item">
@@ -55,9 +54,21 @@
       </div>
     </form>
     <div class="button-div">
-      <button class="btn" type="submit" @click="submitGame()">
+      <button type="submit" class="btn" @click="submitGame(); icon=true">
         Creëer spel configuratie
       </button>
+      <q-dialog v-model="icon">
+      <q-card>
+        <q-card-section class="row items-center q-pb-none">
+          <div class="text-h6">Enjoy your game!</div>
+          <q-space />
+          <q-btn icon="close" flat round dense v-close-popup />
+        </q-card-section>
+        <q-card-section>
+          Your game has successfully been made.
+        </q-card-section>
+      </q-card>
+    </q-dialog>
     </div>
   </template>
   <template v-else>
@@ -109,11 +120,12 @@ export default defineComponent({
       lane.value = '';
       img.value = '';
     };
-    return { user, submitGame, gameName, ball, pins, lane, img };
+    return { user, submitGame, gameName, ball, pins, lane, img, icon:ref(false) };
   },
 });
 </script>
-<style lang="scss">
+
+<style lang="scss" scoped>
 body {
   user-select: none;
   background: #866bca;
@@ -136,6 +148,16 @@ body {
     20px 20px 0px #e9019a, 25px 25px 0px #f40468, 45px 45px 10px #482896;
   cursor: pointer;
   padding-bottom: 20px;
+}
+.usericon{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+img{
+  height: 20px;
+  width: inherit;
 }
 
 .game-creation {
@@ -192,7 +214,6 @@ select {
   background-color: blue;
   color: aliceblue;
 }
-
 .color-div {
   height: 100%;
   width: 100px;

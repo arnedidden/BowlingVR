@@ -30,33 +30,25 @@ const useBowling = () => {
 
   const updateGame = async (id: string, game: Game) => {
     delete game._id;
-    api.put(`team_eevee_config/${id}`, game)
-    .then(() =>
-        alert('Game succesvol geüpdatet')
-      )
-      .catch((error) => {
-        alert(`error: ${error}`);
-      });
-
+    api.put(`team_eevee_config/${id}`, game);
   };
   const createGame = async (game: Game) => {
-    api
-      .post(
-        'https://api.code-coaching.dev/eindwerken-2022-jaar-2/team_eevee_config',
-        game
-      )
-      .then((response) =>
-        alert(`Game succesvol aangemaakt met id: ${response.data._id}`)
-      )
-      .catch((error) => {
-        alert(`error: ${error}`);
-      });
+    api.post(
+      'https://api.code-coaching.dev/eindwerken-2022-jaar-2/team_eevee_config',
+      game
+    );
+  };
+  const deleteGame = async (id: string) => {
+    api.delete(
+      `https://api.code-coaching.dev/eindwerken-2022-jaar-2/team_eevee_config/${id}`
+    );
   };
   return {
     getLeaderBoardForGame,
     getLeaderboards,
     createGame,
     updateGame,
+    deleteGame,
   };
 };
 

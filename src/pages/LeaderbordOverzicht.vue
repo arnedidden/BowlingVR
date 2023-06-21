@@ -117,6 +117,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 body {
   background-color: #866bca !important;
+  padding: 1rem;
 }
 * {
   list-style: none;
@@ -127,7 +128,7 @@ body {
 }
 .error{
   border-radius: 5px;
-  padding: 5px;
+  padding: 15px;
   background-color: #866bca;
   color: rgb(189, 177, 4);
   font-weight: bold;

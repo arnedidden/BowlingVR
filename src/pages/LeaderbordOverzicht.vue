@@ -2,65 +2,68 @@
   <GoBackButton></GoBackButton>
   <template v-if="game">
     <h1 class="gameTitle">{{ game.name }}</h1>
-    <div class="wrapper">
-      <div class="lboardTitle">Leaderboard</div>
-      <div class="scoreboard">
-        <div v-for="(item, index) in sortedLeaderboard" :key="index">
-          <div class="speler-row" v-if="index === 0">
-            <div class="index1">{{ index + 1 }}</div>
+    <template v-if="sortedLeaderboard">
+      <div class="wrapper">
+        <div class="lboardTitle">Leaderboard</div>
+        <div class="scoreboard">
+          <div v-for="(item, index) in sortedLeaderboard" :key="index">
+            <div class="speler-row" v-if="index === 0">
+              <div class="index1">{{ index + 1 }}</div>
 
-            <div class="speler-naam1">{{ item.name }}</div>
-            <div class="scores">
-              <div
-                class="frame-row1"
-                v-for="(turn, index) in item.turns"
-                :key="index"
-              >
-                <div class="wrap">
-                  <div class="turn1">Turn: {{ turn.turn }}</div>
-                </div>
-                <div class="wrap">
-                  <div class="frame1">{{ turn.score }}</div>
-                  <div v-if="index === 0" class="frame1">
-                    {{ turn.score }}
+              <div class="speler-naam1">{{ item.name }}</div>
+              <div class="scores">
+                <div
+                  class="frame-row1"
+                  v-for="(turn, index) in item.turns"
+                  :key="index"
+                >
+                  <div class="wrap">
+                    <div class="turn1">Turn: {{ turn.turn }}</div>
                   </div>
-                  <div v-if="index > 0" class="frame1">
-                    {{ turn.subTotal }}
+                  <div class="wrap">
+                    <div class="frame1">{{ turn.score }}</div>
+                    <div v-if="index === 0" class="frame1">
+                      {{ turn.score }}
+                    </div>
+                    <div v-if="index > 0" class="frame1">
+                      {{ turn.subTotal }}
+                    </div>
                   </div>
                 </div>
               </div>
+              <div class="totalScore1">Total Score: {{ item.totalScore }}</div>
             </div>
-            <div class="totalScore1">Total Score: {{ item.totalScore }}</div>
-          </div>
-          <div class="speler-row" v-if="index > 0">
-            <div class="index">{{ index + 1 }}</div>
+            <div class="speler-row" v-if="index > 0">
+              <div class="index">{{ index + 1 }}</div>
 
-            <div class="speler-naam">{{ item.name }}</div>
-            <div class="scores">
-              <div
-                class="frame-row"
-                v-for="(turn, index) in item.turns"
-                :key="index"
-              >
-                <div class="wrap">
-                  <div class="turn">Turn: {{ turn.turn }}</div>
-                </div>
-                <div class="wrap">
-                  <div class="frame">{{ turn.score }}</div>
-                  <div v-if="index === 0" class="frame">
-                    {{ turn.score }}
+              <div class="speler-naam">{{ item.name }}</div>
+              <div class="scores">
+                <div
+                  class="frame-row"
+                  v-for="(turn, index) in item.turns"
+                  :key="index"
+                >
+                  <div class="wrap">
+                    <div class="turn">Turn: {{ turn.turn }}</div>
                   </div>
-                  <div v-if="index > 0" class="frame">
-                    {{ turn.subTotal }}
+                  <div class="wrap">
+                    <div class="frame">{{ turn.score }}</div>
+                    <div v-if="index === 0" class="frame">
+                      {{ turn.score }}
+                    </div>
+                    <div v-if="index > 0" class="frame">
+                      {{ turn.subTotal }}
+                    </div>
                   </div>
                 </div>
               </div>
+              <div class="totalScore">Total Score: {{ item.totalScore }}</div>
             </div>
-            <div class="totalScore">Total Score: {{ item.totalScore }}</div>
           </div>
         </div>
       </div>
-    </div>
+    </template>
+    <template v-if="!sortedLeaderboard">Geen Spel</template>
   </template>
   <template v-if="!game">ERROR LOADING PAGE</template>
 </template>

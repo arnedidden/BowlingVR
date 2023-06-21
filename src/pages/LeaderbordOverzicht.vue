@@ -132,14 +132,6 @@ body {
   box-sizing: border-box;
   user-select: none;
 }
-.arrowBack {
-  width: fit-content;
-  margin: 0;
-  &:hover {
-    border-bottom: 2px solid black;
-    cursor: pointer;
-  }
-}
 .gameTitle {
   transition: all 0.5s;
   text-align: center;

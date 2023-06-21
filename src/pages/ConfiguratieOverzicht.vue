@@ -322,10 +322,6 @@ img {
   cursor: pointer;
   padding-bottom: 20px;
 }
-.game-title:hover {
-  font-variation-settings: 'wght' 100, 'ital' 0;
-  text-shadow: none;
-}
 
 .buttons {
   display: flex;

@@ -1,18 +1,26 @@
 <template>
   <template v-if="user">
     <div class="usericon">
-      <img src="../../public/img/pngwing.com.png" alt="user icon"> <strong>{{ user.github.username }}</strong>
+      <img src="../../public/img/pngwing.com.png" alt="user icon" />
+      <strong>{{ user.github.username }}</strong>
     </div>
     <h1>Admin</h1>
     <GoToIndexPageButton></GoToIndexPageButton>
-    <form @submit.prevent="submitGame">
+    <form @submit.prevent.stop="submitGame">
       <div class="game-creation">
         <div class="game-creation-item">
-          <h3 class="title">Kies de naam van het spel</h3>
-          <input type="text" v-model="gameName" placeholder="" />
+          <h3 class="title">Kies de naam van het spel*</h3>
+          <q-input
+          ref="nameRef"
+          filled
+          v-model="gameName"
+          label=""
+          lazy-rules
+          :rules="[ val => val && val.length > 0 || 'Vul een spelnaam in om verder te gaan.']"
+        ></q-input>
         </div>
         <div class="game-creation-item">
-          <h3 class="title">Kies de kleuren van het spel</h3>
+          <h3 class="title">Kies de kleuren van het spel*</h3>
           <div class="choices-of-color">
             <div class="color-choice">
               <h5>Ball</h5>
@@ -54,32 +62,41 @@
       </div>
     </form>
     <div class="button-div">
-      <button type="submit" @click="submitGame(); icon=true">
-        Creëer spel configuratie
+      <button
+        type="submit"
+        @click="
+          submitGame();
+          icon = true;
+        "
+      >
+        Creëer spel
       </button>
       <q-dialog v-model="icon">
-      <q-card>
-        <q-card-section class="row items-center q-pb-none">
-          <div class="text-h6">Enjoy your game!</div>
-          <q-space />
-          <q-btn icon="close" flat round dense v-close-popup />
-        </q-card-section>
-        <q-card-section>
-          Your game has successfully been made.
-        </q-card-section>
-      </q-card>
-    </q-dialog>
+        <q-card>
+          <q-card-section class="row items-center q-pb-none">
+            <div class="text-h6">Enjoy your game!</div>
+            <q-space />
+            <q-btn icon="close" flat round dense v-close-popup />
+          </q-card-section>
+          <q-card-section>
+            Your game has successfully been made.
+          </q-card-section>
+        </q-card>
+      </q-dialog>
     </div>
   </template>
   <template v-else>
     <p>Deze pagina is enkel beschikbaar indien je ingelogd bent.</p>
   </template>
 </template>
+
+
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { useAuth } from 'src/services/auth.service';
 import { useBowling } from 'src/services/bowling.service';
 import GoToIndexPageButton from 'src/components/GoToIndexPageButton.vue';
+import { useQuasar } from 'quasar';
 
 export default defineComponent({
   components: {
@@ -93,12 +110,27 @@ export default defineComponent({
     const pins = ref('');
     const lane = ref('');
     const img = ref('');
-    const submitGame = () => {
+    const $q = useQuasar()
+    const name = ref<string>('');
+    const nameRef = ref<any>();
+
+    const submitGame = (): void => {
       const title = gameName.value;
       const bowlingBalColor = ball.value;
       const pinsColor = pins.value;
       const laneColor = lane.value;
       const reclame = img.value;
+
+      if (!title) {
+        $q.notify({
+          icon: 'warning',
+          color: 'negative',
+          message: 'Please enter a game name.'
+        });
+        return;
+      }
+      nameRef.value.resetValidation();
+
       const game = {
         name: title,
         bowlingBall: {
@@ -119,19 +151,43 @@ export default defineComponent({
       pins.value = '';
       lane.value = '';
       img.value = '';
-    };
-    return { user, submitGame, gameName, ball, pins, lane, img, icon:ref(false) };
-  },
+
+      nameRef.value.validate()
+      if (!nameRef.value.hasError) {
+        }
+        else {
+          $q.notify({
+            icon: 'done',
+            color: 'positive',
+            message: 'Submitted'
+          })
+        }
+      }
+
+      return {
+      name,
+      nameRef,
+      user,
+      submitGame,
+      gameName,
+      ball,
+      pins,
+      lane,
+      img,
+      icon: ref(false),
+
+    }
+}
 });
 </script>
 <style scoped>
-.usericon{
+.usericon {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100px;
 }
-img{
+img {
   height: 20px;
   width: inherit;
 }
@@ -178,5 +234,10 @@ select {
 .blue {
   background-color: blue;
   color: aliceblue;
+}
+
+.color-div {
+  height: 100%;
+  width: 100px;
 }
 </style>

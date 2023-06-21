@@ -1,6 +1,6 @@
 <template>
   <div>
-    <GoBackButton></GoBackButton>
+    <GoBackButton @click="goBack">Back</GoBackButton>
   </div>
 
   <div class="q-pa-md">
@@ -169,9 +169,10 @@
 <script lang="ts" scoped>
 import { Ref, defineComponent, ref, watch } from 'vue';
 import { useBowling } from 'src/services/bowling.service';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { Game } from 'src/components/models';
 import GoBackButton from 'src/components/goBackButton.vue';
+
 
 
 export default defineComponent({
@@ -227,6 +228,11 @@ export default defineComponent({
       updateGame(id, game.value);
     };
 
+    const router = useRouter();
+    function goBack() {
+      window.history.length > 1 ? router.go(-1) : router.push('/');
+    }
+
     return {
       game,
       reclame,
@@ -234,6 +240,7 @@ export default defineComponent({
       updateLane,
       updatePins,
       saveGame,
+      goBack,
     };
   },
 });

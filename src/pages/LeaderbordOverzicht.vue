@@ -1,5 +1,5 @@
 <template>
-  <GoBackButton></GoBackButton>
+  <GoBackButton @click="goBack">Back</GoBackButton>
   <template v-if="game">
     <h1 class="gameTitle">{{ game.name }}</h1>
     <div class="wrappers">
@@ -99,7 +99,7 @@ export default defineComponent({
     const game = ref();
     const sortedLeaderboard = ref();
     const route = useRoute();
-    const router = useRouter();
+    
 
     const { id } = route.params;
     const getLeaderBord = async () => {
@@ -114,8 +114,10 @@ export default defineComponent({
     };
 
     getLeaderBord();
-
-    const goBack = () => void router.go(-1);
+    const router = useRouter();
+    function goBack() {
+      window.history.length > 1 ? router.go(-1) : router.push('/');
+    }
     return {
       game,
       sortedLeaderboard,

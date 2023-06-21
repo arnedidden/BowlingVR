@@ -1,11 +1,11 @@
 <template>
-<GoBackButton></GoBackButton>
+<GoBackButton @click="goBack">Back</GoBackButton>
   <template v-if="user">
     <h3>Admin</h3>
     <p>
       User: <strong>{{ user.github.username }}</strong>
     </p>
-    
+
     <form @submit.prevent="submitGame">
       <div class="game-creation">
         <div class="game-creation-item">
@@ -69,12 +69,14 @@ import { defineComponent, ref } from 'vue';
 import { useAuth } from 'src/services/auth.service';
 import { useBowling } from 'src/services/bowling.service';
 import GoBackButton from 'src/components/goBackButton.vue';
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
   components: {
     GoBackButton
   },
   setup() {
+    const router = useRouter();
     const { createGame } = useBowling();
     const { user } = useAuth();
     const gameName = ref('');
@@ -102,6 +104,9 @@ export default defineComponent({
         leaderboard: [],
         reclame: [reclame],
       };
+
+
+
       createGame(game);
       gameName.value = '';
       ball.value = '';
@@ -109,7 +114,13 @@ export default defineComponent({
       lane.value = '';
       img.value = '';
     };
-    return { user, submitGame, gameName, ball, pins, lane, img };
+
+
+    function goBack() {
+      window.history.length > 1 ? router.go(-1) : router.push('/');
+    }
+
+    return { user, submitGame, gameName, ball, pins, lane, img, goBack};
   },
 });
 </script>

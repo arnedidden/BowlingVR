@@ -24,7 +24,9 @@
         <div class="shadow">S</div>
       </div>
     </div>
-    <div class="nextGame"><GoBackButton></GoBackButton></div>
+    <div class="nextGame">
+      <GoBackButton @click="newGame">Create New Game</GoBackButton>
+    </div>
     <div class="games">
       <div class="game" v-for="(item, index) in game.data" :key="index">
         <div class="linkTitle">{{ item.name }}</div>
@@ -44,6 +46,7 @@ import { useRouter } from 'vue-router';
 import { ROUTE_NAMES } from 'src/router/routes';
 import GoBackButton from 'src/components/goBackButton.vue';
 
+
 export default defineComponent({
   name: 'IndexPage',
 
@@ -52,6 +55,7 @@ export default defineComponent({
   },
 
   setup() {
+
     const { getLeaderboards } = useBowling();
     const game = ref();
     const router = useRouter();
@@ -76,8 +80,17 @@ export default defineComponent({
         },
       });
     };
-    return { game, goToLeaderboard, goToConfig };
-  },
+
+
+      function newGame(){
+        void router.push({
+        name: ROUTE_NAMES.ADMIN,
+
+      })};
+
+
+    return { game, goToLeaderboard, goToConfig, newGame };
+  }
 });
 </script>
 

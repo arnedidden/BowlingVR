@@ -20,7 +20,7 @@
                   <div class="turn1">Turn: {{ turn.turn }}</div>
                 </div>
                 <div class="wrap">
-                  <div class="frame1">{{ turn.pinsHit }}</div>
+                  <div class="frame1">{{ turn.score }}</div>
                   <div v-if="index === 0" class="frame1">
                     {{ turn.score }}
                   </div>
@@ -46,7 +46,7 @@
                   <div class="turn">Turn: {{ turn.turn }}</div>
                 </div>
                 <div class="wrap">
-                  <div class="frame">{{ turn.pinsHit }}</div>
+                  <div class="frame">{{ turn.score }}</div>
                   <div v-if="index === 0" class="frame">
                     {{ turn.score }}
                   </div>

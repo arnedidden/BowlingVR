@@ -120,7 +120,7 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 body {
   background-color: #866bca !important;
   padding: 1rem;
@@ -261,7 +261,7 @@ body {
   font-weight: bold;
   text-align: center;
   padding: 5px;
-  max-width: 50%;
+  width: 50%;
   min-width: fit-content;
 }
 .frame1 {
@@ -273,7 +273,7 @@ body {
   font-weight: bold;
   text-align: center;
   padding: 5px;
-  max-width: 50%;
+  width: 50%;
   min-width: fit-content;
 }
 .wrap {
@@ -306,6 +306,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    border-bottom: 2px solid black;
   }
   .scores {
     display: flex;

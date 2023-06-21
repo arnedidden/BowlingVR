@@ -1,16 +1,16 @@
 <template>
   <template v-if="user">
-  <div class="usericon">
-    <img src="../../public/img/pngwing.com.png" alt="user icon" >
-    <strong>{{ user.github.username }}</strong>
-  </div>
-  <div>
-    <terug-knop class="terug-knop">
-      <span class="arrow"></span>
-      Terug
-    </terug-knop>
-  </div>
-
+    <div>
+      <terug-knop class="terug-knop">
+        <span class="arrow"></span>
+        Terug
+      </terug-knop>
+    </div>
+    <div class="usericon">
+      <img src="../../public/img/pngwing.com.png" alt="user icon" >
+      <strong>{{ user.github.username }}</strong>
+    </div>
+    
   <div class="q-pa-md">
     <h2 class="game-title">{{ game.name }}</h2>
     <div class="text">

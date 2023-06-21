@@ -202,14 +202,6 @@ body {
   box-shadow: 8px 8px 16px black;
 }
 
-.lboard_section1:hover {
-  transform: scale(1.01);
-}
-
-.lboard_section2:hover {
-  transform: scale(1.01);
-}
-
 .lboard_section1 ul {
   display: flex;
 }
@@ -286,11 +278,6 @@ body {
     20px 20px 0px #e9019a, 25px 25px 0px #f40468, 45px 45px 10px #482896;
   cursor: pointer;
   padding-bottom: 20px;
-}
-
-.gameTitle:hover {
-  font-variation-settings: 'wght' 100, 'ital' 0;
-  text-shadow: none;
 }
 
 .scoreboard {

@@ -220,7 +220,6 @@ body {
   flex-direction: column;
   justify-content: space-around;
 }
-
 .turn {
   background-color: deeppink;
   border: 2px solid #fff;

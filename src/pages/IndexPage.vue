@@ -129,7 +129,7 @@ export default defineComponent({
       icon: ref(false),
       deleted: ref(false),
       reloadPage,
-      newGame
+      newGame,
     };
   },
 });
@@ -252,5 +252,24 @@ body {
   color: #ffffff;
   border-radius: 1rem;
   padding: 0.5rem;
+}
+
+@media screen and (max-width: 650px) {
+  .game {
+    width: 100%;
+    padding: 1rem;
+    background: #00000098;
+    border: 2px solid deeppink;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .links{
+    flex-direction: column;
+  }
+  .linkTitle{
+    text-align: center;
+    border-bottom: 2px solid#ffffff;
+  }
 }
 </style>

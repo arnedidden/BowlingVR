@@ -3,26 +3,7 @@
     <div class="overlay"></div>
 
     <div class="text">
-      <div class="wrapper">
-        <div id="G" class="letter">G</div>
-        <div class="shadow">G</div>
-      </div>
-      <div class="wrapper">
-        <div id="A" class="letter">A</div>
-        <div class="shadow">A</div>
-      </div>
-      <div class="wrapper">
-        <div id="M" class="letter">M</div>
-        <div class="shadow">M</div>
-      </div>
-      <div class="wrapper">
-        <div id="E" class="letter">E</div>
-        <div class="shadow">E</div>
-      </div>
-      <div class="wrapper">
-        <div id="S" class="letter">S</div>
-        <div class="shadow">S</div>
-      </div>
+      <div><h1 class="game-title">GAMES</h1></div>
     </div>
     <div class="nextGame"><GoToAdminPageButton></GoToAdminPageButton></div>
     <div class="games">
@@ -152,42 +133,17 @@ body {
   background: #866bca;
 }
 
-.text {
-  font-family: 'Yanone Kaffeesatz';
-  font-size: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.game-title {
+  transition: all 0.5s;
   text-align: center;
-  position: relative;
-  width: 50%;
-  left: 50%;
-  transform: translateX(-50%);
-  user-select: none;
-
-  .wrapper {
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 20px;
-    .letter {
-      transition: ease-out 1s;
-      transform: translateY(40%);
-    }
-    .shadow {
-      transform: scale(1, -1);
-      color: #999;
-      transition: ease-in 5s, ease-out 5s;
-    }
-    &:hover {
-      .letter {
-        transform: translateY(-20%);
-      }
-      .shadow {
-        opacity: 0;
-        transform: translateY(20%);
-      }
-    }
-  }
+  -webkit-text-stroke: 4px #d6f4f4;
+  font-variation-settings: 'wght' 900, 'ital' 1;
+  color: transparent;
+  font-family: 'Meta', sans-serif;
+  text-shadow: 10px 10px 0px #07bccc, 15px 15px 0px #e601c0,
+    20px 20px 0px #e9019a, 25px 25px 0px #f40468, 45px 45px 10px #482896;
+  cursor: pointer;
+  padding-bottom: 20px;
 }
 .games {
   position: relative;
@@ -207,7 +163,7 @@ body {
   display: block;
   width: 100%;
   padding: 1rem;
-  background: #ffffff44;
+  background: #00000098;
   border: 2px solid deeppink;
   gap: 1rem;
 }

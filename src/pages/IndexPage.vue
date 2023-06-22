@@ -3,26 +3,7 @@
     <div class="overlay"></div>
 
     <div class="text">
-      <div class="wrapper">
-        <div id="G" class="letter">G</div>
-        <div class="shadow">G</div>
-      </div>
-      <div class="wrapper">
-        <div id="A" class="letter">A</div>
-        <div class="shadow">A</div>
-      </div>
-      <div class="wrapper">
-        <div id="M" class="letter">M</div>
-        <div class="shadow">M</div>
-      </div>
-      <div class="wrapper">
-        <div id="E" class="letter">E</div>
-        <div class="shadow">E</div>
-      </div>
-      <div class="wrapper">
-        <div id="S" class="letter">S</div>
-        <div class="shadow">S</div>
-      </div>
+      <div><h1 class="game-title">GAMES</h1></div>
     </div>
     <div class="nextGame">
       <GoBackButton @click="newGame">Create New Game</GoBackButton>
@@ -33,6 +14,54 @@
         <div class="links">
           <div @click="goToLeaderboard(item._id)" class="link">Leaderboard</div>
           <div @click="goToConfig(item._id)" class="link">Configuratie</div>
+          <div @click="icon = true" class="link">Delete game</div>
+          <q-dialog v-model="icon">
+            <q-card>
+              <q-card-section class="row items-center q-pb-none">
+                <div class="text-h6">
+                  Are you sure you want to delete this game?
+                </div>
+                <q-space />
+              </q-card-section>
+              <q-card-section>
+                <div class="buttons">
+                  <button
+                    type="button"
+                    class="yesbutton"
+                    v-close-popup
+                    @click="
+                      deleteGameButton(item._id);
+                      deleted = true;
+                    "
+                  >
+                    Yes!
+                  </button>
+                  <button type="button" class="nobutton" v-close-popup>
+                    NO!
+                  </button>
+                </div>
+              </q-card-section>
+            </q-card>
+          </q-dialog>
+          <q-dialog v-model="deleted">
+            <q-card>
+              <q-card-section class="row items-center q-pb-none">
+                <div class="text-h6">Note!</div>
+                <q-space />
+                <q-btn
+                  icon="close"
+                  flat
+                  round
+                  dense
+                  v-close-popup
+                  @click="reloadPage"
+                />
+              </q-card-section>
+              <q-card-section>
+                Your game has successfully been deleted.
+              </q-card-section>
+            </q-card>
+          </q-dialog>
         </div>
       </div>
     </div>
@@ -46,7 +75,6 @@ import { useRouter } from 'vue-router';
 import { ROUTE_NAMES } from 'src/router/routes';
 import GoBackButton from 'src/components/goBackButton.vue';
 
-
 export default defineComponent({
   name: 'IndexPage',
 
@@ -55,8 +83,7 @@ export default defineComponent({
   },
 
   setup() {
-
-    const { getLeaderboards } = useBowling();
+    const { getLeaderboards, deleteGame } = useBowling();
     const game = ref();
     const router = useRouter();
     const getLeaderBords = async () => {
@@ -81,16 +108,30 @@ export default defineComponent({
       });
     };
 
-
-      function newGame(){
-        void router.push({
+    function newGame() {
+      void router.push({
         name: ROUTE_NAMES.ADMIN,
+      });
+    }
 
-      })};
+    const deleteGameButton = (param: string) => {
+      deleteGame(param);
+    };
 
-
-    return { game, goToLeaderboard, goToConfig, newGame };
-  }
+    const reloadPage = () => {
+      location.reload();
+    };
+    return {
+      game,
+      goToLeaderboard,
+      goToConfig,
+      deleteGameButton,
+      icon: ref(false),
+      deleted: ref(false),
+      reloadPage,
+      newGame
+    };
+  },
 });
 </script>
 
@@ -102,42 +143,17 @@ body {
   background: #866bca;
 }
 
-.text {
-  font-family: 'Yanone Kaffeesatz';
-  font-size: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.game-title {
+  transition: all 0.5s;
   text-align: center;
-  position: relative;
-  width: 50%;
-  left: 50%;
-  transform: translateX(-50%);
-  user-select: none;
-
-  .wrapper {
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 20px;
-    .letter {
-      transition: ease-out 1s;
-      transform: translateY(40%);
-    }
-    .shadow {
-      transform: scale(1, -1);
-      color: #999;
-      transition: ease-in 5s, ease-out 5s;
-    }
-    &:hover {
-      .letter {
-        transform: translateY(-20%);
-      }
-      .shadow {
-        opacity: 0;
-        transform: translateY(20%);
-      }
-    }
-  }
+  -webkit-text-stroke: 4px #d6f4f4;
+  font-variation-settings: 'wght' 900, 'ital' 1;
+  color: transparent;
+  font-family: 'Meta', sans-serif;
+  text-shadow: 10px 10px 0px #07bccc, 15px 15px 0px #e601c0,
+    20px 20px 0px #e9019a, 25px 25px 0px #f40468, 45px 45px 10px #482896;
+  cursor: pointer;
+  padding-bottom: 20px;
 }
 .games {
   position: relative;
@@ -157,7 +173,7 @@ body {
   display: block;
   width: 100%;
   padding: 1rem;
-  background: #ffffff44;
+  background: #00000098;
   border: 2px solid deeppink;
   gap: 1rem;
 }
@@ -218,5 +234,23 @@ body {
   text-align: center;
   padding-top: 25px;
   padding-bottom: 50px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.yesbutton {
+  background-color: rgb(15, 78, 15);
+  color: #ffffff;
+  border-radius: 1rem;
+  padding: 0.5rem;
+}
+.nobutton {
+  background-color: rgb(107, 23, 23);
+  color: #ffffff;
+  border-radius: 1rem;
+  padding: 0.5rem;
 }
 </style>

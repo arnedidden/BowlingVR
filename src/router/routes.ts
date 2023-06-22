@@ -8,6 +8,7 @@ export const ROUTE_NAMES = {
   LEADERBORD: 'leaderbord',
   ADMIN: 'admin',
   HOME: 'home',
+  LOGIN: 'login',
 };
 
 const mustBeLoggedIn = async (next: NavigationGuardNext) => {
@@ -43,12 +44,16 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: '/login',
+        name: ROUTE_NAMES.LOGIN,
         component: () => import('pages/LoginPage.vue'),
       },
       {
         name: ROUTE_NAMES.CONFIGURATIE_OVERZICHT,
 
         path: '/configuratie/:id',
+        beforeEnter: async (to, from, next) => {
+          await mustBeLoggedIn(next);
+        },
         component: () => import('pages/ConfiguratieOverzicht.vue'),
       },
       {
@@ -62,7 +67,7 @@ const routes: RouteRecordRaw[] = [
   // Always leave this as last one,
   // but you can also remove it
   {
-    path: '/',
+    path: '/error',
     component: () => import('pages/ErrorNotFound.vue'),
   },
 ];

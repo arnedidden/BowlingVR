@@ -4,7 +4,7 @@
     <h1 class="gameTitle">{{ game.name }}</h1>
     <div class="wrapper">
       <div class="lboardTitle">Leaderboard</div>
-      <div class="scoreboard">
+      <div class="scoreboard" v-if="sortedLeaderboard.length">
         <div v-for="(item, index) in sortedLeaderboard" :key="index">
           <div class="speler-row" v-if="index === 0">
             <div class="index1">{{ index + 1 }}</div>
@@ -60,9 +60,10 @@
           </div>
         </div>
       </div>
+      <div v-if="sortedLeaderboard.length === 0" class="error">Geen leaderboard om weer te geven!</div>
     </div>
   </template>
-  <template v-if="!game">ERROR LOADING PAGE</template>
+  <template v-if="!game">ERROR LOADING PAGE: Game does not exist </template>
 </template>
 
 <script lang="ts">
@@ -76,14 +77,7 @@ export default defineComponent({
   components: {
     GoBackButton,
   },
-  data() {
-    return {
-      Title: false,
-      Assets: false,
-      Ads: false,
-      gameTitle: 'VR game',
-    };
-  },
+  
 
   setup() {
     const { getLeaderBoardForGame } = useBowling();
@@ -132,6 +126,14 @@ body {
   box-sizing: border-box;
   user-select: none;
 }
+.error{
+  border-radius: 5px;
+  padding: 15px;
+  background-color: #866bca;
+  color: rgb(189, 177, 4);
+  font-weight: bold;
+}
+
 .gameTitle {
   transition: all 0.5s;
   text-align: center;

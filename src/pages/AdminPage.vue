@@ -1,11 +1,11 @@
 <template>
+  <GoBackButton @click="goBack">Back</GoBackButton>
   <template v-if="user">
     <div class="usericon">
       <img src="../../public/img/pngwing.com.png" alt="user icon" />
       <strong>{{ user.github.username }}</strong>
     </div>
     <h1 class="pageTitle">Admin</h1>
-    <div class="returnbtn"><GoToIndexPageButton></GoToIndexPageButton></div>
     <form @submit.prevent="submitGame">
       <div class="game-creation">
         <div class="game-creation-item">
@@ -87,13 +87,15 @@
 import { defineComponent, ref } from 'vue';
 import { useAuth } from 'src/services/auth.service';
 import { useBowling } from 'src/services/bowling.service';
-import GoToIndexPageButton from 'src/components/GoToIndexPageButton.vue';
+import GoBackButton from 'src/components/goBackButton.vue';
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
   components: {
-    GoToIndexPageButton,
+    GoBackButton,
   },
   setup() {
+    const router = useRouter();
     const { createGame } = useBowling();
     const { user } = useAuth();
     const gameName = ref('');
@@ -121,6 +123,7 @@ export default defineComponent({
         leaderboard: [],
         reclame: [reclame],
       };
+
       createGame(game);
       gameName.value = '';
       ball.value = '';
@@ -128,6 +131,11 @@ export default defineComponent({
       lane.value = '';
       img.value = '';
     };
+
+    function goBack() {
+      window.history.length > 1 ? router.go(-1) : router.push('/');
+    }
+
     return {
       user,
       submitGame,
@@ -137,6 +145,7 @@ export default defineComponent({
       lane,
       img,
       icon: ref(false),
+      goBack
     };
   },
 });
@@ -247,6 +256,7 @@ select {
   padding: 5px 0;
   position: relative;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: all 0.3s ease-in-out;
 }

@@ -131,6 +131,7 @@ body {
   background-color: #866bca;
   color: rgb(189, 177, 4);
   font-weight: bold;
+  box-shadow: 8px 8px 16px black;
 }
 
 .wrapper {

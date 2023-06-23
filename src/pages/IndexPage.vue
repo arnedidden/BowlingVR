@@ -1,8 +1,7 @@
 <template>
   <template v-if="game">
     <div class="overlay"></div>
-
-    <div class="game-title">GAMES</div>
+    <PageTitle>GAMES</PageTitle>
     <div class="nextGame">
       <GoBackButton @click="newGame">Create New Game</GoBackButton>
     </div>
@@ -72,12 +71,14 @@ import { useBowling } from 'src/services/bowling.service';
 import { useRouter } from 'vue-router';
 import { ROUTE_NAMES } from 'src/router/routes';
 import GoBackButton from 'src/components/goBackButton.vue';
+import PageTitle from 'src/components/PageTitle.vue';
 
 export default defineComponent({
   name: 'IndexPage',
 
   components: {
     GoBackButton,
+    PageTitle
   },
 
   setup() {

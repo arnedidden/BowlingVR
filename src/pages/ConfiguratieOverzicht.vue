@@ -10,7 +10,7 @@
     </div>
 
     <div class="q-pa-md">
-      <div class="game-title">{{ game.name }}</div>
+      <PageTitle>{{ game.name }}</PageTitle>
       <div class="text">
         <div class="wrapper">
           <div id="O" class="letter">O</div>
@@ -209,12 +209,14 @@ import { useBowling } from 'src/services/bowling.service';
 import { useRoute, useRouter } from 'vue-router';
 import { Game } from 'src/components/models';
 import GoBackButton from 'src/components/goBackButton.vue';
+import PageTitle from 'src/components/PageTitle.vue';
 import { useAuth } from 'src/services/auth.service';
 import { ROUTE_NAMES } from 'src/router/routes';
 
 export default defineComponent({
   components: {
-    GoBackButton
+    GoBackButton,
+    PageTitle
   },
   setup() {
     const route = useRoute();

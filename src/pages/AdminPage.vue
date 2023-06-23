@@ -5,7 +5,7 @@
       <img src="../../public/img/pngwing.com.png" alt="user icon" />
       <strong>{{ user.github.username }}</strong>
     </div>
-    <div class="game-title">Admin</div>
+    <PageTitle>Admin</PageTitle>
     <form @submit.prevent="submitGame">
       <div class="game-creation">
         <div class="game-creation-item">
@@ -88,11 +88,13 @@ import { defineComponent, ref } from 'vue';
 import { useAuth } from 'src/services/auth.service';
 import { useBowling } from 'src/services/bowling.service';
 import GoBackButton from 'src/components/goBackButton.vue';
+import PageTitle from 'src/components/PageTitle.vue';
 import { useRouter } from 'vue-router';
 
 export default defineComponent({
   components: {
     GoBackButton,
+    PageTitle
   },
   setup() {
     const router = useRouter();

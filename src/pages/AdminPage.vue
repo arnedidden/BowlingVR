@@ -145,7 +145,7 @@ export default defineComponent({
       lane,
       img,
       icon: ref(false),
-      goBack
+      goBack  
     };
   },
 });
@@ -316,6 +316,8 @@ select {
     align-items: center;
     justify-content: center;
     text-align: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
   }
   .game-creation-item {
     width: 80%;

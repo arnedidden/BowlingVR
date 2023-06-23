@@ -1,7 +1,7 @@
 <template>
   <GoBackButton @click="goBack">Back</GoBackButton>
   <template v-if="game">
-    <h1 class="gameTitle">{{ game.name }}</h1>
+    <div class="game-title">{{ game.name }}</div>
     <div class="wrapper">
       <div class="lboardTitle">Leaderboard</div>
       <div class="scoreboard" v-if="sortedLeaderboard.length">
@@ -156,6 +156,7 @@ body {
   color: black;
   font-size: 30px;
   box-shadow: 8px 8px 16px black;
+  margin-top: 30px;
 }
 
 .scoreboard {

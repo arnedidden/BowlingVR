@@ -10,7 +10,7 @@
     </div>
 
     <div class="q-pa-md">
-      <h2 class="game-title">{{ game.name }}</h2>
+      <div class="game-title">{{ game.name }}</div>
       <div class="text">
         <div class="wrapper">
           <div id="O" class="letter">O</div>
@@ -285,11 +285,8 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
-body {
-  background-color: #866bca;
-  user-select: none;
-}
+<style lang="scss" scoped>
+
 .usericon {
   display: flex;
   justify-content: center;
@@ -310,18 +307,6 @@ img {
   font-family: 'Meta';
   font-style: normal;
   font-weight: normal;
-}
-.game-title {
-  transition: all 0.5s;
-  text-align: center;
-  -webkit-text-stroke: 4px #d6f4f4;
-  font-variation-settings: 'wght' 900, 'ital' 1;
-  color: transparent;
-  font-family: 'Meta', sans-serif;
-  text-shadow: 10px 10px 0px #07bccc, 15px 15px 0px #e601c0,
-    20px 20px 0px #e9019a, 25px 25px 0px #f40468, 45px 45px 10px #482896;
-  cursor: pointer;
-  padding-bottom: 20px;
 }
 
 .buttons {

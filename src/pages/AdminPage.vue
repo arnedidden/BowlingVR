@@ -10,7 +10,7 @@
       <div class="game-creation">
         <div class="game-creation-item">
           <h3 class="title">Game name:</h3>
-          <input class="input" type="text" v-model="gameName" placeholder=" " />
+          <input class="input" type="text" v-model="gameName" placeholder="Enter the title of your game" />
         </div>
         <div class="game-creation-item">
           <h3 class="title">Game colors:</h3>
@@ -18,39 +18,38 @@
             <div class="color-choice">
               <h5>Ball</h5>
               <select class="input" v-model="ball">
-                <option value="GREEN" class="green">GREEN</option>
-                <option value="YELLOW" class="yellow">YELLOW</option>
-                <option value="RED" class="red">RED</option>
-                <option value="BLUE" class="blue">BLUE</option>
+                <option disabled value="">Please select one</option>
+                <option value="GREEN" class="GREEN">GREEN</option>
+                <option value="YELLOW" class="YELLOW">YELLOW</option>
+                <option value="RED" class="RED">RED</option>
+                <option value="BLUE" class="BLUE">BLUE</option>
               </select>
-              <div id="ball-color" class="color-div"></div>
             </div>
             <div class="color-choice">
               <h5>Pins</h5>
               <select class="input" v-model="pins">
-                <option value="GREEN" class="green">GREEN</option>
-                <option value="YELLOW" class="yellow">YELLOW</option>
-                <option value="RED" class="red">RED</option>
-                <option value="BLUE" class="blue">BLUE</option>
+                <option disabled value="">Please select one</option>
+                <option value="GREEN" class="GREEN">GREEN</option>
+                <option value="YELLOW" class="YELLOW">YELLOW</option>
+                <option value="RED" class="RED">RED</option>
+                <option value="BLUE" class="BLUE">BLUE</option>
               </select>
-              <div id="pins-color" class="color-div"></div>
             </div>
             <div class="color-choice">
               <h5>Lane</h5>
               <select class="input" v-model="lane">
-                <option value="GREEN" class="green">GREEN</option>
-                <option value="YELLOW" class="yellow">YELLOW</option>
-                <option value="RED" class="red">RED</option>
-                <option value="BLUE" class="blue">BLUE</option>
+                <option disabled value="">Please select one</option>
+                <option value="GREEN" class="GREEN">GREEN</option>
+                <option value="YELLOW" class="YELLOW">YELLOW</option>
+                <option value="RED" class="RED">RED</option>
+                <option value="BLUE" class="BLUE">BLUE</option>
               </select>
-              <div id="lane-color" class="color-div"></div>
             </div>
           </div>
         </div>
         <div class="game-creation-item">
           <h3 class="title">Upload adds</h3>
-          <p>Paste an image url in the box</p>
-          <input class="input" type="text" v-model="img" />
+          <input class="input" type="text" placeholder="Paste an image url in the box" v-model="img" />
         </div>
       </div>
     </form>
@@ -190,8 +189,12 @@ img {
 }
 .color-choice {
   display: flex;
-  justify-content: space-around;
-  gap: 1rem;
+  align-items: center;
+  gap: 2rem;
+}
+
+h5{
+  width: 20%;
 }
 select {
   width: 50%;
@@ -211,19 +214,19 @@ select {
   padding-top: 40px;
 }
 
-.green {
+.GREEN {
   background-color: rgba(0, 128, 0, 0.432);
   color: aliceblue;
 }
-.yellow {
+.YELLOW {
   background-color: rgba(255, 255, 0, 0.425);
   color: black;
 }
-.red {
+.RED {
   background-color: rgba(255, 0, 0, 0.5);
   color: aliceblue;
 }
-.blue {
+.BLUE {
   background-color: rgba(0, 0, 255, 0.466);
   color: aliceblue;
 }
@@ -296,7 +299,16 @@ select {
 .btn:hover {
   scale: 1.1;
 }
-
+.input {
+  background-color: #47289688;
+  color: rgb(192, 190, 190);
+  font-weight: bold;
+  height: 30px;
+  width: 100%;
+  &::placeholder{
+    color: rgb(192, 190, 190);
+  }
+}
 @media only screen and (max-width: 1200px) {
   .game-creation {
     flex-direction: column;
@@ -305,26 +317,12 @@ select {
     text-align: center;
     gap: 1rem;
     margin-bottom: 2rem;
+    width: 100%;
   }
-  .game-creation-item {
-    width: 80%;
+  .game-creation-item{
+    width: 50%;
   }
+
 }
 
-body {
-  background-color: #866bca;
-  background-position: center;
-  background-origin: content-box;
-  background-repeat: no-repeat;
-  background-size: cover;
-  min-height: 100vh;
-  font-family: 'Noto Sans', sans-serif;
-}
-
-.input {
-  background-color: #47289688;
-  color: white;
-  font-weight: bold;
-  height: 30px;
-}
 </style>

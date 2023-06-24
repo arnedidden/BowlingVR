@@ -8,7 +8,7 @@ export const ROUTE_NAMES = {
   LEADERBORD: 'leaderbord',
   ADMIN: 'admin',
   HOME: 'home',
-  LOGIN: 'login'
+  LOGIN: 'login',
 };
 
 const mustBeLoggedIn = async (next: NavigationGuardNext) => {
@@ -67,7 +67,7 @@ const routes: RouteRecordRaw[] = [
   // Always leave this as last one,
   // but you can also remove it
   {
-    path: '/',
+    path: '/error',
     component: () => import('pages/ErrorNotFound.vue'),
   },
 ];

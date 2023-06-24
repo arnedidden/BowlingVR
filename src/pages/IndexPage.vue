@@ -1,30 +1,10 @@
 <template>
   <template v-if="game">
     <div class="overlay"></div>
-
-    <div class="text">
-      <div class="wrapper">
-        <div id="G" class="letter">G</div>
-        <div class="shadow">G</div>
-      </div>
-      <div class="wrapper">
-        <div id="A" class="letter">A</div>
-        <div class="shadow">A</div>
-      </div>
-      <div class="wrapper">
-        <div id="M" class="letter">M</div>
-        <div class="shadow">M</div>
-      </div>
-      <div class="wrapper">
-        <div id="E" class="letter">E</div>
-        <div class="shadow">E</div>
-      </div>
-      <div class="wrapper">
-        <div id="S" class="letter">S</div>
-        <div class="shadow">S</div>
-      </div>
+    <PageTitle>GAMES</PageTitle>
+    <div class="nextGame">
+      <GoBackButton @click="newGame">Create New Game</GoBackButton>
     </div>
-    <div class="nextGame"><GoToAdminPageButton></GoToAdminPageButton></div>
     <div class="games">
       <div class="game" v-for="(item, index) in game.data" :key="index">
         <div class="linkTitle">{{ item.name }}</div>
@@ -41,7 +21,7 @@
                 <q-space />
               </q-card-section>
               <q-card-section>
-                <div class="buttons">
+                <div class="popUpButtons">
                   <button
                     type="button"
                     class="yesbutton"
@@ -90,13 +70,15 @@ import { defineComponent, ref } from 'vue';
 import { useBowling } from 'src/services/bowling.service';
 import { useRouter } from 'vue-router';
 import { ROUTE_NAMES } from 'src/router/routes';
-import GoToAdminPageButton from 'src/components/GoToAdminPageButton.vue';
+import GoBackButton from 'src/components/goBackButton.vue';
+import PageTitle from 'src/components/PageTitle.vue';
 
 export default defineComponent({
   name: 'IndexPage',
 
   components: {
-    GoToAdminPageButton,
+    GoBackButton,
+    PageTitle
   },
 
   setup() {
@@ -124,6 +106,13 @@ export default defineComponent({
         },
       });
     };
+
+    function newGame() {
+      void router.push({
+        name: ROUTE_NAMES.ADMIN,
+      });
+    }
+
     const deleteGameButton = (param: string) => {
       deleteGame(param);
     };
@@ -139,55 +128,17 @@ export default defineComponent({
       icon: ref(false),
       deleted: ref(false),
       reloadPage,
+      newGame,
     };
   },
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #866bca;
-}
-
-.text {
-  font-family: 'Yanone Kaffeesatz';
-  font-size: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  position: relative;
-  width: 50%;
-  left: 50%;
-  transform: translateX(-50%);
-  user-select: none;
-
-  .wrapper {
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 20px;
-    .letter {
-      transition: ease-out 1s;
-      transform: translateY(40%);
-    }
-    .shadow {
-      transform: scale(1, -1);
-      color: #999;
-      transition: ease-in 5s, ease-out 5s;
-    }
-    &:hover {
-      .letter {
-        transform: translateY(-20%);
-      }
-      .shadow {
-        opacity: 0;
-        transform: translateY(20%);
-      }
-    }
-  }
 }
 .games {
   position: relative;
@@ -207,7 +158,7 @@ body {
   display: block;
   width: 100%;
   padding: 1rem;
-  background: #ffffff44;
+  background: #00000098;
   border: 2px solid deeppink;
   gap: 1rem;
 }
@@ -270,7 +221,7 @@ body {
   padding-bottom: 50px;
 }
 
-.buttons {
+.popUpButtons {
   display: flex;
   justify-content: center;
 }
@@ -286,5 +237,24 @@ body {
   color: #ffffff;
   border-radius: 1rem;
   padding: 0.5rem;
+}
+
+@media screen and (max-width: 650px) {
+  .game {
+    width: 100%;
+    padding: 1rem;
+    background: #00000098;
+    border: 2px solid deeppink;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .links {
+    flex-direction: column;
+  }
+  .linkTitle {
+    text-align: center;
+    border-bottom: 2px solid#ffffff;
+  }
 }
 </style>

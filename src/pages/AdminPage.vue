@@ -1,11 +1,11 @@
 <template>
+  <GoBackButton @click="goBack">Back</GoBackButton>
   <template v-if="user">
     <div class="usericon">
       <img src="../../public/img/pngwing.com.png" alt="user icon" />
       <strong>{{ user.github.username }}</strong>
     </div>
-    <h1>Admin</h1>
-    <GoToIndexPageButton></GoToIndexPageButton>
+<PageTitle>Admin</PageTitle>
     <form @submit.prevent.stop="submitGame">
       <div class="game-creation">
         <div class="game-creation-item">
@@ -58,7 +58,6 @@
               >
 
               </q-select>
-              <div id="pins-color" class="color-div"></div>
             </div>
             <div class="color-choice">
               <h5>Lane</h5>
@@ -75,7 +74,6 @@
               >
 
               </q-select>
-              <div id="lane-color" class="color-div"></div>
             </div>
           </div>
         </div>
@@ -99,6 +97,7 @@
     <div class="button-div">
       <button
         type="submit"
+        class="btn"
         @click="
           submitGame();
           icon = true;
@@ -129,14 +128,18 @@
 import { defineComponent, ref } from 'vue';
 import { useAuth } from 'src/services/auth.service';
 import { useBowling } from 'src/services/bowling.service';
-import GoToIndexPageButton from 'src/components/GoToIndexPageButton.vue';
 import { useQuasar } from 'quasar';
+import GoBackButton from 'src/components/goBackButton.vue';
+import PageTitle from 'src/components/PageTitle.vue';
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
   components: {
-    GoToIndexPageButton,
+    GoBackButton,
+    PageTitle
   },
   setup() {
+    const router = useRouter();
     const { createGame } = useBowling();
     const { user } = useAuth();
     const gameName = ref('');
@@ -204,7 +207,6 @@ export default defineComponent({
         leaderboard: [],
         reclame: [img.value],
       };
-
       createGame(game)
         .then(() => {
           $q.notify({
@@ -231,6 +233,9 @@ export default defineComponent({
           });
         });
     };
+    function goBack() {
+      window.history.length > 1 ? router.go(-1) : router.push('/');
+    }
     return {
       nameRef,
       imgRef,
@@ -242,12 +247,22 @@ export default defineComponent({
       lane,
       img,
       icon: ref(false),
-      options: ['GREEN', 'YELLOW', 'RED', 'BLUE']
+      options: ['GREEN', 'YELLOW', 'RED', 'BLUE'],
+      goBack
     };
   },
 });
 </script>
-<style scoped>
+<style lang="scss" scoped>
+
+@font-face {
+  src: url('https://www.axis-praxis.org/fonts/webfonts/MetaVariableDemo-Set.woff2')
+    format('woff2');
+  font-family: 'Meta';
+  font-style: normal;
+  font-weight: normal;
+}
+
 .usericon {
   display: flex;
   justify-content: center;
@@ -258,6 +273,7 @@ img {
   height: 20px;
   width: inherit;
 }
+
 .game-creation {
   display: flex;
   justify-content: space-around;
@@ -265,6 +281,8 @@ img {
 
 .game-creation-item {
   width: 30%;
+  display: flex;
+  flex-direction: column;
 }
 .choices-of-color {
   display: flex;
@@ -273,8 +291,12 @@ img {
 }
 .color-choice {
   display: flex;
-  justify-content: space-around;
-  gap: 1rem;
+  align-items: center;
+  gap: 2rem;
+}
+
+h5{
+  width: 20%;
 }
 select {
   width: 50%;
@@ -284,10 +306,124 @@ select {
 .button-div {
   display: flex;
   justify-content: center;
+  margin-bottom: 40px;
 }
 
+.returnbtn {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 40px;
+  padding-top: 40px;
+}
+.GREEN {
+  background-color: rgba(0, 128, 0, 0.432);
+  color: aliceblue;
+}
+.YELLOW {
+  background-color: rgba(255, 255, 0, 0.425);
+  color: black;
+}
+.RED {
+  background-color: rgba(255, 0, 0, 0.5);
+  color: aliceblue;
+}
+.BLUE {
+  background-color: rgba(0, 0, 255, 0.466);
+  color: aliceblue;
+}
 .color-div {
   height: 100%;
   width: 100px;
 }
+
+.title {
+  font-size: 35px;
+  margin-bottom: 1rem;
+  margin-top: 0px;
+  background-image: linear-gradient(to right, #54b3d6, #54b3d6 50%, #000 50%);
+  background-size: 200% 100%;
+  background-position: -100%;
+  display: inline-block;
+  padding: 5px 0;
+  position: relative;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.3s ease-in-out;
+}
+
+.title::before {
+  content: '';
+  background: #000000;
+  display: block;
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  transition: all 0.3s ease-in-out;
+}
+
+.title:hover {
+  background-position: 0;
+}
+
+.title:hover::before {
+  width: 100%;
+}
+.btn {
+  font-weight: bold;
+  background-color: #482896;
+  margin-left: 25px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #000;
+  cursor: pointer;
+  border: 3px solid;
+  padding: 0.25em 0.5em;
+  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px,
+    5px 5px 0px 0px;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+.btn:active {
+  box-shadow: 0px 0px 0px 0px;
+  top: 5px;
+  left: 5px;
+}
+
+.btn:hover {
+  scale: 1.1;
+}
+.input {
+  background-color: #47289688;
+  color: rgb(192, 190, 190);
+  font-weight: bold;
+  height: 30px;
+  width: 100%;
+  &::placeholder{
+    color: rgb(192, 190, 190);
+  }
+}
+@media only screen and (max-width: 1200px) {
+  .game-creation {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    width: 100%;
+  }
+  .game-creation-item{
+    width: 50%;
+  }
+
+}
+
 </style>

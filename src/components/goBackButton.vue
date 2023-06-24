@@ -1,27 +1,22 @@
 <template>
   <span class="go-back">
-    <button @click="goBack" class="label">
+    <button class="label">
       <span class="arrow"></span>
-      Back
+      <slot>
+        
+      </slot>
     </button>
   </span>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { useRouter } from 'vue-router';
 
 export default defineComponent({
-  name: 'BackButton',
-  setup() {
-    const router = useRouter();
 
-    function goBack() {
-      window.history.length > 1 ? router.go(-1) : router.push('/');
-    }
-    return {
-      goBack,
-    };
+
+  setup() {
+    return {};
   },
 });
 </script>

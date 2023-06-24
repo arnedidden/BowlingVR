@@ -11,20 +11,33 @@
         <div class="game-creation-item">
           <h3 class="title">Kies de naam van het spel*</h3>
           <q-input
-          ref="nameRef"
-          filled
-          v-model="gameName"
-          label=""
-          lazy-rules
-          :rules="[ val => val && val.length > 0 || 'Vul een spelnaam in om verder te gaan.']"
-        ></q-input>
+            ref="nameRef"
+            filled
+            v-model="gameName"
+            label=""
+            lazy-rules
+            :rules="[
+              (val) =>
+                (val && val.length > 0) ||
+                'Vul een spelnaam in om verder te gaan.',
+            ]"
+          ></q-input>
         </div>
         <div class="game-creation-item">
           <h3 class="title">Kies de kleuren van het spel*</h3>
           <div class="choices-of-color">
             <div class="color-choice">
               <h5>Ball</h5>
-              <select v-model="ball">
+              <select
+                ref="ballRef"
+                v-model="ball"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) ||
+                    'Kies een kleur om verder te gaan.',
+                ]"
+              >
                 <option value="GREEN" class="green">GREEN</option>
                 <option value="YELLOW" class="yellow">YELLOW</option>
                 <option value="RED" class="red">RED</option>
@@ -34,7 +47,16 @@
             </div>
             <div class="color-choice">
               <h5>Pins</h5>
-              <select v-model="pins">
+              <select
+                ref="pinsRef"
+                v-model="pins"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) ||
+                    'Kies een kleur om verder te gaan.',
+                ]"
+              >
                 <option value="GREEN" class="green">GREEN</option>
                 <option value="YELLOW" class="yellow">YELLOW</option>
                 <option value="RED" class="red">RED</option>
@@ -44,7 +66,16 @@
             </div>
             <div class="color-choice">
               <h5>Lane</h5>
-              <select v-model="lane">
+              <select
+                ref="laneRef"
+                v-model="lane"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) ||
+                    'Kies een kleur om verder te gaan.',
+                ]"
+              >
                 <option value="GREEN" class="green">GREEN</option>
                 <option value="YELLOW" class="yellow">YELLOW</option>
                 <option value="RED" class="red">RED</option>
@@ -55,12 +86,22 @@
           </div>
         </div>
         <div class="game-creation-item">
-          <h3 class="title">Upload je reclame</h3>
-          <p>plak een image url in het vak</p>
-          <input type="text" v-model="img" />
+          <h3 class="title">Upload je reclame*</h3>
+          <q-input
+            type="text"
+            ref="imgRef"
+            v-model="img"
+            lazy-rules
+            :rules="[
+              (val) =>
+                (val && val.length > 0) ||
+                'Upload een afbeelding om verder te gaan.',
+            ]"
+          ></q-input>
         </div>
       </div>
     </form>
+
     <div class="button-div">
       <button
         type="submit"
@@ -90,7 +131,6 @@
   </template>
 </template>
 
-
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { useAuth } from 'src/services/auth.service';
@@ -110,63 +150,97 @@ export default defineComponent({
     const pins = ref('');
     const lane = ref('');
     const img = ref('');
-    const $q = useQuasar()
-    const name = ref<string>('');
+    const $q = useQuasar();
     const nameRef = ref<any>();
+    const ballRef = ref<any>();
+    const pinsRef = ref<any>();
+    const laneRef = ref<any>();
+    const imgRef = ref<any>();
 
     const submitGame = (): void => {
-      const title = gameName.value;
-      const bowlingBalColor = ball.value;
-      const pinsColor = pins.value;
-      const laneColor = lane.value;
-      const reclame = img.value;
+      const fields = [
+        {
+          ref: nameRef,
+          val: gameName.value,
+          message: 'Please enter a game name.',
+        },
+        {
+          ref: ballRef,
+          val: ball.value,
+          message: 'Please select a ball color.',
+        },
+        {
+          ref: pinsRef,
+          val: pins.value,
+          message: 'Please select a pins color.',
+        },
+        {
+          ref: laneRef,
+          val: lane.value,
+          message: 'Please select a lane color.',
+        },
+        { ref: imgRef,
+          val: img.value,
+          message: 'Please enter an image URL.' },
+      ];
 
-      if (!title) {
-        $q.notify({
-          icon: 'warning',
-          color: 'negative',
-          message: 'Please enter a game name.'
-        });
-        return;
+      for (const field of fields) {
+        if (!field.val) {
+          field.ref.value?.validate();
+          $q.notify({
+            icon: 'warning',
+            color: 'negative',
+            message: field.message,
+          });
+          return;
+        }
       }
       nameRef.value.resetValidation();
 
       const game = {
-        name: title,
+        name: gameName.value,
         bowlingBall: {
-          color: bowlingBalColor,
+          color: ball.value,
         },
         bowlingPins: {
-          color: pinsColor,
+          color: pins.value,
         },
         bowlingLane: {
-          color: laneColor,
+          color: lane.value,
         },
         leaderboard: [],
-        reclame: [reclame],
+        reclame: [img.value],
       };
-      createGame(game);
-      gameName.value = '';
-      ball.value = '';
-      pins.value = '';
-      lane.value = '';
-      img.value = '';
 
-      nameRef.value.validate()
-      if (!nameRef.value.hasError) {
-        }
-        else {
+      createGame(game)
+        .then(() => {
           $q.notify({
             icon: 'done',
             color: 'positive',
-            message: 'Submitted'
-          })
-        }
-      }
-
-      return {
-      name,
+            message: 'Game created successfully.',
+          });
+          gameName.value = '';
+          ball.value = '';
+          pins.value = '';
+          lane.value = '';
+          img.value = '';
+          nameRef.value.validate();
+          ballRef.value.validate();
+          pinsRef.value.validate();
+          laneRef.value.validate();
+          imgRef.value.validate();
+        })
+        .catch((error) => {
+          $q.notify({
+            icon: 'warning',
+            color: 'negative',
+            message: error.message,
+          });
+        });
+    };
+    return {
       nameRef,
+      imgRef,
       user,
       submitGame,
       gameName,
@@ -175,9 +249,8 @@ export default defineComponent({
       lane,
       img,
       icon: ref(false),
-
-    }
-}
+    };
+  },
 });
 </script>
 <style scoped>

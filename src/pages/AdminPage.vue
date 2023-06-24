@@ -225,11 +225,6 @@ export default defineComponent({
           pins.value = '';
           lane.value = '';
           img.value = '';
-          // nameRef.value.validate();
-          // ballRef.value.validate();
-          // pinsRef.value.validate();
-          // laneRef.value.validate();
-          // imgRef.value.validate();
         })
         .catch((error) => {
           $q.notify({

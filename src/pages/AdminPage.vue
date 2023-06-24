@@ -28,9 +28,10 @@
           <div class="choices-of-color">
             <div class="color-choice">
               <h5>Ball</h5>
-              <select
+              <q-select
                 ref="ballRef"
                 v-model="ball"
+                :options="options"
                 lazy-rules
                 :rules="[
                   (val) =>
@@ -38,49 +39,42 @@
                     'Kies een kleur om verder te gaan.',
                 ]"
               >
-                <option value="GREEN" class="green">GREEN</option>
-                <option value="YELLOW" class="yellow">YELLOW</option>
-                <option value="RED" class="red">RED</option>
-                <option value="BLUE" class="blue">BLUE</option>
-              </select>
+
+              </q-select>
               <div id="ball-color" class="color-div"></div>
             </div>
             <div class="color-choice">
               <h5>Pins</h5>
-              <select
+              <q-select
                 ref="pinsRef"
                 v-model="pins"
+                :options="options"
                 lazy-rules
                 :rules="[
                   (val) =>
-                    (val && val.length > 0) ||
+                  (val && val.length > 0) ||
                     'Kies een kleur om verder te gaan.',
                 ]"
               >
-                <option value="GREEN" class="green">GREEN</option>
-                <option value="YELLOW" class="yellow">YELLOW</option>
-                <option value="RED" class="red">RED</option>
-                <option value="BLUE" class="blue">BLUE</option>
-              </select>
+
+              </q-select>
               <div id="pins-color" class="color-div"></div>
             </div>
             <div class="color-choice">
               <h5>Lane</h5>
-              <select
+              <q-select
                 ref="laneRef"
                 v-model="lane"
+                :options="options"
                 lazy-rules
                 :rules="[
                   (val) =>
-                    (val && val.length > 0) ||
+                  (val && val.length > 0) ||
                     'Kies een kleur om verder te gaan.',
                 ]"
               >
-                <option value="GREEN" class="green">GREEN</option>
-                <option value="YELLOW" class="yellow">YELLOW</option>
-                <option value="RED" class="red">RED</option>
-                <option value="BLUE" class="blue">BLUE</option>
-              </select>
+
+              </q-select>
               <div id="lane-color" class="color-div"></div>
             </div>
           </div>
@@ -195,7 +189,6 @@ export default defineComponent({
           return;
         }
       }
-      nameRef.value.resetValidation();
 
       const game = {
         name: gameName.value,
@@ -224,11 +217,11 @@ export default defineComponent({
           pins.value = '';
           lane.value = '';
           img.value = '';
-          nameRef.value.validate();
-          ballRef.value.validate();
-          pinsRef.value.validate();
-          laneRef.value.validate();
-          imgRef.value.validate();
+          // nameRef.value.validate();
+          // ballRef.value.validate();
+          // pinsRef.value.validate();
+          // laneRef.value.validate();
+          // imgRef.value.validate();
         })
         .catch((error) => {
           $q.notify({
@@ -249,6 +242,7 @@ export default defineComponent({
       lane,
       img,
       icon: ref(false),
+      options: ['GREEN', 'YELLOW', 'RED', 'BLUE']
     };
   },
 });
@@ -290,23 +284,6 @@ select {
 .button-div {
   display: flex;
   justify-content: center;
-}
-
-.green {
-  background-color: green;
-  color: aliceblue;
-}
-.yellow {
-  background-color: yellow;
-  color: black;
-}
-.red {
-  background-color: red;
-  color: aliceblue;
-}
-.blue {
-  background-color: blue;
-  color: aliceblue;
 }
 
 .color-div {

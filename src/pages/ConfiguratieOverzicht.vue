@@ -34,10 +34,22 @@
           <div id="S" class="letter">S</div>
         </div>
       </div>
-      <h4 class="title">Naam van het spel</h4>
-      <q-input filled type="text" v-model="game.name" placeholder="" />
+      <form @submit.prevent.stop="saveGame">
+        <h4 class="title">Naam van het spel</h4>
+        <q-input
+            ref="nameRef"
+            filled
+            v-model="game.name"
+            label=""
+            lazy-rules
+            :rules="[
+              (val) =>
+                (val && val.length > 0) ||
+                'Vul een spelnaam in om verder te gaan.',
+            ]"
+          ></q-input>
 
-      <div>
+          <div>
         <h4 class="title">
           Kleur bowlingbal
           <q-btn
@@ -157,7 +169,7 @@
             Geel
           </q-btn>
         </div>
-
+      </div>
         <h4 class="title">Reclame</h4>
         <q-input
           filled
@@ -165,10 +177,13 @@
           v-model="reclame"
           placeholder="e.g. https://vuetiful.dev/img/john-duck.png"
         />
+      </form>
+      <div>
         <q-btn
           class="btnSave"
           text-color="dark"
           color="primary"
+          type="submit"
           @click="
             saveGame();
             icon = true;
@@ -212,6 +227,7 @@ import GoBackButton from 'src/components/goBackButton.vue';
 import PageTitle from 'src/components/PageTitle.vue';
 import { useAuth } from 'src/services/auth.service';
 import { ROUTE_NAMES } from 'src/router/routes';
+import { useQuasar } from 'quasar';
 
 export default defineComponent({
   components: {
@@ -223,6 +239,10 @@ export default defineComponent({
     const { getLeaderBoardForGame, updateGame } = useBowling();
     const reclame = ref('');
     const router = useRouter();
+    const $q = useQuasar();
+    const nameRef = ref<any>();
+
+
     watch(
       route,
       async () => {
@@ -260,7 +280,19 @@ export default defineComponent({
     const updatePins = (color: string) => {
       game.value.bowlingPins.color = color;
     };
-    const saveGame = () => {
+    const saveGame = (): void => {
+     
+      nameRef.value.resetValidation();
+      nameRef.value.validate();
+      if (!nameRef.value.hasError) {
+      } else {
+        $q.notify({
+          icon: 'done',
+          color: 'positive',
+          message: 'Submitted',
+        });
+      }
+
       game.value.reclame = [reclame.value];
       const id = route.params.id.toString();
       updateGame(id, game.value);
@@ -282,6 +314,7 @@ export default defineComponent({
       icon: ref(false),
       user,
       logIn,
+      nameRef
     };
   },
 });

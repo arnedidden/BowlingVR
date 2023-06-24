@@ -5,54 +5,95 @@
       <img src="../../public/img/pngwing.com.png" alt="user icon" />
       <strong>{{ user.github.username }}</strong>
     </div>
-    <PageTitle>Admin</PageTitle>
-    <form @submit.prevent="submitGame">
+<PageTitle>Admin</PageTitle>
+    <form @submit.prevent.stop="submitGame">
       <div class="game-creation">
         <div class="game-creation-item">
-          <h3 class="title">Game name:</h3>
-          <input class="input" type="text" v-model="gameName" placeholder="Enter the title of your game" />
+          <h3 class="title">Kies de naam van het spel*</h3>
+          <q-input
+            ref="nameRef"
+            filled
+            v-model="gameName"
+            label=""
+            lazy-rules
+            :rules="[
+              (val) =>
+                (val && val.length > 0) ||
+                'Vul een spelnaam in om verder te gaan.',
+            ]"
+          ></q-input>
         </div>
         <div class="game-creation-item">
-          <h3 class="title">Game colors:</h3>
+          <h3 class="title">Kies de kleuren van het spel*</h3>
           <div class="choices-of-color">
             <div class="color-choice">
               <h5>Ball</h5>
-              <select class="input" v-model="ball">
-                <option disabled value="">Please select one</option>
-                <option value="GREEN" class="GREEN">GREEN</option>
-                <option value="YELLOW" class="YELLOW">YELLOW</option>
-                <option value="RED" class="RED">RED</option>
-                <option value="BLUE" class="BLUE">BLUE</option>
-              </select>
+              <q-select
+                ref="ballRef"
+                v-model="ball"
+                :options="options"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                    (val && val.length > 0) ||
+                    'Kies een kleur om verder te gaan.',
+                ]"
+              >
+
+              </q-select>
+              <div id="ball-color" class="color-div"></div>
             </div>
             <div class="color-choice">
               <h5>Pins</h5>
-              <select class="input" v-model="pins">
-                <option disabled value="">Please select one</option>
-                <option value="GREEN" class="GREEN">GREEN</option>
-                <option value="YELLOW" class="YELLOW">YELLOW</option>
-                <option value="RED" class="RED">RED</option>
-                <option value="BLUE" class="BLUE">BLUE</option>
-              </select>
+              <q-select
+                ref="pinsRef"
+                v-model="pins"
+                :options="options"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                  (val && val.length > 0) ||
+                    'Kies een kleur om verder te gaan.',
+                ]"
+              >
+
+              </q-select>
             </div>
             <div class="color-choice">
               <h5>Lane</h5>
-              <select class="input" v-model="lane">
-                <option disabled value="">Please select one</option>
-                <option value="GREEN" class="GREEN">GREEN</option>
-                <option value="YELLOW" class="YELLOW">YELLOW</option>
-                <option value="RED" class="RED">RED</option>
-                <option value="BLUE" class="BLUE">BLUE</option>
-              </select>
+              <q-select
+                ref="laneRef"
+                v-model="lane"
+                :options="options"
+                lazy-rules
+                :rules="[
+                  (val) =>
+                  (val && val.length > 0) ||
+                    'Kies een kleur om verder te gaan.',
+                ]"
+              >
+
+              </q-select>
             </div>
           </div>
         </div>
         <div class="game-creation-item">
-          <h3 class="title">Upload adds</h3>
-          <input class="input" type="text" placeholder="Paste an image url in the box" v-model="img" />
+          <h3 class="title">Upload je reclame*</h3>
+          <q-input
+            type="text"
+            ref="imgRef"
+            v-model="img"
+            lazy-rules
+            :rules="[
+              (val) =>
+                (val && val.length > 0) ||
+                'Upload een afbeelding om verder te gaan.',
+            ]"
+          ></q-input>
         </div>
       </div>
     </form>
+
     <div class="button-div">
       <button
         type="submit"
@@ -62,7 +103,7 @@
           icon = true;
         "
       >
-        Creëer spel configuratie
+        Creëer spel
       </button>
       <q-dialog v-model="icon">
         <q-card>
@@ -82,10 +123,12 @@
     <p>Deze pagina is enkel beschikbaar indien je ingelogd bent.</p>
   </template>
 </template>
+
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { useAuth } from 'src/services/auth.service';
 import { useBowling } from 'src/services/bowling.service';
+import { useQuasar } from 'quasar';
 import GoBackButton from 'src/components/goBackButton.vue';
 import PageTitle from 'src/components/PageTitle.vue';
 import { useRouter } from 'vue-router';
@@ -104,40 +147,98 @@ export default defineComponent({
     const pins = ref('');
     const lane = ref('');
     const img = ref('');
-    const submitGame = () => {
-      const title = gameName.value;
-      const bowlingBalColor = ball.value;
-      const pinsColor = pins.value;
-      const laneColor = lane.value;
-      const reclame = img.value;
+    const $q = useQuasar();
+    const nameRef = ref<any>();
+    const ballRef = ref<any>();
+    const pinsRef = ref<any>();
+    const laneRef = ref<any>();
+    const imgRef = ref<any>();
+
+    const submitGame = (): void => {
+      const fields = [
+        {
+          ref: nameRef,
+          val: gameName.value,
+          message: 'Please enter a game name.',
+        },
+        {
+          ref: ballRef,
+          val: ball.value,
+          message: 'Please select a ball color.',
+        },
+        {
+          ref: pinsRef,
+          val: pins.value,
+          message: 'Please select a pins color.',
+        },
+        {
+          ref: laneRef,
+          val: lane.value,
+          message: 'Please select a lane color.',
+        },
+        { ref: imgRef,
+          val: img.value,
+          message: 'Please enter an image URL.' },
+      ];
+
+      for (const field of fields) {
+        if (!field.val) {
+          field.ref.value?.validate();
+          $q.notify({
+            icon: 'warning',
+            color: 'negative',
+            message: field.message,
+          });
+          return;
+        }
+      }
+
       const game = {
-        name: title,
+        name: gameName.value,
         bowlingBall: {
-          color: bowlingBalColor,
+          color: ball.value,
         },
         bowlingPins: {
-          color: pinsColor,
+          color: pins.value,
         },
         bowlingLane: {
-          color: laneColor,
+          color: lane.value,
         },
         leaderboard: [],
-        reclame: [reclame],
+        reclame: [img.value],
       };
-
-      createGame(game);
-      gameName.value = '';
-      ball.value = '';
-      pins.value = '';
-      lane.value = '';
-      img.value = '';
+      createGame(game)
+        .then(() => {
+          $q.notify({
+            icon: 'done',
+            color: 'positive',
+            message: 'Game created successfully.',
+          });
+          gameName.value = '';
+          ball.value = '';
+          pins.value = '';
+          lane.value = '';
+          img.value = '';
+          // nameRef.value.validate();
+          // ballRef.value.validate();
+          // pinsRef.value.validate();
+          // laneRef.value.validate();
+          // imgRef.value.validate();
+        })
+        .catch((error) => {
+          $q.notify({
+            icon: 'warning',
+            color: 'negative',
+            message: error.message,
+          });
+        });
     };
-
     function goBack() {
       window.history.length > 1 ? router.go(-1) : router.push('/');
     }
-
     return {
+      nameRef,
+      imgRef,
       user,
       submitGame,
       gameName,
@@ -146,12 +247,12 @@ export default defineComponent({
       lane,
       img,
       icon: ref(false),
-      goBack  
+      options: ['GREEN', 'YELLOW', 'RED', 'BLUE'],
+      goBack
     };
   },
 });
 </script>
-
 <style lang="scss" scoped>
 
 @font-face {
@@ -161,6 +262,7 @@ export default defineComponent({
   font-style: normal;
   font-weight: normal;
 }
+
 .usericon {
   display: flex;
   justify-content: center;
@@ -213,7 +315,6 @@ select {
   padding-bottom: 40px;
   padding-top: 40px;
 }
-
 .GREEN {
   background-color: rgba(0, 128, 0, 0.432);
   color: aliceblue;

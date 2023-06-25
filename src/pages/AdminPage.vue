@@ -1,5 +1,5 @@
 <template>
-  <GoBackButton @click="goBack">Back</GoBackButton>
+  <GoButtons @click="goBack">Back</GoButtons>
   <template v-if="user">
     <div class="usericon">
       <img src="../../public/img/pngwing.com.png" alt="user icon" />
@@ -135,13 +135,13 @@ import { defineComponent, ref } from 'vue';
 import { useAuth } from 'src/services/auth.service';
 import { useBowling } from 'src/services/bowling.service';
 import { useQuasar } from 'quasar';
-import GoBackButton from 'src/components/goBackButton.vue';
+import GoButtons from 'src/components/GoButtons.vue';
 import PageTitle from 'src/components/PageTitle.vue';
 import { useRouter } from 'vue-router';
 
 export default defineComponent({
   components: {
-    GoBackButton,
+    GoButtons,
     PageTitle
   },
   setup() {

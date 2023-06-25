@@ -1,6 +1,6 @@
 <template>
   <div>
-    <GoBackButton @click="goBack">Back</GoBackButton>
+    <GoButtons @click="goBack">Back</GoButtons>
   </div>
 
   <template v-if="user">
@@ -223,7 +223,7 @@ import { Ref, defineComponent, ref, watch } from 'vue';
 import { useBowling } from 'src/services/bowling.service';
 import { useRoute, useRouter } from 'vue-router';
 import { Game } from 'src/components/models';
-import GoBackButton from 'src/components/goBackButton.vue';
+import GoButtons from 'src/components/GoButtons.vue';
 import PageTitle from 'src/components/PageTitle.vue';
 import { useAuth } from 'src/services/auth.service';
 import { ROUTE_NAMES } from 'src/router/routes';
@@ -231,7 +231,7 @@ import { useQuasar } from 'quasar';
 
 export default defineComponent({
   components: {
-    GoBackButton,
+    GoButtons,
     PageTitle
   },
   setup() {
@@ -281,7 +281,7 @@ export default defineComponent({
       game.value.bowlingPins.color = color;
     };
     const saveGame = (): void => {
-     
+
       nameRef.value.resetValidation();
       nameRef.value.validate();
       if (!nameRef.value.hasError) {

@@ -3,7 +3,7 @@
     <div class="overlay"></div>
     <PageTitle>GAMES</PageTitle>
     <div class="nextGame">
-      <GoBackButton @click="newGame">Create New Game</GoBackButton>
+      <GoButtons @click="newGame">Create New Game</GoButtons>
     </div>
     <div class="games">
       <div class="game" v-for="(item, index) in game.data" :key="index">
@@ -82,12 +82,12 @@ import { defineComponent, ref } from 'vue';
 import { useBowling } from 'src/services/bowling.service';
 import { useRouter } from 'vue-router';
 import { ROUTE_NAMES } from 'src/router/routes';
-import GoBackButton from 'src/components/goBackButton.vue';
+import GoButtons from 'src/components/GoButtons.vue';
 import PageTitle from 'src/components/PageTitle.vue';
 
 export default defineComponent({
   components: {
-    GoBackButton,
+    GoButtons,
     PageTitle,
   },
 

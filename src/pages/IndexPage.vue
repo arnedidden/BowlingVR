@@ -15,8 +15,19 @@
           <q-dialog v-model="icon">
             <q-card>
               <q-card-section class="row items-center q-pb-none">
-                <div class="text-h6">
-                  Are you sure you want to delete this game?
+                <div class="popup">
+                  <img
+                    src="https://cdn.icon-icons.com/icons2/1380/PNG/512/vcsconflicting_93497.png"
+                    alt="delete"
+                    class="iconbox"
+                  />
+                  <div class="text-h6">Are you sure?</div>
+                  <div class="div">
+                    <p>
+                      Do you really want to delete these records? This process
+                      cannot be undone.
+                    </p>
+                  </div>
                 </div>
                 <q-space />
               </q-card-section>
@@ -31,10 +42,10 @@
                       deleted = true;
                     "
                   >
-                    Yes!
+                    Delete
                   </button>
                   <button type="button" class="nobutton" v-close-popup>
-                    NO!
+                    Cancel
                   </button>
                 </div>
               </q-card-section>
@@ -74,10 +85,9 @@ import GoBackButton from 'src/components/goBackButton.vue';
 import PageTitle from 'src/components/PageTitle.vue';
 
 export default defineComponent({
-
   components: {
     GoBackButton,
-    PageTitle
+    PageTitle,
   },
 
   setup() {
@@ -219,25 +229,51 @@ body {
   padding-top: 25px;
   padding-bottom: 50px;
 }
-
+.iconbox {
+  height: 50px;
+}
+.popup {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
 .popUpButtons {
   display: flex;
   justify-content: center;
 }
 
 .yesbutton {
-  background-color: rgb(15, 78, 15);
+  background-color: rgb(189, 38, 27);
   color: #ffffff;
-  border-radius: 1rem;
-  padding: 0.5rem;
-}
-.nobutton {
-  background-color: rgb(107, 23, 23);
-  color: #ffffff;
-  border-radius: 1rem;
-  padding: 0.5rem;
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+  margin-right: 20px;
+  cursor: pointer;
 }
 
+.yesbutton:hover {
+  scale: 1.02;
+}
+
+.nobutton:hover {
+  scale: 1.02;
+}
+
+.yesbutton:active {
+  background: #f15e5e;
+}
+.nobutton {
+  background-color: rgb(141, 138, 134);
+  color: #ffffff;
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.nobutton:active {
+  background: #a8a8a8;
+}
 @media screen and (max-width: 650px) {
   .game {
     width: 100%;

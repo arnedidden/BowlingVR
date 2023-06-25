@@ -74,7 +74,6 @@ import GoBackButton from 'src/components/goBackButton.vue';
 import PageTitle from 'src/components/PageTitle.vue';
 
 export default defineComponent({
-  name: 'IndexPage',
 
   components: {
     GoBackButton,

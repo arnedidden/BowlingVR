@@ -5,7 +5,7 @@
       <img src="../../public/img/pngwing.com.png" alt="user icon" />
       <strong>{{ user.github.username }}</strong>
     </div>
-<PageTitle>Admin</PageTitle>
+<PageTitle>Create a game</PageTitle>
     <form @submit.prevent.stop="submitGame">
       <div class="game-creation">
         <div class="game-creation-item">
@@ -32,6 +32,8 @@
                 ref="ballRef"
                 v-model="ball"
                 :options="options"
+                class="select"
+                filled
                 lazy-rules
                 :rules="[
                   (val) =>
@@ -41,7 +43,6 @@
               >
 
               </q-select>
-              <div id="ball-color" class="color-div"></div>
             </div>
             <div class="color-choice">
               <h5>Pins</h5>
@@ -49,7 +50,9 @@
                 ref="pinsRef"
                 v-model="pins"
                 :options="options"
+                class="select"
                 lazy-rules
+                filled
                 :rules="[
                   (val) =>
                   (val && val.length > 0) ||
@@ -63,6 +66,8 @@
               <h5>Lane</h5>
               <q-select
                 ref="laneRef"
+                class="select"
+                filled
                 v-model="lane"
                 :options="options"
                 lazy-rules
@@ -81,6 +86,7 @@
           <h3 class="title">Upload je reclame*</h3>
           <q-input
             type="text"
+            filled
             ref="imgRef"
             v-model="img"
             lazy-rules
@@ -219,11 +225,6 @@ export default defineComponent({
           pins.value = '';
           lane.value = '';
           img.value = '';
-          // nameRef.value.validate();
-          // ballRef.value.validate();
-          // pinsRef.value.validate();
-          // laneRef.value.validate();
-          // imgRef.value.validate();
         })
         .catch((error) => {
           $q.notify({
@@ -291,6 +292,7 @@ img {
 }
 .color-choice {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: 2rem;
 }
@@ -298,10 +300,8 @@ img {
 h5{
   width: 20%;
 }
-select {
-  width: 50%;
-  height: 50%;
-  align-self: center;
+.select{
+  width: 100%;
 }
 .button-div {
   display: flex;

@@ -1,5 +1,5 @@
 <template>
-  <GoBackButton @click="goBack">Back</GoBackButton>
+  <GoButtons @click="goBack">Back</GoButtons>
   <template v-if="game">
     <PageTitle>{{ game.name }}</PageTitle>
     <div class="wrapper">
@@ -70,22 +70,22 @@
 import { defineComponent, ref } from 'vue';
 import { useBowling } from 'src/services/bowling.service';
 import { useRoute, useRouter } from 'vue-router';
-import GoBackButton from 'src/components/goBackButton.vue';
+import GoButtons from 'src/components/GoButtons.vue';
 import PageTitle from 'src/components/PageTitle.vue';
 
 export default defineComponent({
   components: {
-    GoBackButton,
+    GoButtons,
     PageTitle
   },
-  
+
 
   setup() {
     const { getLeaderBoardForGame } = useBowling();
     const game = ref();
     const sortedLeaderboard = ref();
     const route = useRoute();
-    
+
 
     const { id } = route.params;
     const getLeaderBord = async () => {

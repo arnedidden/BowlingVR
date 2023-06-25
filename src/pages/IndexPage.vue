@@ -57,6 +57,7 @@
                 <div class="text-h6">Note!</div>
                 <q-space />
                 <q-btn
+                  color="red"
                   icon="close"
                   flat
                   round
